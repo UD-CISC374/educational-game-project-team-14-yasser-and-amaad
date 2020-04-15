@@ -1,5 +1,9 @@
 self.__precacheManifest = (self.__precacheManifest || []).concat([
   {
+    "revision": "1fce4b0c68c05459fe06454ba922c161",
+    "url": "/AlKMo/devassets/back.jpg"
+  },
+  {
     "revision": "deec73c79c02e771f5fe18be9c63cf89",
     "url": "/AlKMo/devassets/citations.md"
   },
@@ -28,15 +32,15 @@ self.__precacheManifest = (self.__precacheManifest || []).concat([
     "url": "/AlKMo/devfavicon.ico"
   },
   {
-    "revision": "8a797bdf97c54421e2e8",
-    "url": "/AlKMo/devgen.main.6035239d1e32531b67f2.bundle.js"
+    "revision": "703c7647ca20d63cbb0f",
+    "url": "/AlKMo/devgen.main.acbecbfc420f80c7fb2f.bundle.js"
   },
   {
     "revision": "5e69403aa42e950fedff",
     "url": "/AlKMo/devgen.vendors.0805bb80903235d40eaf.bundle.js"
   },
   {
-    "revision": "fdba8ad300c4bce2abb918b3903220bb",
+    "revision": "e429e1ce6cc89159c6670c9af7210243",
     "url": "/AlKMo/devindex.html"
   },
   {

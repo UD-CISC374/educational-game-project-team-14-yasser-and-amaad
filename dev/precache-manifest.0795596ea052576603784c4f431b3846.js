@@ -32,15 +32,15 @@ self.__precacheManifest = (self.__precacheManifest || []).concat([
     "url": "/AlKMo/devfavicon.ico"
   },
   {
-    "revision": "989d1dee1017b0d08faf",
-    "url": "/AlKMo/devgen.main.c5327ff76300946c6aed.bundle.js"
+    "revision": "9ace51fe6d26b5d03899",
+    "url": "/AlKMo/devgen.main.2574b4c6e590933e3a8a.bundle.js"
   },
   {
     "revision": "5e69403aa42e950fedff",
     "url": "/AlKMo/devgen.vendors.0805bb80903235d40eaf.bundle.js"
   },
   {
-    "revision": "96178fca19b16f1027df2c87829f280e",
+    "revision": "ee5e516ed07f8c4af4819c6913706e68",
     "url": "/AlKMo/devindex.html"
   },
   {

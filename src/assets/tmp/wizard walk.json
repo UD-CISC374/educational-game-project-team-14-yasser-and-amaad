@@ -1,0 +1,34 @@
+{
+	"frames": [
+		{
+			"filename": "wizard_1",
+			"frame": {
+				"x": 0, "y": 0, "w": 114, "h": 105},
+			"anchor": {"x":0.5, "y":0.5}
+		},
+		{
+			"filename": "wizard_2",
+			"frame": {
+				"x": 114, "y": 0, "w": 114, "h": 105},
+			"anchor": {"x":0.5, "y":0.5}
+		},
+		{
+			"filename": "wizard_3",
+			"frame": {
+				"x":228 , "y": 0, "w": 114, "h": 105},
+			"anchor": {"x":0.5, "y":0.5}
+		},
+		{
+			"filename": "wizard_4",
+			"frame": {
+				"x": 342, "y": 0, "w": 114, "h": 105},
+			"anchor": {"x":0.5, "y":0.5}
+		},
+		{
+			"filename": "wizard_5",
+			"frame": {
+				"x": 456, "y": 0, "w": 114, "h": 105},
+			"anchor": {"x":0.5, "y":0.5}
+		}
+	]
+}

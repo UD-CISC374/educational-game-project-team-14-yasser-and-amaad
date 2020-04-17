@@ -1,7 +1,10 @@
-export default class Player extends Phaser.GameObjects.Sprite {
+export default class Player extends Phaser.Physics.Arcade.Sprite {
+    private inventory;
+    
+    constructor(scene) {
+        var x = scene.player.x;
+        var y = scene.player.y;
 
-    constructor(scene: Phaser.Scene, x: number, y: number) {
-        super(scene, x, y, 'example-object');
-        scene.add.existing(this);
+        super(scene, x, y, 'player');
     }
 }

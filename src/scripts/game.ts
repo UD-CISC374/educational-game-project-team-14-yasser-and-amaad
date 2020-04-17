@@ -3,11 +3,12 @@ import MainScene from './scenes/mainScene';
 import PreloadScene from './scenes/preloadScene';
 import GameConfig = Phaser.Types.Core.GameConfig;
 
-const DEFAULT_WIDTH = 400;
-const DEFAULT_HEIGHT = 400;
+const DEFAULT_WIDTH = 800;
+const DEFAULT_HEIGHT = 640;
 
 
 const config: GameConfig = {
+    type: Phaser.AUTO,
     backgroundColor: '#ffffff',
     scale: {
         parent: 'phaser-game',
@@ -21,7 +22,7 @@ const config: GameConfig = {
         default: 'arcade',
         arcade: {
             debug: false,
-            gravity: { y: 400 }
+            gravity: { y: 600 }
         }
     }
 };

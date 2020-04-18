@@ -1,4 +1,3 @@
-import ExampleObject from '../objects/exampleObject'; 
 import { GameObjects } from 'phaser';
 
 export default class labScene extends Phaser.Scene {

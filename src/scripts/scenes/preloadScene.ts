@@ -4,15 +4,15 @@ export default class PreloadScene extends Phaser.Scene {
   }
 
   preload() {
-    this.load.image("background", "src/assets/tmp/background.png");
-    this.load.image('spike', "src/assets/tmp/spike.png");
-    this.load.image('tiles', "src/assets/tmp/platformPack_tilesheet.png")
-    this.load.tilemapTiledJSON('map', "src/assets/tmp/map2.json");
-    this.load.atlas('player', 'src/assets/tmp/wizard walk.png', 'src/assets/tmp/wizard walk.json');
-    this.load.image('inventory', "src/assets/tmp/book.png");
-    
-    this.load.image('hydrogen', "src/assets/tmp/hydrogen.png");
-    this.load.image('oxygen', "src/assets/tmp/oxygen.png");
+    this.load.image("background", "src/assets/map/background.png");
+    this.load.image('spike', "src/assets/map/spike.png");
+    this.load.image('tiles', "src/assets/map/platformPack_tilesheet.png")
+    this.load.tilemapTiledJSON('map', "src/assets/map/map2.json");
+    this.load.atlas('player', 'src/assets/map/wizard walk.png', 'src/assets/map/wizard walk.json');
+    this.load.image('inventory', "src/assets/map/book.png");
+
+    this.load.image('hydrogen', "src/assets/map/hydrogen.png");
+    this.load.image('oxygen', "src/assets/map/oxygen.png");
   }
 
   create() {

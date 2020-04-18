@@ -1,5 +1,3 @@
-import ExampleObject from '../objects/exampleObject';
-
 export default class MainScene extends Phaser.Scene {
   private background;
   private map;

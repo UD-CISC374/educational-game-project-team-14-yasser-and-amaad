@@ -1,6 +1,6 @@
 self.__precacheManifest = (self.__precacheManifest || []).concat([
   {
-    "revision": "e7087d5d91321d575b038366ef9f2407",
+    "revision": "deec73c79c02e771f5fe18be9c63cf89",
     "url": "assets/citations.md"
   },
   {
@@ -36,7 +36,7 @@ self.__precacheManifest = (self.__precacheManifest || []).concat([
     "url": "assets/map/hydrogen.png"
   },
   {
-    "revision": "bf077a6aa81a460ede4682fb8914bcc5",
+    "revision": "1fad889a1464048409ae2eeeb54cee7f",
     "url": "assets/map/map2.json"
   },
   {
@@ -52,7 +52,7 @@ self.__precacheManifest = (self.__precacheManifest || []).concat([
     "url": "assets/map/spike.png"
   },
   {
-    "revision": "9c88305524efbd48992eb62cc033ff76",
+    "revision": "6252539d37bc8afb3b4b299de02d3cbb",
     "url": "assets/map/wizard walk.json"
   },
   {
@@ -64,19 +64,19 @@ self.__precacheManifest = (self.__precacheManifest || []).concat([
     "url": "favicon.ico"
   },
   {
-    "revision": "96fc0317f28b1dccaac9c58ae0473d4b",
+    "revision": "7c56a6fa01b526aaf4d7d3fd427468ca",
     "url": "index.html"
   },
   {
-    "revision": "c6a04b80bb0b2d9c52c7",
-    "url": "main.3db743d78dacdae68b9d.bundle.js"
+    "revision": "4539b606303048ca68c9",
+    "url": "main.032aab6e131ee9885349.bundle.js"
   },
   {
-    "revision": "ac1053ef8a1c63f2611c6d02935bdf02",
+    "revision": "003187cab0ecf7a20e343e2ba6db4a34",
     "url": "manifest.json"
   },
   {
-    "revision": "a8029749c7edd38204cf67287cb14139",
+    "revision": "701445d8817f73e3da17e450b69faa36",
     "url": "sw.js"
   },
   {

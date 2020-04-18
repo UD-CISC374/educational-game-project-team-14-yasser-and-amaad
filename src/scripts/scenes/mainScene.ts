@@ -16,7 +16,8 @@ export default class MainScene extends Phaser.Scene {
   create() {
     //this.add.text(20, 20, "Loading game...", {color: 'black'});
     this.background = this.add.image(0,0, "background").setOrigin(0,0).setSize(screen.width, screen.height);
-    this.map = this.make.tilemap({key: 'map'});
+    // this.map = this.make.tilemap({key: 'map'});
+    this.map = this.add.tilemap('map');
     this.tileset = this.map.addTilesetImage('kenny_simple_platform', 'tiles');
     this.platforms = this.map.createStaticLayer('Platform', this.tileset, 0, screen.height - 400);
     this.platforms.setCollisionByExclusion(-1, true);

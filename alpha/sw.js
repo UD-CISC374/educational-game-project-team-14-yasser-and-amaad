@@ -1,4 +1,4 @@
-importScripts("/lmntor/alphaprecache-manifest.13c791a48b839e670da0490c6a449f48.js", "https://storage.googleapis.com/workbox-cdn/releases/4.3.1/workbox-sw.js");
+importScripts("/educational-game-project-team-14-yasser-and-amaad/alphaprecache-manifest.ddde546bae15231cd7c007f6737ba33f.js", "https://storage.googleapis.com/workbox-cdn/releases/4.3.1/workbox-sw.js");
 
 /**
  * You should only modify this, if you know what you are doing.

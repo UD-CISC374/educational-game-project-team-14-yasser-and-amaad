@@ -1,7 +1,6 @@
 import ExampleObject from '../objects/exampleObject';
 
 export default class MainScene extends Phaser.Scene {
-  private exampleObject: ExampleObject;
   private background;
   private map;
   private player;
@@ -10,6 +9,7 @@ export default class MainScene extends Phaser.Scene {
   private text;
   private platforms;
   private spikes;
+  private invButton;
 
   constructor() {
     super({ key: 'MainScene' });
@@ -17,10 +17,10 @@ export default class MainScene extends Phaser.Scene {
 
   create() {
     //this.add.text(20, 20, "Loading game...", {color: 'black'});
-    this.background = this.add.image(0,0, "background").setOrigin(0,0);
+    this.background = this.add.image(0,0, "background").setOrigin(0,0).setSize(screen.width, screen.height);
     this.map = this.make.tilemap({key: 'map'});
     this.tileset = this.map.addTilesetImage('kenny_simple_platform', 'tiles');
-    this.platforms = this.map.createStaticLayer('Platform', this.tileset, 0, 200);
+    this.platforms = this.map.createStaticLayer('Platform', this.tileset, 0, screen.height - 400);
     this.platforms.setCollisionByExclusion(-1, true);
 
     this.player = this.physics.add.sprite(50,300, 'player');
@@ -53,25 +53,45 @@ export default class MainScene extends Phaser.Scene {
 
     this.cursors = this.input.keyboard.createCursorKeys();
 
-    this.spikes = this.physics.add.group({
-      allowGravity: false,
-      immovable: true
-    });
+    // this.spikes = this.physics.add.group({
+    //   allowGravity: false,
+    //   immovable: true
+    // });
 
-    const spikeObjects = this.map.getObjectLayer('Spikes')['objects'];
+    // const spikeObjects = this.map.getObjectLayer('Spikes')['objects'];
 
-    spikeObjects.forEach(spikeObject => {
-      const spike = this.spikes.create(spikeObject.x, spikeObject.y + 200 - spikeObject.height, 'spike').setOrigin(0,0);
-      spike.body.setSize(spike.width, spike.height -20).setOffset(0,20);
-    });
+    // spikeObjects.forEach(spikeObject => {
+    //   const spike = this.spikes.create(spikeObject.x, spikeObject.y + 200 - spikeObject.height, 'spike').setOrigin(0,0);
+    //   spike.body.setSize(spike.width, spike.height -20).setOffset(0,20);
+    // });
 
-    this.physics.add.collider(this.player, this.spikes, this.playerHit, undefined, this);
+    // this.physics.add.collider(this.player, this.spikes, this.playerHit, undefined, this);
 
-    this.cameras.main.setBounds(0, 0, this.background.width, this.background.height);
-    this.cameras.main.startFollow(this.player);
+    // this.cameras.main.setBounds(0, 0, this.background.width, this.background.height);
+    // this.cameras.main.startFollow(this.player);
 
     //this.scene.start('MainScene');
-    
+
+    let paused:boolean = false;
+    this.invButton = this.add.image(screen.width - 150, screen.height - 100, 'inventory').setScale(0.2);
+    this.invButton.alpha = .5;
+    this.invButton.setInteractive();
+    this.invButton.on("pointerover",()=>{
+      console.log("hover");
+      this.invButton.alpha = 1;
+    });
+
+    this.invButton.on("pointerout",()=>{
+      console.log("nah");
+      this.invButton.alpha = .5;
+    });
+
+    this.invButton.on("pointerup", ()=>{
+      console.log("pause?");
+      this.scene.pause();
+      this.scene.launch('labScene');
+    });
+    //let cir: Phaser.GameObjects.Shape = this.add.circle(screen.width - 150, screen.height - 100, 128, 0xffff00, 1).setDepth(4);
   }
 
   playerHit(player, spike){
@@ -108,7 +128,7 @@ export default class MainScene extends Phaser.Scene {
       }
     }
 
-    if((this.cursors.space.isDown || this.cursors.up.isDown) && this.player.body.onFloor()){
+    if((this.cursors.space.isDown || this.cursors.up.isDown) /*&& this.player.body.onFloor()*/){
       this.player.setVelocityY(-350);
       this.player.play('jump', true);
     }

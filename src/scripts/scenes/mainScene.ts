@@ -128,7 +128,7 @@ export default class MainScene extends Phaser.Scene {
       }
     }
 
-    if((this.cursors.space.isDown || this.cursors.up.isDown) /*&& this.player.body.onFloor()*/){
+    if((this.cursors.space.isDown || this.cursors.up.isDown) && this.player.body.onFloor()){
       this.player.setVelocityY(-350);
       this.player.play('jump', true);
     }

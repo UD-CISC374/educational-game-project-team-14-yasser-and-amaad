@@ -72,11 +72,11 @@ self.__precacheManifest = (self.__precacheManifest || []).concat([
     "url": "/educational-game-project-team-14-yasser-and-amaad/alphagen.vendors.0805bb80903235d40eaf.bundle.js"
   },
   {
-    "revision": "725760e21342be988c76bc178f4c1d34",
+    "revision": "5a3265cc212800c56c174d42b6066786",
     "url": "/educational-game-project-team-14-yasser-and-amaad/alphaindex.html"
   },
   {
-    "revision": "003187cab0ecf7a20e343e2ba6db4a34",
+    "revision": "ac1053ef8a1c63f2611c6d02935bdf02",
     "url": "/educational-game-project-team-14-yasser-and-amaad/alphamanifest.json"
   },
   {

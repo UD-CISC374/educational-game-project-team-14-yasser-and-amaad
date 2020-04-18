@@ -100,7 +100,7 @@ self.__precacheManifest = (self.__precacheManifest || []).concat([
     "url": "main.4472f179395592c06525.bundle.js"
   },
   {
-    "revision": "71b11a461f48c44ed6d8f92e35de7ce2",
+    "revision": "c71b358233129d95ef77df7dd91f33fe",
     "url": "manifest.json"
   },
   {

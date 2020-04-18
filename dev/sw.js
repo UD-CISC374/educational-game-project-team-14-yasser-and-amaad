@@ -1,4 +1,4 @@
-importScripts("/Lmntor/devprecache-manifest.bb1e4ea8fd640291becad13a238d2a6b.js", "https://storage.googleapis.com/workbox-cdn/releases/4.3.1/workbox-sw.js");
+importScripts("/educational-phaser-game-template/devprecache-manifest.1cc31db40b5aef8c1fae2da108f6e0e3.js", "https://storage.googleapis.com/workbox-cdn/releases/4.3.1/workbox-sw.js");
 
 /**
  * You should only modify this, if you know what you are doing.

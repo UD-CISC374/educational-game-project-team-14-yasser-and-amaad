@@ -1,4 +1,4 @@
-importScripts("/AlKMo/devprecache-manifest.6a766113c9684b074ebd82661022dc87.js", "https://storage.googleapis.com/workbox-cdn/releases/4.3.1/workbox-sw.js");
+importScripts("/Lmntor/devprecache-manifest.68f63d498b3ada7609563675e8d78ab3.js", "https://storage.googleapis.com/workbox-cdn/releases/4.3.1/workbox-sw.js");
 
 /**
  * You should only modify this, if you know what you are doing.

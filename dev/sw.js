@@ -1,4 +1,4 @@
-importScripts("/Lmntor/devprecache-manifest.68f63d498b3ada7609563675e8d78ab3.js", "https://storage.googleapis.com/workbox-cdn/releases/4.3.1/workbox-sw.js");
+importScripts("/Lmntor/devprecache-manifest.bb1e4ea8fd640291becad13a238d2a6b.js", "https://storage.googleapis.com/workbox-cdn/releases/4.3.1/workbox-sw.js");
 
 /**
  * You should only modify this, if you know what you are doing.

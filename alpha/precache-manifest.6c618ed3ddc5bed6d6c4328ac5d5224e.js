@@ -1,6 +1,6 @@
 self.__precacheManifest = (self.__precacheManifest || []).concat([
   {
-    "revision": "deec73c79c02e771f5fe18be9c63cf89",
+    "revision": "e7087d5d91321d575b038366ef9f2407",
     "url": "/educational-game-project-team-14-yasser-and-amaad/alphaassets/citations.md"
   },
   {
@@ -36,7 +36,7 @@ self.__precacheManifest = (self.__precacheManifest || []).concat([
     "url": "/educational-game-project-team-14-yasser-and-amaad/alphaassets/map/hydrogen.png"
   },
   {
-    "revision": "1fad889a1464048409ae2eeeb54cee7f",
+    "revision": "bf077a6aa81a460ede4682fb8914bcc5",
     "url": "/educational-game-project-team-14-yasser-and-amaad/alphaassets/map/map2.json"
   },
   {
@@ -52,7 +52,7 @@ self.__precacheManifest = (self.__precacheManifest || []).concat([
     "url": "/educational-game-project-team-14-yasser-and-amaad/alphaassets/map/spike.png"
   },
   {
-    "revision": "6252539d37bc8afb3b4b299de02d3cbb",
+    "revision": "9c88305524efbd48992eb62cc033ff76",
     "url": "/educational-game-project-team-14-yasser-and-amaad/alphaassets/map/wizard walk.json"
   },
   {
@@ -64,15 +64,15 @@ self.__precacheManifest = (self.__precacheManifest || []).concat([
     "url": "/educational-game-project-team-14-yasser-and-amaad/alphafavicon.ico"
   },
   {
-    "revision": "89c5a0843f4820073bb0",
-    "url": "/educational-game-project-team-14-yasser-and-amaad/alphagen.main.2adc5f37e8c255cc32b3.bundle.js"
+    "revision": "13e3df24876fc864136b",
+    "url": "/educational-game-project-team-14-yasser-and-amaad/alphagen.main.9136c6f10ca78121b69c.bundle.js"
   },
   {
     "revision": "5e69403aa42e950fedff",
     "url": "/educational-game-project-team-14-yasser-and-amaad/alphagen.vendors.0805bb80903235d40eaf.bundle.js"
   },
   {
-    "revision": "4fafbf961f225d0e4124e88830f578c7",
+    "revision": "5a3265cc212800c56c174d42b6066786",
     "url": "/educational-game-project-team-14-yasser-and-amaad/alphaindex.html"
   },
   {
@@ -80,7 +80,7 @@ self.__precacheManifest = (self.__precacheManifest || []).concat([
     "url": "/educational-game-project-team-14-yasser-and-amaad/alphamanifest.json"
   },
   {
-    "revision": "701445d8817f73e3da17e450b69faa36",
+    "revision": "a8029749c7edd38204cf67287cb14139",
     "url": "/educational-game-project-team-14-yasser-and-amaad/alphasw.js"
   }
 ]);

@@ -1,4 +1,5 @@
 import { GameObjects } from 'phaser';
+import { Display} from 'phaser';
 
 export default class labScene extends Phaser.Scene {
     private invButton: Phaser.GameObjects.Image;
@@ -16,7 +17,8 @@ export default class labScene extends Phaser.Scene {
 
 
     create(){
-        this.labRect = this.add.rectangle(screen.width/2, screen.height/2, screen.width/2, screen.height/2, 0xf5deb3, 1);
+        this.labRect = this.add.rectangle(this.game.canvas.width/2, this.game.canvas.height/2, this.game.canvas.width/2, this.game.canvas.height/2, 0xf5deb3, 1);
+        console.log(this.game.canvas.width + " " + this.game.canvas.height);
         let widthOff: number = this.labRect.width/8;//offset of width between the lab table and screen
         let heightOff: number = this.labRect.height/8;//offset of height between the lab table and screen
         let rectOffX: number = this.labRect.width/2  ;
@@ -36,7 +38,7 @@ export default class labScene extends Phaser.Scene {
 
 
 
-        let grid:Phaser.GameObjects.Grid = this.add.grid(screen.width/2, screen.height/2,screen.width/2, screen.height/2, screen.width/8, screen.height/8, 0x000000, 0, 0x000000, 1).setDepth(5);
+        //let grid:Phaser.GameObjects.Grid = this.add.grid(screen.width/2, screen.height/2,screen.width/2, screen.height/2, screen.width/8, screen.height/8, 0x000000, 0, 0x000000, 1).setDepth(5);
 
         this.hydro = this.add.image((screen.width/2 + boxOffX * 1), (screen.height/2 - rectOffY + boxOffY * 1), 'hydrogen').setDepth(4); // item # 1 lmao
         this.oxy = this.add.image((screen.width/2 + boxOffX * 3), (screen.height/2 - rectOffY + boxOffY * 1), 'oxygen').setDepth(4);       // ITEM 2
@@ -50,9 +52,9 @@ export default class labScene extends Phaser.Scene {
             gameObject.y = dragY;
         })
         
-        this.invButton = this.add.image(screen.width - 150, screen.height - 100, 'inventory').setScale(0.2).setDepth(5);
+        this.invButton = this.add.image(80, 80, 'inventory').setScale(0.2).setDepth(5);
         this.invButton.setInteractive();
-        let cir: Phaser.GameObjects.Shape = this.add.circle(screen.width - 150, screen.height - 100, 64, 0xffff00, 1).setDepth(4); 
+        let cir: Phaser.GameObjects.Shape = this.add.circle(80, 80, 64, 0xffff00, 1).setDepth(4); //yello circle behind book
         cir.alpha = 0;
         this.invButton.on("pointerover", ()=> {
             console.log("leave?");

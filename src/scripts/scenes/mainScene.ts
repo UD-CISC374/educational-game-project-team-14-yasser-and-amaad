@@ -6,25 +6,30 @@ export default class MainScene extends Phaser.Scene {
   private tileset;
   private text;
   private platforms;
-  private spikes;
+  private hints;
   private invButton;
+  hintsArray : Array<Phaser.GameObjects.Text>;
+  hintsXPos : Array<number>;
   constructor() {
     super({ key: 'MainScene' });
   }
 
   create() {
-    //this.add.text(20, 20, "Loading game...", {color: 'black'});
+    this.hintsArray = [];
+    this.hintsXPos = [];
     this.background = this.add.image(0,0, "background").setOrigin(0,0).setSize(screen.width, screen.height);
     // this.map = this.make.tilemap({key: 'map'});
     this.map = this.add.tilemap('L1');
     this.tileset = this.map.addTilesetImage('tiles_spritesheet', 'T1');
+    this.platforms = this.map.createStaticLayer('Water', this.tileset, 0, 30);
     this.platforms = this.map.createStaticLayer('Ground', this.tileset, 0, 30);
     this.platforms.setCollisionByExclusion(-1, true);
 
-    this.player = this.physics.add.sprite(0,screen.height - 270, 'player');
+    this.player = this.physics.add.sprite(10,screen.height - 500, 'player');
     this.player.setBounce(0.1);
     this.player.setCollideWorldBounds(true);
     this.physics.add.collider(this.player, this.platforms);
+    this.player.setDepth(999)
 
     this.anims.create({
       key: 'walk',
@@ -51,22 +56,27 @@ export default class MainScene extends Phaser.Scene {
 
     this.cursors = this.input.keyboard.createCursorKeys();
 
-    // this.spikes = this.physics.add.group({
-    //   allowGravity: false,
-    //   immovable: true
-    // });
+    this.hints = this.physics.add.group({
+      allowGravity: false,
+      immovable: true
+    });
 
-    // const spikeObjects = this.map.getObjectLayer('Spikes')['objects'];
+    const hintObject = this.map.getObjectLayer('Hint')['objects'];
+    let counter = 0;
+    hintObject.forEach(hintObject => {
+      const hint = this.hints.create(hintObject.x, hintObject.y + 30 - hintObject.height, 'hint').setOrigin(0,0);
+      hint.body.setSize(hint.width, hint.height);
+      hint.setDepth(1);
 
-    // spikeObjects.forEach(spikeObject => {
-    //   const spike = this.spikes.create(spikeObject.x, spikeObject.y + 200 - spikeObject.height, 'spike').setOrigin(0,0);
-    //   spike.body.setSize(spike.width, spike.height -20).setOffset(0,20);
-    // });
+      this.hintsArray.push(this.add.text(hintObject.x - 50, hintObject.y - 150, "HINT " + counter + " PLEASE WORK", {color: 'BLACK'}).setVisible(true));
+      this.hintsXPos.push(hintObject.x);
+      counter++;
+    });
 
-    // this.physics.add.collider(this.player, this.spikes, this.playerHit, undefined, this);
+    this.physics.add.overlap(this.hints, this.player, this.playerHit, undefined, this);
 
-    this.physics.world.setBounds(0,0,3000, 1080);
-    this.cameras.main.setBounds(0, 0, 3000, 1080);
+    this.physics.world.setBounds(0,0,7000, 1080);
+    this.cameras.main.setBounds(0, 0, 7000, 1080);
     this.cameras.main.startFollow(this.player);
     //this.scene.start('MainScene');
 
@@ -93,19 +103,8 @@ export default class MainScene extends Phaser.Scene {
     //let cir: Phaser.GameObjects.Shape = this.add.circle(screen.width - 150, screen.height - 100, 128, 0xffff00, 1).setDepth(4);
   }
 
-  playerHit(player, spike){
-    player.setVelocity(0, 0);
-    player.setX(50);
-    player.setY(300);
-    player.play('idle', true);
-    player.setAlpha(0);
-    let tw = this.tweens.add({
-      targets: player,
-      alpha: 1,
-      duration: 100,
-      ease: 'Linear',
-      repeat: 5,
-    });
+  playerHit(){
+
   }
 
   update() {

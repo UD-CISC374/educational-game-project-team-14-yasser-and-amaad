@@ -8,7 +8,6 @@ export default class MainScene extends Phaser.Scene {
   private platforms;
   private spikes;
   private invButton;
-
   constructor() {
     super({ key: 'MainScene' });
   }
@@ -17,12 +16,12 @@ export default class MainScene extends Phaser.Scene {
     //this.add.text(20, 20, "Loading game...", {color: 'black'});
     this.background = this.add.image(0,0, "background").setOrigin(0,0).setSize(screen.width, screen.height);
     // this.map = this.make.tilemap({key: 'map'});
-    this.map = this.add.tilemap('map');
-    this.tileset = this.map.addTilesetImage('kenny_simple_platform', 'tiles');
-    this.platforms = this.map.createStaticLayer('Platform', this.tileset, 0, screen.height - 400);
+    this.map = this.add.tilemap('L1');
+    this.tileset = this.map.addTilesetImage('tiles_spritesheet', 'T1');
+    this.platforms = this.map.createStaticLayer('Ground', this.tileset, 0, 30);
     this.platforms.setCollisionByExclusion(-1, true);
 
-    this.player = this.physics.add.sprite(50,300, 'player');
+    this.player = this.physics.add.sprite(0,screen.height - 270, 'player');
     this.player.setBounce(0.1);
     this.player.setCollideWorldBounds(true);
     this.physics.add.collider(this.player, this.platforms);
@@ -66,9 +65,9 @@ export default class MainScene extends Phaser.Scene {
 
     // this.physics.add.collider(this.player, this.spikes, this.playerHit, undefined, this);
 
-    // this.cameras.main.setBounds(0, 0, this.background.width, this.background.height);
-    // this.cameras.main.startFollow(this.player);
-
+    this.physics.world.setBounds(0,0,3000, 1080);
+    this.cameras.main.setBounds(0, 0, 3000, 1080);
+    this.cameras.main.startFollow(this.player);
     //this.scene.start('MainScene');
 
     let paused:boolean = false;
@@ -90,6 +89,7 @@ export default class MainScene extends Phaser.Scene {
       this.scene.pause();
       this.scene.launch('labScene');
     });
+
     //let cir: Phaser.GameObjects.Shape = this.add.circle(screen.width - 150, screen.height - 100, 128, 0xffff00, 1).setDepth(4);
   }
 
@@ -128,7 +128,7 @@ export default class MainScene extends Phaser.Scene {
     }
 
     if((this.cursors.space.isDown || this.cursors.up.isDown) && this.player.body.onFloor()){
-      this.player.setVelocityY(-350);
+      this.player.setVelocityY(-450);
       this.player.play('jump', true);
     }
 

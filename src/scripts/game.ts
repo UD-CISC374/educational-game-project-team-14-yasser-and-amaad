@@ -4,8 +4,8 @@ import PreloadScene from './scenes/preloadScene';
 import GameConfig = Phaser.Types.Core.GameConfig;
 import labScene from './scenes/labScene';
 
-const DEFAULT_WIDTH = screen.width;
-const DEFAULT_HEIGHT = screen.height;
+const DEFAULT_WIDTH = 1920;
+const DEFAULT_HEIGHT = 1080;
 
 
 const config: GameConfig = {
@@ -23,7 +23,7 @@ const config: GameConfig = {
         default: 'arcade',
         arcade: {
             debug: true,
-            gravity: { y: 600 }
+            gravity: { y: 1000 }
         }
     }
 };

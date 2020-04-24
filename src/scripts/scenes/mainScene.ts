@@ -81,7 +81,8 @@ export default class MainScene extends Phaser.Scene {
     //this.scene.start('MainScene');
 
     let paused:boolean = false;
-    this.invButton = this.add.image(screen.width - 150, screen.height - 100, 'inventory').setScale(0.2);
+    this.invButton = this.add.image(80, 80, 'inventory').setScale(0.2);
+    this.invButton.setScrollFactor(0);
     this.invButton.alpha = .5;
     this.invButton.setInteractive();
     this.invButton.on("pointerover",()=>{

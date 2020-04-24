@@ -25,7 +25,7 @@ export default class MainScene extends Phaser.Scene {
     this.platforms = this.map.createStaticLayer('Ground', this.tileset, 0, 30);
     this.platforms.setCollisionByExclusion(-1, true);
 
-    this.player = this.physics.add.sprite(10,screen.height - 500, 'player');
+    this.player = this.physics.add.sprite(10,this.game.canvas.height - this.game.canvas.height/4, 'player');
     this.player.setBounce(0.1);
     this.player.setCollideWorldBounds(true);
     this.physics.add.collider(this.player, this.platforms);

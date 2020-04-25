@@ -16,6 +16,10 @@ export default class PreloadScene extends Phaser.Scene {
 
     this.load.image('hydrogen', "assets/map/hydrogen.png");
     this.load.image('oxygen', "assets/map/oxygen.png");
+
+
+    // character
+    this.load.atlas('playerRun', 'assets/character/Run.png', 'assets/character/run.json');
   }
 
   create() {

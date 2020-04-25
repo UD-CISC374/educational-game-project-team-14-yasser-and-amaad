@@ -8,6 +8,8 @@ export default class MainScene extends Phaser.Scene {
   private platforms;
   private hints;
   private invButton;
+
+  runSprite;
   hintsArray : Array<Phaser.GameObjects.Text>;
   hintsXPos : Array<number>;
   constructor() {
@@ -25,7 +27,11 @@ export default class MainScene extends Phaser.Scene {
     this.platforms = this.map.createStaticLayer('Ground', this.tileset, 0, 30);
     this.platforms.setCollisionByExclusion(-1, true);
 
+<<<<<<< Updated upstream
     this.player = this.physics.add.sprite(10,this.game.canvas.height - this.game.canvas.height/4, 'player');
+=======
+    this.player = this.physics.add.sprite(10,this.game.canvas.height - (this.game.canvas.height/4), 'playerRun');
+>>>>>>> Stashed changes
     this.player.setBounce(0.1);
     this.player.setCollideWorldBounds(true);
     this.physics.add.collider(this.player, this.platforms);
@@ -33,24 +39,35 @@ export default class MainScene extends Phaser.Scene {
 
     this.anims.create({
       key: 'walk',
-      frames: this.anims.generateFrameNames('player', {
-        prefix: 'wizard_',
+      frames: this.anims.generateFrameNames('playerRun', {
+        prefix: 'run',
         start: 1,
-        end: 5,
+        end: 8,
       }),
       frameRate: 10,
       repeat: -1
     });
 
+    // this.anims.create({
+    //   key: 'walk',
+    //   frames: this.anims.generateFrameNames('player', {
+    //     prefix: 'wizard_',
+    //     start: 1,
+    //     end: 5,
+    //   }),
+    //   frameRate: 10,
+    //   repeat: -1
+    // });
+
     this.anims.create({
       key: 'idle',
-      frames: [{key: 'player', frame: 'wizard_1'}],
+      frames: [{key: 'playerRun', frame: 'run1'}],
       frameRate: 10,
     });
 
     this.anims.create({
       key: 'jump',
-      frames: [{ key: 'player', frame: 'wizard_3'}],
+      frames: [{ key: 'playerRun', frame: 'run3'}],
       frameRate: 10,
     });
 
@@ -110,12 +127,12 @@ export default class MainScene extends Phaser.Scene {
 
   update() {
     if(this.cursors.left.isDown){
-      this.player.setVelocityX(-200);
+      this.player.setVelocityX(-300);
       if(this.player.body.onFloor()){
         this.player.play('walk', true);
       }
     }else if (this.cursors.right.isDown){
-      this.player.setVelocityX(200);
+      this.player.setVelocityX(300);
       if(this.player.body.onFloor()){
         this.player.play('walk', true);
       }
@@ -128,7 +145,12 @@ export default class MainScene extends Phaser.Scene {
     }
 
     if((this.cursors.space.isDown || this.cursors.up.isDown) && this.player.body.onFloor()){
-      this.player.setVelocityY(-450);
+      this.player.setVelocityY(-1000);
+      this.player.play('jump', true);
+    }
+
+    if(this.cursors.down.isDown && !this.player.body.onFloor()){
+      this.player.setVelocityY(800)
       this.player.play('jump', true);
     }
 

@@ -1,15 +1,21 @@
 export default class MainScene extends Phaser.Scene {
   private background;
   private map;
-  private player;
   private cursors;
   private tileset;
   private text;
   private platforms;
+  private water;
   private hints;
   private invButton;
 
-  runSprite;
+  // game config
+  gameWidth : number;
+  gameHeight : number;
+
+  // player stuff
+  private player;
+
   hintsArray : Array<Phaser.GameObjects.Text>;
   hintsXPos : Array<number>;
   constructor() {
@@ -17,59 +23,30 @@ export default class MainScene extends Phaser.Scene {
   }
 
   create() {
+    this.gameWidth = this.game.canvas.width;
+    this.gameHeight = this.game.canvas.height;
     this.hintsArray = [];
     this.hintsXPos = [];
-    this.background = this.add.image(0,0, "background").setOrigin(0,0).setSize(screen.width, screen.height);
+    // PARALLAX BG
+    this.background = this.add.tileSprite(0, 0, this.gameWidth, this.gameHeight, "background").setOrigin(0,0).setScrollFactor(0);
+    this.background.tilePositionX = this.cameras.main.scrollX * .3;
+    // this.background = this.add.image(0,0, "background").setOrigin(0,0).setSize(screen.width, screen.height);
     // this.map = this.make.tilemap({key: 'map'});
     this.map = this.add.tilemap('L1');
     this.tileset = this.map.addTilesetImage('tiles_spritesheet', 'T1');
-    this.platforms = this.map.createStaticLayer('Water', this.tileset, 0, 30);
     this.platforms = this.map.createStaticLayer('Ground', this.tileset, 0, 30);
     this.platforms.setCollisionByExclusion(-1, true);
 
-<<<<<<< Updated upstream
-    this.player = this.physics.add.sprite(10,this.game.canvas.height - this.game.canvas.height/4, 'player');
-=======
-    this.player = this.physics.add.sprite(10,this.game.canvas.height - (this.game.canvas.height/4), 'playerRun');
->>>>>>> Stashed changes
-    this.player.setBounce(0.1);
-    this.player.setCollideWorldBounds(true);
-    this.physics.add.collider(this.player, this.platforms);
-    this.player.setDepth(999)
+    this.water = this.map.createStaticLayer('Water', this.tileset, 0, 30);
+    this.water.setCollisionByExclusion(-1, true);
 
-    this.anims.create({
-      key: 'walk',
-      frames: this.anims.generateFrameNames('playerRun', {
-        prefix: 'run',
-        start: 1,
-        end: 8,
-      }),
-      frameRate: 10,
-      repeat: -1
-    });
+    this.player = this.physics.add.sprite(10,this.game.canvas.height - (this.game.canvas.height/4), 'playerIdle');
+    this.player.setScale(1.5);
+    this.loadRunSprites(this.player)
 
-    // this.anims.create({
-    //   key: 'walk',
-    //   frames: this.anims.generateFrameNames('player', {
-    //     prefix: 'wizard_',
-    //     start: 1,
-    //     end: 5,
-    //   }),
-    //   frameRate: 10,
-    //   repeat: -1
-    // });
 
-    this.anims.create({
-      key: 'idle',
-      frames: [{key: 'playerRun', frame: 'run1'}],
-      frameRate: 10,
-    });
-
-    this.anims.create({
-      key: 'jump',
-      frames: [{ key: 'playerRun', frame: 'run3'}],
-      frameRate: 10,
-    });
+    // animations 
+    this.loadAnimations();
 
     this.cursors = this.input.keyboard.createCursorKeys();
 
@@ -90,7 +67,7 @@ export default class MainScene extends Phaser.Scene {
       counter++;
     });
 
-    this.physics.add.overlap(this.hints, this.player, this.playerHit, undefined, this);
+    this.physics.add.overlap(this.hints, this.player, this.playerRunHit, undefined, this);
 
     this.physics.world.setBounds(0,0,7000, 1080);
     this.cameras.main.setBounds(0, 0, 7000, 1080);
@@ -121,7 +98,7 @@ export default class MainScene extends Phaser.Scene {
     //let cir: Phaser.GameObjects.Shape = this.add.circle(screen.width - 150, screen.height - 100, 128, 0xffff00, 1).setDepth(4);
   }
 
-  playerHit(){
+  playerRunHit(){
 
   }
 
@@ -129,12 +106,12 @@ export default class MainScene extends Phaser.Scene {
     if(this.cursors.left.isDown){
       this.player.setVelocityX(-300);
       if(this.player.body.onFloor()){
-        this.player.play('walk', true);
+        this.player.play('run', true);
       }
     }else if (this.cursors.right.isDown){
       this.player.setVelocityX(300);
       if(this.player.body.onFloor()){
-        this.player.play('walk', true);
+        this.player.play('run', true);
       }
     }else {
       this.player.setVelocityX(0);
@@ -159,5 +136,41 @@ export default class MainScene extends Phaser.Scene {
     }else if (this.player.body.velocity.x < 0){
       this.player.setFlipX(true);
     }
+  }
+
+  loadRunSprites(sprite) {
+    sprite.setBounce(0.1);
+    sprite.setCollideWorldBounds(true);
+    this.physics.add.collider(sprite, this.platforms);
+    sprite.setDepth(999)
+  }
+
+  loadAnimations(){
+    this.anims.create({
+      key: 'run',
+      frames: this.anims.generateFrameNames('playerRun', {
+        prefix: 'run',
+        start: 1,
+        end: 8,
+      }),
+      frameRate: 15,
+      repeat: -1
+    });
+
+    this.anims.create({
+      key: 'idle',
+      frames: this.anims.generateFrameNames('playerIdle', {
+        prefix: 'idle',
+        start: 1,
+        end: 6,
+      }),
+      frameRate: 10,
+    });
+
+    this.anims.create({
+      key: 'jump',
+      frames: [{ key: 'playerIdle', frame: 'idle1'}],
+      frameRate: 10,
+    });
   }
 }

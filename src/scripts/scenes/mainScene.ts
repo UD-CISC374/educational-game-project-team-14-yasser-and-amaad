@@ -4,25 +4,27 @@
 
 export default class MainScene extends Phaser.Scene {
   
-  private background;
-  private map;
-  private cursors;
-  private tileset;
-  private text;
-  private platforms;
-  private water;
-  private hints;
-  private invButton;
+private background;
+private map;
+private cursors;
+private tileset;
+private text;
+private platforms;
+private water;
+private hints;
+private invButton;
 
-  // game config
-  gameWidth : number;
-  gameHeight : number;
-
+// game config
+gameWidth : number;
+gameHeight : number;
+  
   // player stuff
-  private player;
-
+  player;
+  
+  // hint arrays
   hintsArray : Array<Phaser.GameObjects.Text>;
   hintsXPos : Array<number>;
+  hintStrings : Array<string>;
   constructor() {
     super({ key: 'MainScene' });
   }
@@ -33,6 +35,10 @@ export default class MainScene extends Phaser.Scene {
     this.gameHeight = this.game.canvas.height;
     this.hintsArray = [];
     this.hintsXPos = [];
+    this.hintStrings = ["Pick up elements by walking over them", 
+                        "Attack enemies using spacebar",
+                        "Combine elements by press 'L' or clicking the book on the top left",
+                        "Move on to the next level by going into the exit door"]
 
     // PARALLAX BG
     this.background = this.add.tileSprite(0, 0, this.gameWidth, this.gameHeight, "background").setOrigin(0,0).setScrollFactor(0);
@@ -48,11 +54,8 @@ export default class MainScene extends Phaser.Scene {
     this.physics.add.overlap(this.water, this.player, this.playerHit, undefined, this);
 
     this.player = this.physics.add.sprite(10,this.game.canvas.height - (this.game.canvas.height/4), 'playerIdle');
+    console.log(typeof this.player);
     this.setSpriteProperties(this.player)
-
-
-    // animation handler
-    this.handleAnimations();
 
     this.cursors = this.input.keyboard.createCursorKeys();
 
@@ -68,7 +71,10 @@ export default class MainScene extends Phaser.Scene {
       hint.body.setSize(hint.width, hint.height);
       hint.setDepth(1);
 
-      this.hintsArray.push(this.add.text(hintObject.x - 50, hintObject.y - 150, "HINT " + counter + " PLEASE WORK", {color: 'BLACK'}).setVisible(true));
+      this.hintsArray.push(this.add.text(hintObject.x + 30, hintObject.y - hintObject.height*2 , this.hintStrings[counter], {color: 'BLACK'})
+                          .setVisible(true)
+                          .setOrigin(0.5)
+                          .setAlign('center'));
       this.hintsXPos.push(hintObject.x);
       counter++;
     });
@@ -150,38 +156,6 @@ export default class MainScene extends Phaser.Scene {
     sprite.setScale(1.5);
     this.physics.add.collider(sprite, this.platforms);
     sprite.setDepth(999)
-  }
-
-  handleAnimations(){
-    this.anims.create({
-      key: 'run',
-      frames: this.anims.generateFrameNames('playerRun', {
-        prefix: 'run',
-        start: 1,
-        end: 8,
-      }),
-      frameRate: 15,
-    });
-
-    this.anims.create({
-      key: 'idle',
-      frames: this.anims.generateFrameNames('playerIdle', {
-        prefix: 'idle',
-        start: 1,
-        end: 6,
-      }),
-      frameRate: 10,
-    });
-
-    this.anims.create({
-      key: 'jump',
-      frames: this.anims.generateFrameNames('playerJump', {
-        prefix: 'jump',
-        start: 1,
-        end: 2,
-      }),
-      frameRate: 10,
-    });
   }
 
 }

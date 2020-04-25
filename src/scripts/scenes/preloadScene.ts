@@ -37,6 +37,39 @@ export default class PreloadScene extends Phaser.Scene {
   }
 
   create() {
+    this.handleAnimations();
     this.scene.start('MainScene');
+  }
+
+  handleAnimations(){
+    this.anims.create({
+      key: 'run',
+      frames: this.anims.generateFrameNames('playerRun', {
+        prefix: 'run',
+        start: 1,
+        end: 8,
+      }),
+      frameRate: 15,
+    });
+
+    this.anims.create({
+      key: 'idle',
+      frames: this.anims.generateFrameNames('playerIdle', {
+        prefix: 'idle',
+        start: 1,
+        end: 6,
+      }),
+      frameRate: 10,
+    });
+
+    this.anims.create({
+      key: 'jump',
+      frames: this.anims.generateFrameNames('playerJump', {
+        prefix: 'jump',
+        start: 1,
+        end: 2,
+      }),
+      frameRate: 10,
+    });
   }
 }

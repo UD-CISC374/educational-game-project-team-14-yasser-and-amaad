@@ -1,6 +1,6 @@
 
   // CONSTANTS
-  const jumpHeight : number = -700  ;
+  const jumpHeight : number = -750  ;
 
 export default class MainScene extends Phaser.Scene {
   
@@ -28,15 +28,16 @@ export default class MainScene extends Phaser.Scene {
   }
 
   create() {
+    // onLoad
     this.gameWidth = this.game.canvas.width;
     this.gameHeight = this.game.canvas.height;
     this.hintsArray = [];
     this.hintsXPos = [];
+
     // PARALLAX BG
     this.background = this.add.tileSprite(0, 0, this.gameWidth, this.gameHeight, "background").setOrigin(0,0).setScrollFactor(0);
     this.background.tilePositionX = this.cameras.main.scrollX * .3;
-    // this.background = this.add.image(0,0, "background").setOrigin(0,0).setSize(screen.width, screen.height);
-    // this.map = this.make.tilemap({key: 'map'});
+
     this.map = this.add.tilemap('L1');
     this.tileset = this.map.addTilesetImage('tiles_spritesheet', 'T1');
     this.platforms = this.map.createStaticLayer('Ground', this.tileset, 0, 30);
@@ -44,14 +45,14 @@ export default class MainScene extends Phaser.Scene {
 
     this.water = this.map.createStaticLayer('Water', this.tileset, 0, 30);
     this.water.setCollisionByExclusion(-1, true);
+    this.physics.add.overlap(this.water, this.player, this.playerHit, undefined, this);
 
     this.player = this.physics.add.sprite(10,this.game.canvas.height - (this.game.canvas.height/4), 'playerIdle');
-    this.player.setScale(1.5);
-    this.loadRunSprites(this.player)
+    this.setSpriteProperties(this.player)
 
 
-    // animations 
-    this.loadAnimations();
+    // animation handler
+    this.handleAnimations();
 
     this.cursors = this.input.keyboard.createCursorKeys();
 
@@ -72,7 +73,7 @@ export default class MainScene extends Phaser.Scene {
       counter++;
     });
 
-    this.physics.add.overlap(this.hints, this.player, this.playerRunHit, undefined, this);
+    this.physics.add.overlap(this.hints, this.player, this.playerHit, undefined, this);
 
     this.physics.world.setBounds(0,0,7000, 1080);
     this.cameras.main.setBounds(0, 0, 7000, 1080);
@@ -103,7 +104,7 @@ export default class MainScene extends Phaser.Scene {
     //let cir: Phaser.GameObjects.Shape = this.add.circle(screen.width - 150, screen.height - 100, 128, 0xffff00, 1).setDepth(4);
   }
 
-  playerRunHit(){
+  playerHit(){
 
   }
 
@@ -143,14 +144,15 @@ export default class MainScene extends Phaser.Scene {
     }
   }
 
-  loadRunSprites(sprite) {
+  setSpriteProperties(sprite) {
     sprite.setBounce(0.1);
     sprite.setCollideWorldBounds(true);
+    sprite.setScale(1.5);
     this.physics.add.collider(sprite, this.platforms);
     sprite.setDepth(999)
   }
 
-  loadAnimations(){
+  handleAnimations(){
     this.anims.create({
       key: 'run',
       frames: this.anims.generateFrameNames('playerRun', {

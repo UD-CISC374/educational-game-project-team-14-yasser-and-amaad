@@ -132,15 +132,15 @@ self.__precacheManifest = (self.__precacheManifest || []).concat([
     "url": "/educational-game-project-team-14-yasser-and-amaad/alphafavicon.ico"
   },
   {
-    "revision": "0c65b0ee047845ffdd23",
-    "url": "/educational-game-project-team-14-yasser-and-amaad/alphagen.main.0418c649664232bb2757.bundle.js"
+    "revision": "dbfdc14a262587f73ce2",
+    "url": "/educational-game-project-team-14-yasser-and-amaad/alphagen.main.bc4dec86900c29a2dd06.bundle.js"
   },
   {
     "revision": "5e69403aa42e950fedff",
     "url": "/educational-game-project-team-14-yasser-and-amaad/alphagen.vendors.0805bb80903235d40eaf.bundle.js"
   },
   {
-    "revision": "5548ad8792b16d2296706331cd258953",
+    "revision": "5c5079c9a0e9491faef4ae56aaaf6a20",
     "url": "/educational-game-project-team-14-yasser-and-amaad/alphaindex.html"
   },
   {

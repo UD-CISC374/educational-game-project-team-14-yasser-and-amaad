@@ -6,6 +6,7 @@ import labScene from './scenes/labScene';
 
 const DEFAULT_WIDTH = 1920;
 const DEFAULT_HEIGHT = 1080;
+const GRAVITY = 1500;
 
 
 const config: GameConfig = {
@@ -23,7 +24,7 @@ const config: GameConfig = {
         default: 'arcade',
         arcade: {
             debug: true,
-            gravity: { y: 700 }
+            gravity: { y: GRAVITY }
         }
     }
 };

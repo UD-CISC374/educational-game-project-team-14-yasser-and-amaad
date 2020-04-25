@@ -1,4 +1,9 @@
+
+  // CONSTANTS
+  const jumpHeight : number = -700  ;
+
 export default class MainScene extends Phaser.Scene {
+  
   private background;
   private map;
   private cursors;
@@ -122,7 +127,7 @@ export default class MainScene extends Phaser.Scene {
     }
 
     if((this.cursors.space.isDown || this.cursors.up.isDown) && this.player.body.onFloor()){
-      this.player.setVelocityY(-1000);
+      this.player.setVelocityY(jumpHeight);
       this.player.play('jump', true);
     }
 
@@ -154,7 +159,6 @@ export default class MainScene extends Phaser.Scene {
         end: 8,
       }),
       frameRate: 15,
-      repeat: -1
     });
 
     this.anims.create({
@@ -169,8 +173,13 @@ export default class MainScene extends Phaser.Scene {
 
     this.anims.create({
       key: 'jump',
-      frames: [{ key: 'playerIdle', frame: 'idle1'}],
+      frames: this.anims.generateFrameNames('playerJump', {
+        prefix: 'jump',
+        start: 1,
+        end: 2,
+      }),
       frameRate: 10,
     });
   }
+
 }

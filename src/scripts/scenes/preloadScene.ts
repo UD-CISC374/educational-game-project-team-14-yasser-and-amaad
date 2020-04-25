@@ -33,6 +33,7 @@ export default class PreloadScene extends Phaser.Scene {
 
     this.load.atlas('playerRun', 'assets/character/Run.png', 'assets/character/run.json');
     this.load.atlas('playerIdle', 'assets/character/Idle.png', 'assets/character/idle.json');
+    this.load.atlas('playerJump', 'assets/character/Jump.png', 'assets/character/jump.json');
   }
 
   create() {

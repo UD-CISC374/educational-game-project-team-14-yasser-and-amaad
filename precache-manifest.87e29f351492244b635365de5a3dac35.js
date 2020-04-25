@@ -1,5 +1,49 @@
 self.__precacheManifest = (self.__precacheManifest || []).concat([
   {
+    "revision": "1b37d71e6613877ee1bca1e157f22067",
+    "url": "assets/character/Attack1.png"
+  },
+  {
+    "revision": "9a3201b9bd1a03679287ba60a23494c1",
+    "url": "assets/character/Attack2.png"
+  },
+  {
+    "revision": "5f7683d03534f5b66116f6b84c2ce02f",
+    "url": "assets/character/Death.png"
+  },
+  {
+    "revision": "510e20702fb41b8becac4952ee97fe67",
+    "url": "assets/character/Fall.png"
+  },
+  {
+    "revision": "53981dafa29fb690237cd788320b24f7",
+    "url": "assets/character/Hit.png"
+  },
+  {
+    "revision": "6df18543cb030d749707737d1dad3599",
+    "url": "assets/character/Idle.png"
+  },
+  {
+    "revision": "4bca07882620ce34d7fa811a8a3aa463",
+    "url": "assets/character/Jump.png"
+  },
+  {
+    "revision": "baa5be88f044a0c8b1795393ad2ac382",
+    "url": "assets/character/Run.png"
+  },
+  {
+    "revision": "bb418a0839c41bb49214360e83757bd9",
+    "url": "assets/character/idle.json"
+  },
+  {
+    "revision": "f27401328529010032906856869d3651",
+    "url": "assets/character/jump.json"
+  },
+  {
+    "revision": "d27271cda1509c848f3864233c59fa1a",
+    "url": "assets/character/run.json"
+  },
+  {
     "revision": "e7087d5d91321d575b038366ef9f2407",
     "url": "assets/citations.md"
   },
@@ -22,6 +66,30 @@ self.__precacheManifest = (self.__precacheManifest || []).concat([
   {
     "revision": "200ce541edfaa71be93a1041736d1fee",
     "url": "assets/icons/icons8-game-controller-16.png"
+  },
+  {
+    "revision": "46e5f704bd52b0502f45f9ecf34fc456",
+    "url": "assets/level_1/L1.json"
+  },
+  {
+    "revision": "0235b3d1a302d5d65c6641317832fd8e",
+    "url": "assets/level_1/Level_1.json"
+  },
+  {
+    "revision": "b5788327ae3bf9d3258b2b8c1b09a1a4",
+    "url": "assets/level_1/Level_12.json"
+  },
+  {
+    "revision": "7bc7195d820c3a4f5d4a0cc85abee0a5",
+    "url": "assets/level_1/rocks.png"
+  },
+  {
+    "revision": "f56e40e2dccc97b973304418b75f2d98",
+    "url": "assets/level_1/sign.png"
+  },
+  {
+    "revision": "bad8c15bd025488bf951483940774e62",
+    "url": "assets/level_1/tiles_spritesheet.png"
   },
   {
     "revision": "f271b57563082ca2c908c69e4e2c5c01",
@@ -64,12 +132,12 @@ self.__precacheManifest = (self.__precacheManifest || []).concat([
     "url": "favicon.ico"
   },
   {
-    "revision": "e21ca29665a2d41b8cc993e21f8048b3",
+    "revision": "7c4ac25400aa5e421909ba60c3dcf136",
     "url": "index.html"
   },
   {
-    "revision": "385380f85ad2d719dde4",
-    "url": "main.930bdedfa4361b19d2e6.bundle.js"
+    "revision": "253368388ba532cb9382",
+    "url": "main.9f1b534bae7e7a49dd9c.bundle.js"
   },
   {
     "revision": "ac1053ef8a1c63f2611c6d02935bdf02",

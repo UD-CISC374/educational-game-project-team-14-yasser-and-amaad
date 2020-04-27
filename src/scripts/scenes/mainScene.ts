@@ -14,6 +14,9 @@ private water;
 private hints;
 private invButton;
 
+
+//
+private inAir:boolean;
 // game config
 gameWidth : number;
 gameHeight : number;
@@ -30,6 +33,7 @@ gameHeight : number;
   }
 
   create() {
+    this.physics.world.TILE_BIAS = 32;
     // onLoad
     this.gameWidth = this.game.canvas.width;
     this.gameHeight = this.game.canvas.height;
@@ -38,8 +42,9 @@ gameHeight : number;
     this.hintStrings = ["Pick up elements by walking over them", 
                         "Attack enemies using spacebar",
                         "Combine elements by press 'L' or clicking the book on the top left",
-                        "Move on to the next level by going into the exit door"]
+                        "Move on to the next level by going into the exit door"];
 
+    this.inAir = false;
     // PARALLAX BG
     this.background = this.add.tileSprite(0, 0, this.gameWidth, this.gameHeight, "background").setOrigin(0,0).setScrollFactor(0);
     this.background.tilePositionX = this.cameras.main.scrollX * .3;
@@ -133,15 +138,23 @@ gameHeight : number;
       }
     }
 
-    if((this.cursors.space.isDown || this.cursors.up.isDown) && this.player.body.onFloor()){
+    if(this.cursors.up.isDown && this.player.body.onFloor()){
       this.player.setVelocityY(jumpHeight);
       this.player.play('jump', true);
     }
 
     if(this.cursors.down.isDown && !this.player.body.onFloor()){
-      this.player.setVelocityY(800)
+      this.player.setVelocityY(750)
       this.player.play('jump', true);
     }
+
+    if(this.cursors.space.isDown) {
+      this.player.play('attack1', true)
+    }
+
+    // if(!this.player.body.onFloor() && this.player.body.velocity.y > 300){
+    //   this.player.play('fall');
+    // }
 
     if(this.player.body.velocity.x > 0){
       this.player.setFlipX(false);

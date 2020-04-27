@@ -34,6 +34,8 @@ export default class PreloadScene extends Phaser.Scene {
     this.load.atlas('playerRun', 'assets/character/Run.png', 'assets/character/run.json');
     this.load.atlas('playerIdle', 'assets/character/Idle.png', 'assets/character/idle.json');
     this.load.atlas('playerJump', 'assets/character/Jump.png', 'assets/character/jump.json');
+    this.load.atlas('playerFall', 'assets/character/Fall.png', 'assets/character/fall.json');
+    this.load.atlas('playerAtk1', 'assets/character/Attack1/atk1.png', 'assets/character/Attack1/atk1.json');
   }
 
   create() {
@@ -49,7 +51,7 @@ export default class PreloadScene extends Phaser.Scene {
         start: 1,
         end: 8,
       }),
-      frameRate: 15,
+      frameRate: 10,
     });
 
     this.anims.create({
@@ -70,6 +72,27 @@ export default class PreloadScene extends Phaser.Scene {
         end: 2,
       }),
       frameRate: 10,
+    });
+
+    this.anims.create({
+      key: 'fall',
+      frames: this.anims.generateFrameNames('playerFall', {
+        prefix: 'fall',
+        start: 1,
+        end: 2,
+      }),
+      frameRate: 10,
+    });
+
+    this.anims.create({
+      key: 'attack1',
+      frames: this.anims.generateFrameNames('playerAtk1', {
+        prefix: 'attack',
+        start: 0,
+        end: 7,
+        suffix: '.png'
+      }),
+      frameRate: 20,
     });
   }
 }

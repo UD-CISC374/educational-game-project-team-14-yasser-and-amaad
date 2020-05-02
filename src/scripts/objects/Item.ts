@@ -1,10 +1,11 @@
 import { GameObjects } from "phaser";
 
 export class Item {
-    name: string
-    symbol: string
-    description: string
-    image: GameObjects.Image
+    name: string;
+    amount: number;
+    symbol: string;
+    description: string;
+    image: GameObjects.Image;
     vx: number;
     vy: number;
     

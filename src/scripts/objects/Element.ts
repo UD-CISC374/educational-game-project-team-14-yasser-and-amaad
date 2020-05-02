@@ -1,6 +1,7 @@
 import { GameObjects } from "phaser";
+import { Item } from "./Item";
 
-export class Element {
+export class Element extends Item{
     name: string
     symbol: string
     description: string
@@ -9,6 +10,7 @@ export class Element {
     image: GameObjects.Image
     
     constructor(name: string, symbol: string, description: string, atomicNum: number, atomicWeight: number, image: GameObjects.Image) {
+        super(name, symbol, description, image);
         this.name = name;
         this.description = description;
         this.symbol = symbol

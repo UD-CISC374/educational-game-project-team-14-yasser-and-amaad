@@ -4,22 +4,22 @@
 
 export default class MainScene extends Phaser.Scene {
   
-private background;
-private map;
-private cursors;
-private tileset;
-private text;
-private platforms;
-private water;
-private hints;
-private invButton;
+  private background;
+  private map;
+  private cursors;
+  private tileset;
+  private text;
+  private platforms;
+  private water;
+  private hints;
+  private invButton;
 
+  // bg music + audio
+  private bgMusic:Phaser.Sound.BaseSound;
 
-//
-private inAir:boolean;
-// game config
-gameWidth : number;
-gameHeight : number;
+  // game config
+  private gameWidth : number;
+  private gameHeight : number;
   
   // player stuff
   player;
@@ -33,22 +33,30 @@ gameHeight : number;
   }
 
   create() {
-    this.physics.world.TILE_BIAS = 32;
-    // onLoad
     this.gameWidth = this.game.canvas.width;
     this.gameHeight = this.game.canvas.height;
-    this.hintsArray = [];
-    this.hintsXPos = [];
-    this.hintStrings = ["Pick up elements by walking over them", 
-                        "Attack enemies using spacebar",
-                        "Combine elements by press 'L' or clicking the book on the top left",
-                        "Move on to the next level by going into the exit door"];
 
-    this.inAir = false;
+    // fixes phasing through floor error
+    this.physics.world.TILE_BIAS = 32;
+
     // PARALLAX BG
     this.background = this.add.tileSprite(0, 0, this.gameWidth, this.gameHeight, "background").setOrigin(0,0).setScrollFactor(0);
     this.background.tilePositionX = this.cameras.main.scrollX * .3;
 
+    // bg music
+    this.bgMusic = this.sound.add("bg_netherplace");
+    let musicConfig = {
+      mute: false,
+      volume: .2,
+      rate: 1,
+      detune: 1,
+      seek: 0,
+      loop: true,
+      delay: 0
+    }
+    this.bgMusic.play(musicConfig);
+
+    // map stuff
     this.map = this.add.tilemap('L1');
     this.tileset = this.map.addTilesetImage('tiles_spritesheet', 'T1');
     this.platforms = this.map.createStaticLayer('Ground', this.tileset, 0, 30);
@@ -58,11 +66,21 @@ gameHeight : number;
     this.water.setCollisionByExclusion(-1, true);
     this.physics.add.overlap(this.water, this.player, this.playerHit, undefined, this);
 
+    // player stuff
     this.player = this.physics.add.sprite(10,this.game.canvas.height - (this.game.canvas.height/4), 'playerIdle');
     console.log(typeof this.player);
     this.setSpriteProperties(this.player)
 
+    // get user input
     this.cursors = this.input.keyboard.createCursorKeys();
+
+    // hint stuff
+    this.hintsArray = [];
+    this.hintsXPos = [];
+    this.hintStrings = ["Pick up elements by walking over them", 
+                        "Attack enemies using spacebar",
+                        "Combine elements by press 'L' or clicking the book on the top left",
+                        "Move on to the next level by going into the exit door"];
 
     this.hints = this.physics.add.group({
       allowGravity: false,
@@ -86,11 +104,13 @@ gameHeight : number;
 
     this.physics.add.overlap(this.hints, this.player, this.playerHit, undefined, this);
 
+    // follow player with camera
     this.physics.world.setBounds(0,0,7000, 1080);
     this.cameras.main.setBounds(0, 0, 7000, 1080);
     this.cameras.main.startFollow(this.player);
     //this.scene.start('MainScene');
 
+    // inventory/lab stuff
     let paused:boolean = false;
     this.invButton = this.add.image(80, 80, 'inventory').setScale(0.2);
     this.invButton.setScrollFactor(0);
@@ -121,12 +141,12 @@ gameHeight : number;
 
   update() {
     if(this.cursors.left.isDown){
-      this.player.setVelocityX(-300);
+      this.player.setVelocityX(-500);
       if(this.player.body.onFloor()){
         this.player.play('run', true);
       }
     }else if (this.cursors.right.isDown){
-      this.player.setVelocityX(300);
+      this.player.setVelocityX(500);
       if(this.player.body.onFloor()){
         this.player.play('run', true);
       }

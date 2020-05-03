@@ -5,24 +5,12 @@
 			"format": "RGBA8888",
 			"size": {
 				"w": 417,
-				"h": 247
+				"h": 86
 			},
 			"scale": 1,
 			"frames": [
 				{
 					"filename": "attack3.png",
-					"rotated": false,
-					"trimmed": true,
-					"sourceSize": {
-						"w": 231,
-						"h": 190
-					},
-					"spriteSourceSize": {
-						"x": 80,
-						"y": 4,
-						"w": 95,
-						"h": 138
-					},
 					"frame": {
 						"x": 1,
 						"y": 1,
@@ -30,24 +18,12 @@
 						"h": 138
 					},
 					"anchor": {
-						"x": 0.5,
-						"y": 0.5
+						"x": 0.25,
+						"y": 0.25
 					}
 				},
 				{
 					"filename": "attack4.png",
-					"rotated": false,
-					"trimmed": true,
-					"sourceSize": {
-						"w": 231,
-						"h": 190
-					},
-					"spriteSourceSize": {
-						"x": 87,
-						"y": 37,
-						"w": 105,
-						"h": 105
-					},
 					"frame": {
 						"x": 1,
 						"y": 141,
@@ -55,24 +31,12 @@
 						"h": 105
 					},
 					"anchor": {
-						"x": 0.5,
-						"y": 0.5
+						"x": 0.25,
+						"y": 0.25
 					}
 				},
 				{
 					"filename": "attack7.png",
-					"rotated": false,
-					"trimmed": true,
-					"sourceSize": {
-						"w": 231,
-						"h": 190
-					},
-					"spriteSourceSize": {
-						"x": 85,
-						"y": 16,
-						"w": 127,
-						"h": 126
-					},
 					"frame": {
 						"x": 98,
 						"y": 1,
@@ -80,24 +44,12 @@
 						"h": 126
 					},
 					"anchor": {
-						"x": 0.5,
-						"y": 0.5
+						"x": 0.25,
+						"y": 0.25
 					}
 				},
 				{
 					"filename": "attack6.png",
-					"rotated": false,
-					"trimmed": true,
-					"sourceSize": {
-						"w": 231,
-						"h": 190
-					},
-					"spriteSourceSize": {
-						"x": 85,
-						"y": 25,
-						"w": 118,
-						"h": 117
-					},
 					"frame": {
 						"x": 108,
 						"y": 129,
@@ -105,24 +57,12 @@
 						"h": 117
 					},
 					"anchor": {
-						"x": 0.5,
-						"y": 0.5
+						"x": 0.25,
+						"y": 0.25
 					}
 				},
 				{
 					"filename": "attack0.png",
-					"rotated": false,
-					"trimmed": true,
-					"sourceSize": {
-						"w": 231,
-						"h": 190
-					},
-					"spriteSourceSize": {
-						"x": 53,
-						"y": 20,
-						"w": 77,
-						"h": 122
-					},
 					"frame": {
 						"x": 227,
 						"y": 1,
@@ -130,24 +70,12 @@
 						"h": 122
 					},
 					"anchor": {
-						"x": 0.5,
-						"y": 0.5
+						"x": 0.25,
+						"y": 0.25
 					}
 				},
 				{
 					"filename": "attack1.png",
-					"rotated": false,
-					"trimmed": true,
-					"sourceSize": {
-						"w": 231,
-						"h": 190
-					},
-					"spriteSourceSize": {
-						"x": 43,
-						"y": 21,
-						"w": 77,
-						"h": 121
-					},
 					"frame": {
 						"x": 228,
 						"y": 125,
@@ -155,24 +83,12 @@
 						"h": 121
 					},
 					"anchor": {
-						"x": 0.5,
-						"y": 0.5
+						"x": 0.25,
+						"y": 0.25
 					}
 				},
 				{
 					"filename": "attack5.png",
-					"rotated": false,
-					"trimmed": true,
-					"sourceSize": {
-						"w": 231,
-						"h": 190
-					},
-					"spriteSourceSize": {
-						"x": 87,
-						"y": 32,
-						"w": 110,
-						"h": 110
-					},
 					"frame": {
 						"x": 306,
 						"y": 1,
@@ -180,24 +96,12 @@
 						"h": 110
 					},
 					"anchor": {
-						"x": 0.5,
-						"y": 0.5
+						"x": 0.25,
+						"y": 0.25
 					}
 				},
 				{
 					"filename": "attack2.png",
-					"rotated": false,
-					"trimmed": true,
-					"sourceSize": {
-						"w": 231,
-						"h": 190
-					},
-					"spriteSourceSize": {
-						"x": 53,
-						"y": 20,
-						"w": 77,
-						"h": 122
-					},
 					"frame": {
 						"x": 307,
 						"y": 113,
@@ -205,8 +109,8 @@
 						"h": 122
 					},
 					"anchor": {
-						"x": 0.5,
-						"y": 0.5
+						"x": 0.25,
+						"y": 0.25
 					}
 				}
 			]

@@ -27,7 +27,7 @@ export default class PreloadScene extends Phaser.Scene {
     this.load.image('oxygen', "assets/map/oxygen.png");
 
 
-    // characters
+    // character/animation sprites
     this.load.atlas('player', 'assets/map/wizard walk.png', 'assets/map/wizard walk.json');
     this.load.image('inventoryButton', "assets/map/book.png");
 
@@ -38,6 +38,8 @@ export default class PreloadScene extends Phaser.Scene {
     this.load.atlas('playerAtk1', 'assets/character/Attack1/atk1.png', 'assets/character/Attack1/atk1.json');
 
     this.load.image('enemy', "src/assets/map/nacl_monster.png")
+    // audio
+    this.load.audio("bg_netherplace", "assets/audio/bg_netherplace.mp3");
   }
 
   create() {

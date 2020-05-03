@@ -18,7 +18,7 @@ export default class labScene extends Phaser.Scene {
 
     create(){
         this.labRect = this.add.rectangle(this.game.canvas.width/2, this.game.canvas.height/2, this.game.canvas.width/2, this.game.canvas.height/2, 0xf5deb3, 1);
-        console.log(this.game.canvas.width + " " + this.game.canvas.height);
+        //console.log(this.game.canvas.width + " " + this.game.canvas.height);
         let widthOff: number = this.labRect.width/8;//offset of width between the lab table and screen
         let heightOff: number = this.labRect.height/8;//offset of height between the lab table and screen
         let rectOffX: number = this.labRect.width/2  ;
@@ -40,11 +40,11 @@ export default class labScene extends Phaser.Scene {
 
         //let grid:Phaser.GameObjects.Grid = this.add.grid(screen.width/2, screen.height/2,screen.width/2, screen.height/2, screen.width/8, screen.height/8, 0x000000, 0, 0x000000, 1).setDepth(5);
 
-        this.hydro = this.add.image((screen.width/2 + boxOffX * 1), (screen.height/2 - rectOffY + boxOffY * 1), 'hydrogen').setDepth(4); // item # 1 lmao
-        this.oxy = this.add.image((screen.width/2 + boxOffX * 3), (screen.height/2 - rectOffY + boxOffY * 1), 'oxygen').setDepth(4);       // ITEM 2
-        this.hydro.setInteractive();
-        this.oxy.setInteractive();
-        this.input.setDraggable(this.hydro);
+        //this.hydro = this.add.image((screen.width/2 + boxOffX * 1), (screen.height/2 - rectOffY + boxOffY * 1), 'hydrogen').setDepth(4); // item # 1 lmao
+        //this.oxy = this.add.image((screen.width/2 + boxOffX * 3), (screen.height/2 - rectOffY + boxOffY * 1), 'oxygen').setDepth(4);       // ITEM 2
+        // this.hydro.setInteractive();
+        // this.oxy.setInteractive();
+        // this.input.setDraggable(this.hydro);
 
 
         this.input.on('drag', function (pointer, gameObject, dragX, dragY) {

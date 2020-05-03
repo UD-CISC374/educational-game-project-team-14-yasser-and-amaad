@@ -1,3 +1,7 @@
+import Player from "../objects/Player";
+import { GameObjects, Display } from "phaser"
+import { Inventory } from "../objects/Inventory";
+import { Element } from "../objects/Element";
 
   // CONSTANTS
   const jumpHeight : number = -750  ;
@@ -13,6 +17,8 @@ private platforms;
 private water;
 private hints;
 private invButton;
+private inventory: Inventory;
+private enemy: GameObjects.Image;
 
 
 //
@@ -76,7 +82,8 @@ gameHeight : number;
       hint.body.setSize(hint.width, hint.height);
       hint.setDepth(1);
 
-      this.hintsArray.push(this.add.text(hintObject.x + 30, hintObject.y - hintObject.height*2 , this.hintStrings[counter], {color: 'BLACK'})
+      this.hintsArray.push(
+        this.add.text(hintObject.x + 30, hintObject.y - hintObject.height*2 , this.hintStrings[counter], {color: 'BLACK'})
                           .setVisible(true)
                           .setOrigin(0.5)
                           .setAlign('center'));
@@ -86,33 +93,64 @@ gameHeight : number;
 
     this.physics.add.overlap(this.hints, this.player, this.playerHit, undefined, this);
 
-    this.physics.world.setBounds(0,0,7000, 1080);
+    this.physics.world.setBounds(0, 0, 7000, 1080);
     this.cameras.main.setBounds(0, 0, 7000, 1080);
     this.cameras.main.startFollow(this.player);
-    //this.scene.start('MainScene');
 
-    let paused:boolean = false;
-    this.invButton = this.add.image(80, 80, 'inventory').setScale(0.2);
+    //inventory menu in scene
+    this.inventory = new Inventory(this, 2 * this.game.canvas.width/3, this.game.canvas.height/2);
+    
+    // var tempRect = this.add.rectangle(0, 0, this.game.canvas.width/4, this.game.canvas.height/2, 0xffffff, 1);
+    // var tempCell:GameObjects.Rectangle = this.add.rectangle(0, 0, this.game.canvas.width/12, this.game.canvas.height/8, 0xff0000,1).setOrigin(0,0).setDepth(21);
+    // var tempCell1:GameObjects.Rectangle = this.add.rectangle(0, 0, this.game.canvas.width/12, this.game.canvas.height/8, 0x00ff00,1).setOrigin(0,0);
+    // var tempCell2:GameObjects.Rectangle = this.add.rectangle(0, 0, this.game.canvas.width/12, this.game.canvas.height/8, 0x0000ff,1).setOrigin(0,0);
+    
+    let hydrogen: Element = new Element("Hydrogen", "H", "description text", 1, 1, this.add.image(0, 0, "hydrogen"));
+    this.inventory.addItem(this, hydrogen);
+    
+
+
+
+
+    // tempCell.setInteractive();
+    // tempCell1.setInteractive();
+    // tempCell2.setInteractive();
+
+    // this.input.setDraggable(tempCell);
+    // this.input.setDraggable(tempCell1);
+    // this.input.setDraggable(tempCell2);
+    // this.inventory.setInteractive();
+    // console.log(this.inventory.length);
+
+    this.invButton = this.add.image(80, 80, 'inventoryButton').setScale(0.2);
     this.invButton.setScrollFactor(0);
     this.invButton.alpha = .5;
     this.invButton.setInteractive();
     this.invButton.on("pointerover",()=>{
-      console.log("hover");
+      // console.log("hover");
       this.invButton.alpha = 1;
     });
 
     this.invButton.on("pointerout",()=>{
-      console.log("nah");
+      // console.log("nah");
       this.invButton.alpha = .5;
     });
 
     this.invButton.on("pointerup", ()=>{
-      console.log("pause?");
-      this.scene.pause();
-      this.scene.launch('labScene');
+      // console.log("pause?");
+      if(this.inventory.visible === true){
+        this.inventory.setVis(false);
+        // console.log(this.inventory.visible);
+      }
+      else{
+        this.inventory.refreshRender(this);
+        this.inventory.setVis(true);
+        // console.log(this.inventory.visible);
+      }
+      // this.scene.pause();
+      // this.scene.launch('labScene');
     });
 
-    //let cir: Phaser.GameObjects.Shape = this.add.circle(screen.width - 150, screen.height - 100, 128, 0xffff00, 1).setDepth(4);
   }
 
   playerHit(){
@@ -120,6 +158,7 @@ gameHeight : number;
   }
 
   update() {
+
     if(this.cursors.left.isDown){
       this.player.setVelocityX(-300);
       if(this.player.body.onFloor()){
@@ -168,7 +207,7 @@ gameHeight : number;
     sprite.setCollideWorldBounds(true);
     sprite.setScale(1.5);
     this.physics.add.collider(sprite, this.platforms);
-    sprite.setDepth(999)
+    sprite.setDepth(5)
   }
 
 }

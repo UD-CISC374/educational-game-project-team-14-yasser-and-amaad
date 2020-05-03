@@ -1,23 +1,37 @@
 import { Item } from "./Item";
-import { Game } from "phaser";
+import { GameObjects, Display } from "phaser";
 
 export class Inventory extends Phaser.GameObjects.Container{
-    private items: Array<Item>;
+    private items: Item[] = [];
+    private inventoryDis: GameObjects.Container;
+    private tempRect: GameObjects.Rectangle;
 
-    addItem(name, amount){
+    constructor(scene:Phaser.Scene, x:number, y:number){
+        super(scene, x, y);
+        this.initializeInv(scene);
+    }
+
+    addItem(scene: Phaser.Scene,item:Item): void{
         for(var i = 0; i < this.items.length; i++){
-            if(this.items[i].name === name){
-                this.items[i].amount += amount;
+            if(this.items[i].name === item.name){
+                this.items[i].amount += 1;
                 return;
             }
         }
-        //this.items.push({name , amount});
+        this.items.push(item);
+        item.image.setInteractive();
+        scene.input.setDraggable(item.image);
+        scene.input.on('drag', function (pointer, gameObject, dragX, dragY) {
+            gameObject.x = dragX;
+            gameObject.y = dragY;
+        });
+        this.inventoryDis.add(item.image);
     }
 
-    removeItem(name, amount){
+    removeItem(item): void{
         for(var i = 0; i < this.items.length; i++){
-            if(this.items[i].name === name){
-                this.items[i].amount -= amount;
+            if(this.items[i].name === item.name){
+                this.items[i].amount -= 1;
                 if(this.items[i].amount <= 0){
                     this.items.splice(i,1);
                 }
@@ -26,18 +40,57 @@ export class Inventory extends Phaser.GameObjects.Container{
         }
     }
 
-    hasItem(name, amount){
+    hasItem(item): boolean{
         for(var i = 0; i < this.items.length; i++){
-            if(this.items[i].name === name){
-                return this.items[i].amount >= amount;
+            if(this.items[i].name === item.name){
+                return true;
             }
         }
         return false;
     }
 
-    refreshRender(){
-
+    initializeInv(scene: Phaser.Scene): void{
+        this.inventoryDis = scene.add.container(scene.game.canvas.width/3, scene.game.canvas.height/2).setName("pInventory");
+        this.tempRect = scene.add.rectangle(0, 0, scene.game.canvas.width/3, scene.game.canvas.height/2, 0xffffff).setDepth(20);
+        this.inventoryDis.add(this.tempRect);
+        this.inventoryDis.setVisible(false);
+        this.inventoryDis.setScrollFactor(0);
     }
+
+    refreshRender(scene: Phaser.Scene): void{
+        let xCount: number = 0;
+        let yCount: number = 0;
+        this.items.forEach(item => { 
+            if(xCount % 3 === 0){
+                Display.Align.In.TopLeft(item.image, this.tempRect);
+                item.image.y += yCount * this.tempRect.height/3;
+                console.log("here1");
+            }else if(xCount % 3 === 1){
+                Display.Align.In.TopCenter(item.image, this.tempRect);
+                item.image.y += yCount * this.tempRect.height/3;
+                console.log("here2");
+            }else if(xCount % 3 === 2){
+                Display.Align.In.TopRight(item.image, this.tempRect);
+                item.image.y += yCount * this.tempRect.height/3;
+                yCount++;
+                console.log("here3");
+            }
+        });
+    }
+
+    setVis(visible: boolean): void{
+        this.inventoryDis.setVisible(visible);
+        this.visible = visible;
+    }
+
+    getVis():boolean{
+        return this.inventoryDis.visible;
+    }
+
+    getDisplay(): GameObjects.Container{
+        return this.inventoryDis;
+    }
+
     // row: number;
     // col:number;
     // color;

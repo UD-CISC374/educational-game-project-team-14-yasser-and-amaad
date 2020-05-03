@@ -1,6 +1,7 @@
 import Player from "../objects/Player";
 import { GameObjects, Display } from "phaser"
 import { Inventory } from "../objects/Inventory";
+import { Element } from "../objects/Element";
 
   // CONSTANTS
   const jumpHeight : number = -750  ;
@@ -16,7 +17,7 @@ private platforms;
 private water;
 private hints;
 private invButton;
-private inventoryDisplay: GameObjects.Container;
+private inventory: Inventory;
 private enemy: GameObjects.Image;
 
 // game config
@@ -78,7 +79,8 @@ gameHeight : number;
       hint.body.setSize(hint.width, hint.height);
       hint.setDepth(1);
 
-      this.hintsArray.push(this.add.text(hintObject.x + 30, hintObject.y - hintObject.height*2 , this.hintStrings[counter], {color: 'BLACK'})
+      this.hintsArray.push(
+        this.add.text(hintObject.x + 30, hintObject.y - hintObject.height*2 , this.hintStrings[counter], {color: 'BLACK'})
                           .setVisible(true)
                           .setOrigin(0.5)
                           .setAlign('center'));
@@ -92,42 +94,32 @@ gameHeight : number;
     this.cameras.main.setBounds(0, 0, 7000, 1080);
     this.cameras.main.startFollow(this.player);
 
-    //inventoryDisplay menu in scene
-    this.inventoryDisplay = this.add.container(2 * this.game.canvas.width/3, this.game.canvas.height/2).setName("pInventory");
-    this.inventoryDisplay.setVisible(false);
+    //inventory menu in scene
+    this.inventory = new Inventory(this, 2 * this.game.canvas.width/3, this.game.canvas.height/2);
     
-    var tempRect = this.add.rectangle(0, 0, this.game.canvas.width/4, this.game.canvas.height/2, 0xffffff, 1);
-    var tempCell:GameObjects.Rectangle = this.add.rectangle(0, 0, this.game.canvas.width/12, this.game.canvas.height/8, 0xff0000,1).setOrigin(0,0).setDepth(21);
-    var tempCell1:GameObjects.Rectangle = this.add.rectangle(0, 0, this.game.canvas.width/12, this.game.canvas.height/8, 0x00ff00,1).setOrigin(0,0);
-    var tempCell2:GameObjects.Rectangle = this.add.rectangle(0, 0, this.game.canvas.width/12, this.game.canvas.height/8, 0x0000ff,1).setOrigin(0,0);
-    this.inventoryDisplay.setScrollFactor(0);
+    // var tempRect = this.add.rectangle(0, 0, this.game.canvas.width/4, this.game.canvas.height/2, 0xffffff, 1);
+    // var tempCell:GameObjects.Rectangle = this.add.rectangle(0, 0, this.game.canvas.width/12, this.game.canvas.height/8, 0xff0000,1).setOrigin(0,0).setDepth(21);
+    // var tempCell1:GameObjects.Rectangle = this.add.rectangle(0, 0, this.game.canvas.width/12, this.game.canvas.height/8, 0x00ff00,1).setOrigin(0,0);
+    // var tempCell2:GameObjects.Rectangle = this.add.rectangle(0, 0, this.game.canvas.width/12, this.game.canvas.height/8, 0x0000ff,1).setOrigin(0,0);
     
-    this.inventoryDisplay.add(tempRect)
-    this.inventoryDisplay.add(tempCell);
-    this.inventoryDisplay.add(tempCell1);
-    this.inventoryDisplay.add(tempCell2);
-
-    Display.Align.In.TopRight(tempCell,tempRect);
-    Display.Align.In.TopCenter(tempCell1,tempRect);
-    Display.Align.In.TopLeft(tempCell2,tempRect);
+    let hydrogen: Element = new Element("Hydrogen", "H", "description text", 1, 1, this.add.image(0, 0, "hydrogen"));
+    this.inventory.addItem(this, hydrogen);
+    
 
 
-    tempCell.setInteractive();
-    tempCell1.setInteractive();
-    tempCell2.setInteractive();
 
-    this.input.setDraggable(tempCell);
-    this.input.setDraggable(tempCell1);
-    this.input.setDraggable(tempCell2);
-    // this.inventoryDisplay.setInteractive();
-    console.log(this.inventoryDisplay.length);
 
-    this.input.on('drag', function (pointer, gameObject, dragX, dragY) {
-      gameObject.x = dragX;
-      gameObject.y = dragY;
-  })
+    // tempCell.setInteractive();
+    // tempCell1.setInteractive();
+    // tempCell2.setInteractive();
 
-    this.invButton = this.add.image(80, 80, 'inventory').setScale(0.2);
+    // this.input.setDraggable(tempCell);
+    // this.input.setDraggable(tempCell1);
+    // this.input.setDraggable(tempCell2);
+    // this.inventory.setInteractive();
+    // console.log(this.inventory.length);
+
+    this.invButton = this.add.image(80, 80, 'inventoryButton').setScale(0.2);
     this.invButton.setScrollFactor(0);
     this.invButton.alpha = .5;
     this.invButton.setInteractive();
@@ -143,13 +135,14 @@ gameHeight : number;
 
     this.invButton.on("pointerup", ()=>{
       // console.log("pause?");
-      if(this.inventoryDisplay.visible){
-        this.inventoryDisplay.setVisible(false);
-        // console.log(this.inventoryDisplay.visible);
+      if(this.inventory.visible === true){
+        this.inventory.setVis(false);
+        // console.log(this.inventory.visible);
       }
       else{
-        this.inventoryDisplay.setVisible(true);
-        // console.log(this.inventoryDisplay.visible);
+        this.inventory.refreshRender(this);
+        this.inventory.setVis(true);
+        // console.log(this.inventory.visible);
       }
       // this.scene.pause();
       // this.scene.launch('labScene');
@@ -162,6 +155,7 @@ gameHeight : number;
   }
 
   update() {
+
     if(this.cursors.left.isDown){
       this.player.setVelocityX(-300);
       if(this.player.body.onFloor()){

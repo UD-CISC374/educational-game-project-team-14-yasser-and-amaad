@@ -29,7 +29,7 @@ export default class PreloadScene extends Phaser.Scene {
 
     // characters
     this.load.atlas('player', 'assets/map/wizard walk.png', 'assets/map/wizard walk.json');
-    this.load.image('inventory', "assets/map/book.png");
+    this.load.image('inventoryButton', "assets/map/book.png");
 
     this.load.atlas('playerRun', 'assets/character/Run.png', 'assets/character/run.json');
     this.load.atlas('playerIdle', 'assets/character/Idle.png', 'assets/character/idle.json');

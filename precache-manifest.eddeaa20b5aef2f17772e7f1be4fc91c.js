@@ -1,11 +1,51 @@
 self.__precacheManifest = (self.__precacheManifest || []).concat([
   {
+    "revision": "cdb4f72489c04d6255aba76a4b11d2ee",
+    "url": "assets/audio/bg_netherplace.mp3"
+  },
+  {
     "revision": "1b37d71e6613877ee1bca1e157f22067",
     "url": "assets/character/Attack1.png"
   },
   {
-    "revision": "9a3201b9bd1a03679287ba60a23494c1",
-    "url": "assets/character/Attack2.png"
+    "revision": "91a704efad931d4d95df818348181363",
+    "url": "assets/character/Attack1/atk1.json"
+  },
+  {
+    "revision": "5e7ad62d20b1dc4c29dbec1bb0f0da96",
+    "url": "assets/character/Attack1/atk1.png"
+  },
+  {
+    "revision": "d6f84f3c74f46b95d4aed95fca3d8c3d",
+    "url": "assets/character/Attack1/attack0.png"
+  },
+  {
+    "revision": "2d608f0831f98c0905f336819d45bf37",
+    "url": "assets/character/Attack1/attack1.png"
+  },
+  {
+    "revision": "611563adb7669b84a9791d3db788a7ac",
+    "url": "assets/character/Attack1/attack2.png"
+  },
+  {
+    "revision": "33c0ffe3fa40da65dcd9b457867a0983",
+    "url": "assets/character/Attack1/attack3.png"
+  },
+  {
+    "revision": "702bde3248d65666a48a817bb542c923",
+    "url": "assets/character/Attack1/attack4.png"
+  },
+  {
+    "revision": "50ed41bc810d10162a6914fa5da62ac1",
+    "url": "assets/character/Attack1/attack5.png"
+  },
+  {
+    "revision": "c3c7a8851251141a53ef2d6737ecc04d",
+    "url": "assets/character/Attack1/attack6.png"
+  },
+  {
+    "revision": "31f2e5372e10e327d23901885d87eaf5",
+    "url": "assets/character/Attack1/attack7.png"
   },
   {
     "revision": "5f7683d03534f5b66116f6b84c2ce02f",
@@ -32,6 +72,10 @@ self.__precacheManifest = (self.__precacheManifest || []).concat([
     "url": "assets/character/Run.png"
   },
   {
+    "revision": "d00debe073802b3691ca18f35dacfc8e",
+    "url": "assets/character/fall.json"
+  },
+  {
     "revision": "bb418a0839c41bb49214360e83757bd9",
     "url": "assets/character/idle.json"
   },
@@ -40,7 +84,7 @@ self.__precacheManifest = (self.__precacheManifest || []).concat([
     "url": "assets/character/jump.json"
   },
   {
-    "revision": "d27271cda1509c848f3864233c59fa1a",
+    "revision": "4e1cfd2638ec74ada0ef3078383a81fd",
     "url": "assets/character/run.json"
   },
   {
@@ -72,12 +116,16 @@ self.__precacheManifest = (self.__precacheManifest || []).concat([
     "url": "assets/level_1/L1.json"
   },
   {
-    "revision": "0235b3d1a302d5d65c6641317832fd8e",
-    "url": "assets/level_1/Level_1.json"
+    "revision": "a48602ebec6aa57e928dd71fb082c0a9",
+    "url": "assets/level_1/L1_2.json"
   },
   {
-    "revision": "b5788327ae3bf9d3258b2b8c1b09a1a4",
-    "url": "assets/level_1/Level_12.json"
+    "revision": "bf5154c7780a1c59da1885c638a187ed",
+    "url": "assets/level_1/hydrogen_temp.png"
+  },
+  {
+    "revision": "b5ac1e9966fc042606667fa828d5a5b9",
+    "url": "assets/level_1/oxygen_temp.png"
   },
   {
     "revision": "7bc7195d820c3a4f5d4a0cc85abee0a5",
@@ -108,6 +156,10 @@ self.__precacheManifest = (self.__precacheManifest || []).concat([
     "url": "assets/map/map2.json"
   },
   {
+    "revision": "2e7513e06510b56df1d3bbfd3c10b185",
+    "url": "assets/map/nacl_monster.png"
+  },
+  {
     "revision": "548d362183ad41bba6624b086f21611b",
     "url": "assets/map/oxygen.png"
   },
@@ -132,12 +184,12 @@ self.__precacheManifest = (self.__precacheManifest || []).concat([
     "url": "favicon.ico"
   },
   {
-    "revision": "35a48dd10fca02d0ac5c8135dfdf5fba",
+    "revision": "560c667b9ca853cbb9da9178d28e247b",
     "url": "index.html"
   },
   {
-    "revision": "d9b3eeb8d6ca12991013",
-    "url": "main.ef184efff30e3dfc4a63.bundle.js"
+    "revision": "5541e7fe0fe87a61e68c",
+    "url": "main.e782dd3c48305baec696.bundle.js"
   },
   {
     "revision": "ac1053ef8a1c63f2611c6d02935bdf02",
@@ -148,7 +200,7 @@ self.__precacheManifest = (self.__precacheManifest || []).concat([
     "url": "sw.js"
   },
   {
-    "revision": "5e69403aa42e950fedff",
-    "url": "vendors.0805bb80903235d40eaf.bundle.js"
+    "revision": "5b8b7226720771b29cf3",
+    "url": "vendors.d6546dd505c268603c57.bundle.js"
   }
 ]);

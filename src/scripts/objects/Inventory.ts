@@ -19,6 +19,7 @@ export class Inventory extends Phaser.GameObjects.Container{
             }
         }
         this.items.push(item);
+        item.image.setScrollFactor(0);
         item.image.setInteractive();
         scene.input.setDraggable(item.image);
         scene.input.on('drag', function (pointer, gameObject, dragX, dragY) {
@@ -26,6 +27,9 @@ export class Inventory extends Phaser.GameObjects.Container{
             gameObject.y = dragY;
         });
         this.inventoryDis.add(item.image);
+
+        console.log("Item added");
+
     }
 
     removeItem(item): void{
@@ -75,6 +79,8 @@ export class Inventory extends Phaser.GameObjects.Container{
                 yCount++;
                 console.log("here3");
             }
+
+            xCount++;
         });
     }
 

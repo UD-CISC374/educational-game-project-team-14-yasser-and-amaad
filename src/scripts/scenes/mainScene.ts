@@ -26,8 +26,8 @@ private hints;
 private oxygenObjects;
 private hydrogenObjects;
 
-//
-private inAir:boolean;
+// Keyboard Keys
+private keyL;
 // bg music + audio
 private bgMusic:Phaser.Sound.BaseSound;
 // game config
@@ -51,6 +51,9 @@ gameHeight : number;
 
     // fixes phasing through floor error
     this.physics.world.TILE_BIAS = 32;
+
+    // Keyboard stuff
+    this.keyL = this.input.keyboard.addKey('L');
 
     // PARALLAX BG
     this.background = this.add.tileSprite(0, 0, this.gameWidth, this.gameHeight, "background").setOrigin(0,0).setScrollFactor(0);
@@ -86,13 +89,14 @@ gameHeight : number;
 
     // get user input
     this.cursors = this.input.keyboard.createCursorKeys();
+  
 
     // hint stuff
     this.hintsArray = [];
     this.hintsXPos = [];
     this.hintStrings = ["Pick up elements by walking over them", 
                         "Attack enemies using spacebar",
-                        "Combine elements by press 'L' or clicking the book on the top left",
+                        "Combine elements by pressing 'L' or clicking the book on the top left",
                         "Move on to the next level by going into the exit door"];
 
     this.hints = this.physics.add.group({
@@ -230,6 +234,19 @@ gameHeight : number;
       this.player.play('attack1', true)
     }
 
+    if(this.input.keyboard.checkDown(this.keyL, 1000)) {
+      console.log("L is down");
+      if(this.inventory.visible === true){
+        this.inventory.setVis(false);
+        // console.log(this.inventory.visible);
+      }
+      else{
+        this.inventory.refreshRender(this);
+        this.inventory.setVis(true);
+        // console.log(this.inventory.visible);
+      }
+    }
+
     // if(!this.player.body.onFloor() && this.player.body.velocity.y > 300){
     //   this.player.play('fall');
     // }
@@ -270,16 +287,13 @@ gameHeight : number;
     console.log("Player in water")
   }
 
-  collideHint(player, hint) {
+  collideHint(player) {
     let hintNumber:number = 4;
     for(let i = 0; i < this.hintsXPos.length; i++) {
-      if(player.x > this.hintsXPos[i] - player.width && player.x < this.hintsXPos[i] + player.width){
-        console.log("Player between hint[%d] = ", i, player.x > this.hintsXPos[i] - player.width && player.x < this.hintsXPos[i] + player.width);
+      if(player.x > this.hintsXPos[i] - player.width && player.x < this.hintsXPos[i] + player.width)
         this.hintsArray[i].setVisible(true);
-      }
-      else {
+      else 
         this.hintsArray[i].setVisible(false);
-      }
     }
   }
 

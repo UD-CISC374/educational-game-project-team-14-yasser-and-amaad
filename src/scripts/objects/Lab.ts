@@ -1,30 +1,22 @@
 import { Element } from "./Element"
 import { Compound } from "./Compound"
 import { Recipe } from "./Recipe"
+import { GameObjects } from "phaser"
+import { Inventory } from "./Inventory"
 
 export class Lab {
-    elements: Element[];
-    compounds: Compound[]
-    recipes: Recipe[]
+    private pInv: Inventory;
+    private tempTable: GameObjects.Rectangle[][];
+    private result: GameObjects.Rectangle;
+    private tempBack: GameObjects.Rectangle;
 
-    constructor(elements: Element[], compoounds: Compound[], recipes: Recipe[]) {
-        this.elements = elements
-        this.compounds = compoounds
-        this.recipes = recipes
-    }
-    public addElement(element: Element) {
-        this.elements.push(element);
-    }
-
-    public addCompount(compound: Compound) {
-        this.compounds.push(compound);
-    }
-
-    public addRecipe(recipe: Recipe) {
-        this.recipes.push(recipe);
-    }
-
-    public printElements() {
-        console.log(this.elements)
+    constructor(scene: Phaser.Scene, inv: Inventory){
+        this.pInv = inv;
+        this.tempBack = scene.add.rectangle(this.pInv.getRect().width, 0, this.pInv.getRect().width, this.pInv.getRect().height, 0xdeb887, 1);
+        this.tempTable = [
+            [scene.add.rectangle(0,0), scene.add.rectangle(128,0),scene.add.rectangle(256,0)],
+            [scene.add.rectangle(0,128), scene.add.rectangle(128,128), scene.add.rectangle(256,128)],
+            [scene.add.rectangle(0,256), scene.add.rectangle(128,256), scene.add.rectangle(256,256)]
+        ];
     }
 }

@@ -19,6 +19,7 @@ export class Inventory extends Phaser.GameObjects.Container{
             }
         }
         this.items.push(item);
+        //item.image.setDisplaySize(this.tempRect.height/3,this.tempRect.height/3).setOrigin(0,0);
         item.image.setInteractive();
         scene.input.setDraggable(item.image);
         scene.input.on('drag', function (pointer, gameObject, dragX, dragY) {
@@ -64,16 +65,16 @@ export class Inventory extends Phaser.GameObjects.Container{
             if(xCount % 3 === 0){
                 Display.Align.In.TopLeft(item.image, this.tempRect);
                 item.image.y += yCount * this.tempRect.height/3;
-                console.log("here1");
+                //console.log("here1");
             }else if(xCount % 3 === 1){
                 Display.Align.In.TopCenter(item.image, this.tempRect);
                 item.image.y += yCount * this.tempRect.height/3;
-                console.log("here2");
+                //console.log("here2");
             }else if(xCount % 3 === 2){
                 Display.Align.In.TopRight(item.image, this.tempRect);
                 item.image.y += yCount * this.tempRect.height/3;
                 yCount++;
-                console.log("here3");
+                //console.log("here3");
             }
         });
     }
@@ -89,6 +90,10 @@ export class Inventory extends Phaser.GameObjects.Container{
 
     getDisplay(): GameObjects.Container{
         return this.inventoryDis;
+    }
+
+    getRect(){
+        return this.tempRect;
     }
 
     // row: number;

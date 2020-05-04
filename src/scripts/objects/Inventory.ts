@@ -27,6 +27,7 @@ export class Inventory extends Phaser.GameObjects.Container{
             gameObject.y = dragY;
         });
         this.inventoryDis.add(item.image);
+        item.image.setDepth(-7);
     }
 
     removeItem(item): void{
@@ -52,13 +53,13 @@ export class Inventory extends Phaser.GameObjects.Container{
 
     initializeInv(scene: Phaser.Scene): void{
         this.inventoryDis = scene.add.container(scene.game.canvas.width/3, scene.game.canvas.height/2).setName("pInventory");
-        this.tempRect = scene.add.rectangle(0, 0, scene.game.canvas.width/3, scene.game.canvas.height/2, 0xffffff).setDepth(20);
+        this.tempRect = scene.add.rectangle(0, 0, scene.game.canvas.width/3, scene.game.canvas.height/2, 0xffffff);
         this.inventoryDis.add(this.tempRect);
         this.inventoryDis.setVisible(false);
         this.inventoryDis.setScrollFactor(0);
     }
 
-    refreshRender(scene: Phaser.Scene): void{
+    refreshRender(): void{
         let xCount: number = 0;
         let yCount: number = 0;
         this.items.forEach(item => { 

@@ -2,6 +2,7 @@ import Player from "../objects/Player";
 import { GameObjects, Display } from "phaser"
 import { Inventory } from "../objects/Inventory";
 import { Element } from "../objects/Element";
+import { Lab } from "../objects/Lab";
 
   // CONSTANTS
   const jumpHeight : number = -750  ;
@@ -18,6 +19,7 @@ private water;
 private hints;
 private invButton;
 private inventory: Inventory;
+private lab: Lab;
 private enemy: GameObjects.Image;
 
 
@@ -120,28 +122,14 @@ gameHeight : number;
 
     //inventory menu in scene
     this.inventory = new Inventory(this, 2 * this.game.canvas.width/3, this.game.canvas.height/2);
-    
-    // var tempRect = this.add.rectangle(0, 0, this.game.canvas.width/4, this.game.canvas.height/2, 0xffffff, 1);
-    // var tempCell:GameObjects.Rectangle = this.add.rectangle(0, 0, this.game.canvas.width/12, this.game.canvas.height/8, 0xff0000,1).setOrigin(0,0).setDepth(21);
-    // var tempCell1:GameObjects.Rectangle = this.add.rectangle(0, 0, this.game.canvas.width/12, this.game.canvas.height/8, 0x00ff00,1).setOrigin(0,0);
-    // var tempCell2:GameObjects.Rectangle = this.add.rectangle(0, 0, this.game.canvas.width/12, this.game.canvas.height/8, 0x0000ff,1).setOrigin(0,0);
-    
+
+    //lab menu in scene
+    this.lab = new Lab(this, this.inventory);
+
+
     let hydrogen: Element = new Element("Hydrogen", "H", "description text", 1, 1, this.add.image(0, 0, "hydrogen"));
     this.inventory.addItem(this, hydrogen);
     
-
-
-
-
-    // tempCell.setInteractive();
-    // tempCell1.setInteractive();
-    // tempCell2.setInteractive();
-
-    // this.input.setDraggable(tempCell);
-    // this.input.setDraggable(tempCell1);
-    // this.input.setDraggable(tempCell2);
-    // this.inventory.setInteractive();
-    // console.log(this.inventory.length);
 
     this.invButton = this.add.image(80, 80, 'inventoryButton').setScale(0.2);
     this.invButton.setScrollFactor(0);
@@ -164,7 +152,8 @@ gameHeight : number;
         // console.log(this.inventory.visible);
       }
       else{
-        this.inventory.refreshRender(this);
+        this.inventory.refreshRender();
+        this.lab.refreshRender();
         this.inventory.setVis(true);
         // console.log(this.inventory.visible);
       }

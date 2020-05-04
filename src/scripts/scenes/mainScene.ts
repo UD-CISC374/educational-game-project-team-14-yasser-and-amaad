@@ -202,6 +202,19 @@ gameHeight : number;
 
   update() {
 
+    this.handleKeyboardInput();
+
+
+    if(this.player.body.velocity.x > 0){
+      this.player.setFlipX(false);
+    }else if (this.player.body.velocity.x < 0){
+      this.player.setFlipX(true);
+    }
+  }
+
+  // Keyboard Input
+  handleKeyboardInput() {
+    // Move left or right
     if(this.cursors.left.isDown){
       this.player.setVelocityX(-500);
       if(this.player.body.onFloor()){
@@ -220,20 +233,25 @@ gameHeight : number;
       }
     }
 
+    // Jump
     if(this.cursors.up.isDown && this.player.body.onFloor()){
       this.player.setVelocityY(jumpHeight);
       this.player.play('jump', true);
     }
 
+    // Fall down faster
     if(this.cursors.down.isDown && !this.player.body.onFloor()){
       this.player.setVelocityY(750)
       this.player.play('jump', true);
     }
 
+    // Attack
     if(this.cursors.space.isDown) {
       this.player.play('attack1', true)
+      console.log("pew pew");
     }
 
+    // Open Lab
     if(this.input.keyboard.checkDown(this.keyL, 1000)) {
       console.log("L is down");
       if(this.inventory.visible === true){
@@ -245,16 +263,6 @@ gameHeight : number;
         this.inventory.setVis(true);
         // console.log(this.inventory.visible);
       }
-    }
-
-    // if(!this.player.body.onFloor() && this.player.body.velocity.y > 300){
-    //   this.player.play('fall');
-    // }
-
-    if(this.player.body.velocity.x > 0){
-      this.player.setFlipX(false);
-    }else if (this.player.body.velocity.x < 0){
-      this.player.setFlipX(true);
     }
   }
 

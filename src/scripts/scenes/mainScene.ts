@@ -125,6 +125,7 @@ gameHeight : number;
 
     //lab menu in scene
     this.lab = new Lab(this, this.inventory);
+    this.lab.makeCells(this);
 
 
     let hydrogen: Element = new Element("Hydrogen", "H", "description text", 1, 1, this.add.image(0, 0, "hydrogen"));
@@ -153,7 +154,6 @@ gameHeight : number;
       }
       else{
         this.inventory.refreshRender();
-        this.lab.refreshRender();
         this.inventory.setVis(true);
         // console.log(this.inventory.visible);
       }

@@ -6,27 +6,35 @@ import { Inventory } from "./Inventory"
 
 export class Lab {
     private pInv: Inventory;
-    private tempTable: GameObjects.Rectangle[];
+    private tempTable: GameObjects.Rectangle[] = [];
     private result: GameObjects.Rectangle;
     private tempBack: GameObjects.Rectangle;
 
     constructor(scene: Phaser.Scene, inv: Inventory){
         this.pInv = inv;
         this.tempTable = [];
-        this.tempBack = scene.add.rectangle(this.pInv.getRect().width, 0, this.pInv.getRect().width, this.pInv.getRect().height, 0xdeb887,.1);
+        this.tempBack = scene.add.rectangle(this.pInv.getRect().width, 0, this.pInv.getRect().width, this.pInv.getRect().height, 0xdeb887);
+        this.tempBack.setScrollFactor(0);
         this.pInv.getDisplay().add(this.tempBack);
 
     }
 
     makeCells(scene: Phaser.Scene):void{
         this.tempTable = [
-            scene.add.rectangle(0,0), scene.add.rectangle(128,0),scene.add.rectangle(256,0),
-            scene.add.rectangle(0,128), scene.add.rectangle(128,128), scene.add.rectangle(256,128),
-            scene.add.rectangle(0,256), scene.add.rectangle(128,256), scene.add.rectangle(256,256)];
+            scene.add.rectangle(0,0,128,128,0x808080, 1), scene.add.rectangle(128,0,128,128,0x808080,1), scene.add.rectangle(256,0,128,128,0x808080,1),
+            scene.add.rectangle(0,128,128,128,0x808080,1), scene.add.rectangle(128,128,128,128,0x808080,1), scene.add.rectangle(256,128,128,128,0x808080,1),
+            scene.add.rectangle(0,256,128,128,0x808080,1), scene.add.rectangle(128,256,128,128,0x808080,1), scene.add.rectangle(256,256,128,128,0x808080,1)];
 
             this.tempTable.forEach(cell => {
+                // cell.setInteractive();
+                // scene.input.setDraggable(cell);
+                // scene.input.on('drag', function (pointer, gameObject, dragX, dragY) {
+                //     gameObject.x = dragX;
+                //     gameObject.y = dragY;
+                // });
                 this.pInv.getDisplay().add(cell);
         });
+        this.refreshRender();
     }
 
     refreshRender(): void{
@@ -47,6 +55,7 @@ export class Lab {
                 yCount++;
                 //console.log("here3");
             }
+            xCount++;
         });
     }
 }

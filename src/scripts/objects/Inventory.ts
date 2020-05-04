@@ -21,13 +21,13 @@ export class Inventory extends Phaser.GameObjects.Container{
         this.items.push(item);
         //item.image.setDisplaySize(this.tempRect.height/3,this.tempRect.height/3).setOrigin(0,0);
         item.image.setInteractive();
+        item.image.setScrollFactor(0);
         scene.input.setDraggable(item.image);
         scene.input.on('drag', function (pointer, gameObject, dragX, dragY) {
             gameObject.x = dragX;
             gameObject.y = dragY;
         });
         this.inventoryDis.add(item.image);
-        item.image.setDepth(-7);
     }
 
     removeItem(item): void{

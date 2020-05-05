@@ -1,4 +1,4 @@
-import { GameObjects } from "phaser";
+import { GameObjects, Physics } from "phaser";
 import { Item } from "./Item";
 
 export class Element extends Item{

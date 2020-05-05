@@ -1,13 +1,13 @@
 import { Item } from "./Item";
 import { GameObjects, Display } from "phaser";
 
-export class Inventory extends Phaser.GameObjects.Container{
-    private items: Item[] = [];
+export class Inventory {
+    items: Item[] = [];
     private inventoryDis: GameObjects.Container;
     private tempRect: GameObjects.Rectangle;
 
     constructor(scene:Phaser.Scene, x:number, y:number){
-        super(scene, x, y);
+        // super(scene, x, y);
         this.initializeInv(scene);
     }
 
@@ -21,6 +21,7 @@ export class Inventory extends Phaser.GameObjects.Container{
         this.items.push(item);
         item.image.setScrollFactor(0);
         item.image.setInteractive();
+        item.image.setScrollFactor(0);
         scene.input.setDraggable(item.image);
         scene.input.on('drag', function (pointer, gameObject, dragX, dragY) {
             gameObject.x = dragX;
@@ -29,6 +30,7 @@ export class Inventory extends Phaser.GameObjects.Container{
         this.inventoryDis.add(item.image);
 
         console.log("Item added");
+        //console.log(this.items.length);
 
     }
 
@@ -55,29 +57,31 @@ export class Inventory extends Phaser.GameObjects.Container{
 
     initializeInv(scene: Phaser.Scene): void{
         this.inventoryDis = scene.add.container(scene.game.canvas.width/3, scene.game.canvas.height/2).setName("pInventory");
-        this.tempRect = scene.add.rectangle(0, 0, scene.game.canvas.width/3, scene.game.canvas.height/2, 0xffffff).setDepth(20);
+        this.tempRect = scene.add.rectangle(0, 0, scene.game.canvas.width/3, scene.game.canvas.height/2, 0xffffff);
         this.inventoryDis.add(this.tempRect);
         this.inventoryDis.setVisible(false);
+        console.log(this.inventoryDis.visible);
+        // this.inventoryDis.visible = false;
         this.inventoryDis.setScrollFactor(0);
     }
 
-    refreshRender(scene: Phaser.Scene): void{
+    refreshRender(): void{
         let xCount: number = 0;
         let yCount: number = 0;
         this.items.forEach(item => { 
             if(xCount % 3 === 0){
                 Display.Align.In.TopLeft(item.image, this.tempRect);
                 item.image.y += yCount * this.tempRect.height/3;
-                console.log("here1");
+                //console.log("here1");
             }else if(xCount % 3 === 1){
                 Display.Align.In.TopCenter(item.image, this.tempRect);
                 item.image.y += yCount * this.tempRect.height/3;
-                console.log("here2");
+                //console.log("here2");
             }else if(xCount % 3 === 2){
                 Display.Align.In.TopRight(item.image, this.tempRect);
                 item.image.y += yCount * this.tempRect.height/3;
                 yCount++;
-                console.log("here3");
+                //console.log("here3");
             }
 
             xCount++;
@@ -86,7 +90,7 @@ export class Inventory extends Phaser.GameObjects.Container{
 
     setVis(visible: boolean): void{
         this.inventoryDis.setVisible(visible);
-        this.visible = visible;
+        // this.visible = visible;
     }
 
     getVis():boolean{
@@ -95,6 +99,14 @@ export class Inventory extends Phaser.GameObjects.Container{
 
     getDisplay(): GameObjects.Container{
         return this.inventoryDis;
+    }
+
+    getRect(): GameObjects.Rectangle{
+        return this.tempRect;
+    }
+
+    getItems(): Item[]{
+        return this.items;
     }
 
     // row: number;

@@ -1,7 +1,8 @@
 import Player from "../objects/Player";
-import { GameObjects, Display } from "phaser"
+import { GameObjects, Display, Physics } from "phaser"
 import { Inventory } from "../objects/Inventory";
 import { Element } from "../objects/Element";
+import { Lab } from "../objects/Lab";
 
   // CONSTANTS
   const jumpHeight : number = -1000  ;
@@ -15,6 +16,7 @@ private tileset;
 private text;
 private invButton;
 private inventory: Inventory;
+private lab: Lab;
 private enemy: GameObjects.Image;
 
 // Tiled Layers
@@ -156,18 +158,10 @@ gameHeight : number;
     // this.inventory.addItem(this, hydrogen);
     
 
-
-
-
-    // tempCell.setInteractive();
-    // tempCell1.setInteractive();
-    // tempCell2.setInteractive();
-
-    // this.input.setDraggable(tempCell);
-    // this.input.setDraggable(tempCell1);
-    // this.input.setDraggable(tempCell2);
-    // this.inventory.setInteractive();
-    // console.log(this.inventory.length);
+    //lab menu in scene
+    this.lab = new Lab(this, this.inventory);
+    this.lab.makeCells(this);
+    
 
     this.invButton = this.add.image(80, 80, 'inventoryButton').setScale(0.2);
     this.invButton.setScrollFactor(0);
@@ -185,12 +179,12 @@ gameHeight : number;
 
     this.invButton.on("pointerup", ()=>{
       // console.log("pause?");
-      if(this.inventory.visible === true){
+      if(this.inventory.getDisplay().visible === true){
         this.inventory.setVis(false);
         // console.log(this.inventory.visible);
       }
       else{
-        this.inventory.refreshRender(this);
+        this.inventory.refreshRender();
         this.inventory.setVis(true);
         // console.log(this.inventory.visible);
       }
@@ -254,12 +248,12 @@ gameHeight : number;
     // Open Lab
     if(this.input.keyboard.checkDown(this.keyL, 1000)) {
       console.log("L is down");
-      if(this.inventory.visible === true){
+      if(this.inventory.getDisplay().visible === true){
         this.inventory.setVis(false);
         // console.log(this.inventory.visible);
       }
       else{
-        this.inventory.refreshRender(this);
+        this.inventory.refreshRender();
         this.inventory.setVis(true);
         // console.log(this.inventory.visible);
       }
@@ -310,6 +304,7 @@ gameHeight : number;
     // add to inventory here
     let item: Element = new Element("Hydrogen", "H", "description text", 1, 1, this.add.image(0, 0, "hydrogenTemp"));
     this.inventory.addItem(this, item);
+    this.lab.makeCollision(this, item);
 
     // destroy the hydrogen
     hydrogen.disableBody(true, true);
@@ -321,6 +316,7 @@ gameHeight : number;
     // add to inventory here
     let item: Element = new Element("Oxygen", "O", "description text", 2, 2, this.add.image(0, 0, "oxygenTemp"));
     this.inventory.addItem(this, item);
+    this.lab.makeCollision(this, item);
 
     // destroy oxygen object
     oxygen.disableBody(true, true);

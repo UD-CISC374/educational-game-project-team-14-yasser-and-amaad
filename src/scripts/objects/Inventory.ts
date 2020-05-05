@@ -29,7 +29,7 @@ export class Inventory {
         });
         this.inventoryDis.add(item.image);
 
-        console.log("Item added");
+        // console.log("Item added");
         //console.log(this.items.length);
 
     }
@@ -60,7 +60,7 @@ export class Inventory {
         this.tempRect = scene.add.rectangle(0, 0, scene.game.canvas.width/3, scene.game.canvas.height/2, 0xffffff);
         this.inventoryDis.add(this.tempRect);
         this.inventoryDis.setVisible(false);
-        console.log(this.inventoryDis.visible);
+        // console.log(this.inventoryDis.visible);
         // this.inventoryDis.visible = false;
         this.inventoryDis.setScrollFactor(0);
     }

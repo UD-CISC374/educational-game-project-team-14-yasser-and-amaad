@@ -9,7 +9,7 @@ export class Element extends Item{
     atomicWeight: number
     image: GameObjects.Image
     
-    constructor(name: string, symbol: string, description: string, atomicNum: number, atomicWeight: number, image: GameObjects.Image) {
+    constructor(name: string, symbol: string, description: string, atomicNum: number, atomicWeight: number, image: Physics.Arcade.Image) {
         super(name, symbol, description, image);
         this.name = name;
         this.description = description;

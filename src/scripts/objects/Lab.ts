@@ -1,7 +1,7 @@
 import { Element } from "./Element"
 import { Compound } from "./Compound"
 import { Recipe } from "./Recipe"
-import { GameObjects, Display } from "phaser"
+import { GameObjects, Display, Physics } from "phaser"
 import { Inventory } from "./Inventory"
 import { Item } from "./Item"
 
@@ -11,6 +11,8 @@ export class Lab {
     private tempFill: boolean[]
     private result: GameObjects.Rectangle;
     private tempBack: GameObjects.Rectangle;
+    private itemGroup;
+    private cellGroup;
 
     constructor(scene: Phaser.Scene, inv: Inventory){
         this.pInv = inv;
@@ -18,6 +20,8 @@ export class Lab {
         this.tempBack = scene.add.rectangle(this.pInv.getRect().width, 0, this.pInv.getRect().width, this.pInv.getRect().height, 0xdeb887);
         this.tempBack.setScrollFactor(0);
         this.pInv.getDisplay().add(this.tempBack);
+        this.itemGroup = scene.physics.add.group({allowGravity: false});
+        this.cellGroup = scene.physics.add.group({allowGravity: false});
     }
 
     makeCells(scene: Phaser.Scene):void{
@@ -47,6 +51,7 @@ export class Lab {
                 //     gameObject.y = dragY;
                 // });
                 this.pInv.getDisplay().add(cell);
+                this.cellGroup.add(cell);
         });
         
         
@@ -54,10 +59,8 @@ export class Lab {
     }
 
     makeCollision(scene: Phaser.Scene,item: Item){
-        this.tempTable.forEach(cell => {
-                console.log("in loop");
-                scene.physics.add.collider(item.image, cell,this.interactCell,undefined, scene);
-        });
+        this.itemGroup.add(item.image);
+                scene.physics.add.collider(this.itemGroup, this.cellGroup, this.interactCell);
     }
 
     refreshRender(): void{

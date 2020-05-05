@@ -192,15 +192,15 @@ self.__precacheManifest = (self.__precacheManifest || []).concat([
     "url": "/educational-game-project-team-14-yasser-and-amaad/betafavicon.ico"
   },
   {
-    "revision": "feb4444d4f599551461e",
-    "url": "/educational-game-project-team-14-yasser-and-amaad/betagen.main.cdf04c520c59a2ed2c3f.bundle.js"
+    "revision": "b0094bc7f026b38d0e9d",
+    "url": "/educational-game-project-team-14-yasser-and-amaad/betagen.main.bda3f36012b479f7c8fe.bundle.js"
   },
   {
     "revision": "8deb8371a7ec81e24f0f",
     "url": "/educational-game-project-team-14-yasser-and-amaad/betagen.vendors.990cf6033b3d7a488e13.bundle.js"
   },
   {
-    "revision": "a7ec0da8b1077afa0e55a4d77394bf15",
+    "revision": "402f7df1830ac12938b35ecdfd8d9e4b",
     "url": "/educational-game-project-team-14-yasser-and-amaad/betaindex.html"
   },
   {

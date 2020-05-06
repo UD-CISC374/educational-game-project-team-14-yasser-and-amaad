@@ -3,10 +3,11 @@ import { GameObjects, Display, Physics } from "phaser"
 import { Inventory } from "../objects/Inventory";
 import { Element } from "../objects/Element";
 import { Lab } from "../objects/Lab";
+import BasicAttack from "../objects/attacks/BasicAttack"
 
   // CONSTANTS
-  const jumpHeight : number = -1000  ;
-
+  const jumpHeight : number = -1200;
+  const runSpeed : number = 500;
 export default class MainScene extends Phaser.Scene {
   
 private background;
@@ -19,17 +20,22 @@ private inventory: Inventory;
 private lab: Lab;
 private enemy: GameObjects.Image;
 
+// Attack
+projectiles: GameObjects.Group;
+playerDirection: number;
+
 // Tiled Layers
 private platforms;
-private water;
+private waterTiles;
+private waterLayer;
+private exitTiles;
+private exitLayer;
 
 // Tiled Objects
 private hints;
 private oxygenObjects;
 private hydrogenObjects;
 
-// Keyboard Keys
-private keyL;
 // bg music + audio
 private bgMusic:Phaser.Sound.BaseSound;
 // game config
@@ -54,9 +60,6 @@ gameHeight : number;
     // fixes phasing through floor error
     this.physics.world.TILE_BIAS = 32;
 
-    // Keyboard stuff
-    this.keyL = this.input.keyboard.addKey('L');
-
     // PARALLAX BG
     this.background = this.add.tileSprite(0, 0, this.gameWidth, this.gameHeight, "background").setOrigin(0,0).setScrollFactor(0);
     this.background.tilePositionX = this.cameras.main.scrollX * .3;
@@ -75,19 +78,19 @@ gameHeight : number;
     this.bgMusic.play(musicConfig);
 
     // map stuff
-    this.map = this.add.tilemap('L1_2');
+    this.map = this.add.tilemap('Level_1');
     this.tileset = this.map.addTilesetImage('tiles_spritesheet', 'T1');
+    
     this.platforms = this.map.createStaticLayer('Ground', this.tileset, 0, 30);
-    this.platforms.setCollisionByExclusion(-1, true);
+    this.platforms.setCollisionByExclusion(-1);
 
-    this.water = this.map.createStaticLayer('Water', this.tileset, 0, 30);
-    this.water.setCollisionByExclusion(-1, true);
-    this.physics.add.overlap(this.water, this.player, this.collideWater, undefined, this);
-
+    this.waterLayer = this.map.createStaticLayer('Water', this.tileset, 0, 30);
+    this.exitLayer = this.map.createStaticLayer('Exit', this.tileset, 0, 30);
+    this.exitLayer.setTileIndexCallback(82, this.collideExit, this)
     // player stuff
     this.player = this.physics.add.sprite(10,this.game.canvas.height - (this.game.canvas.height/4), 'playerIdle');
-    console.log(typeof this.player);
     this.setSpriteProperties(this.player)
+    this.playerDirection = 1;
 
     // get user input
     this.cursors = this.input.keyboard.createCursorKeys();
@@ -129,7 +132,7 @@ gameHeight : number;
       allowGravity: false,
       immovable: true
     });
-    this.loadTiledObjects(this.hydrogenObjects, 'Hydrogen', 'hydrogenTemp')
+    this.loadTiledObjects(this.hydrogenObjects, 'Hydrogen', 'hydrogen')
     this.physics.add.overlap(this.player, this.hydrogenObjects, this.collideHydrogen, undefined, this);
 
     // add oxygen to map
@@ -137,7 +140,7 @@ gameHeight : number;
       allowGravity: false,
       immovable: true
     });
-    this.loadTiledObjects(this.oxygenObjects, 'Oxygen', 'oxygenTemp')
+    this.loadTiledObjects(this.oxygenObjects, 'Oxygen', 'oxygen')
     this.physics.add.overlap(this.player, this.oxygenObjects, this.collideOxygen, undefined, this);
 
 
@@ -149,15 +152,6 @@ gameHeight : number;
     //inventory menu in scene
     this.inventory = new Inventory(this, 2 * this.game.canvas.width/3, this.game.canvas.height/2);
     
-    // var tempRect = this.add.rectangle(0, 0, this.game.canvas.width/4, this.game.canvas.height/2, 0xffffff, 1);
-    // var tempCell:GameObjects.Rectangle = this.add.rectangle(0, 0, this.game.canvas.width/12, this.game.canvas.height/8, 0xff0000,1).setOrigin(0,0).setDepth(21);
-    // var tempCell1:GameObjects.Rectangle = this.add.rectangle(0, 0, this.game.canvas.width/12, this.game.canvas.height/8, 0x00ff00,1).setOrigin(0,0);
-    // var tempCell2:GameObjects.Rectangle = this.add.rectangle(0, 0, this.game.canvas.width/12, this.game.canvas.height/8, 0x0000ff,1).setOrigin(0,0);
-    
-    // let hydrogen: Element = new Element("Hydrogen", "H", "description text", 1, 1, this.add.image(0, 0, "hydrogen"));
-    // this.inventory.addItem(this, hydrogen);
-    
-
     //lab menu in scene
     this.lab = new Lab(this, this.inventory);
     this.lab.makeCells(this);
@@ -192,9 +186,24 @@ gameHeight : number;
       // this.scene.launch('labScene');
     });
 
+
+    // Attack projectile stuff
+    this.projectiles = this.add.group({
+      classType: BasicAttack,
+      runChildUpdate: true
+    });
+
+    this.physics.add.collider(this.projectiles, this.platforms, function(projectile, platform){
+      projectile.destroy();
+    });
+
   }
 
   update() {
+    //console.log(this.map.getTileAtWorldXY(this.player.x, this.player.y))
+    // handle collisions
+    // this.collideWater();
+    // this.collideExit();
 
     this.handleKeyboardInput();
 
@@ -210,12 +219,14 @@ gameHeight : number;
   handleKeyboardInput() {
     // Move left or right
     if(this.cursors.left.isDown){
-      this.player.setVelocityX(-500);
+      this.playerDirection = -1;
+      this.player.setVelocityX(-runSpeed);
       if(this.player.body.onFloor()){
         this.player.play('run', true);
       }
     }else if (this.cursors.right.isDown){
-      this.player.setVelocityX(500);
+      this.playerDirection = 1;
+      this.player.setVelocityX(runSpeed);
       if(this.player.body.onFloor()){
         this.player.play('run', true);
       }
@@ -235,18 +246,21 @@ gameHeight : number;
 
     // Fall down faster
     if(this.cursors.down.isDown && !this.player.body.onFloor()){
-      this.player.setVelocityY(750)
+      this.player.setVelocityY(750);
       this.player.play('jump', true);
     }
 
     // Attack
-    if(this.cursors.space.isDown) {
+    let spaceKey = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.SPACE);
+    if(Phaser.Input.Keyboard.JustDown(spaceKey)) {
+      this.performAttack();
       this.player.play('attack1', true)
       console.log("pew pew");
     }
 
     // Open Lab
-    if(this.input.keyboard.checkDown(this.keyL, 1000)) {
+    let keyL = this.input.keyboard.addKey('L');
+    if(this.input.keyboard.checkDown(keyL, 1000)) {
       console.log("L is down");
       if(this.inventory.getDisplay().visible === true){
         this.inventory.setVis(false);
@@ -258,6 +272,10 @@ gameHeight : number;
         // console.log(this.inventory.visible);
       }
     }
+  }
+
+  performAttack() {
+    let attack = new BasicAttack(this, this.playerDirection);
   }
 
   setSpriteProperties(sprite) {
@@ -285,8 +303,12 @@ gameHeight : number;
   }
 
   // -- START COLLISION FUNCTIONS --
+  collideExit() {
+      console.log("In exit hehe");
+  }
+  
   collideWater(){
-    console.log("Player in water")
+      console.log("In water hehe")
   }
 
   collideHint(player) {

@@ -10,7 +10,6 @@ export default class PreloadScene extends Phaser.Scene {
     this.load.image("rocks", "assets/level_1/rocks.png");
 
     // map objects
-    this.load.image('spike', "assets/map/spike.png");
     this.load.image('hint', "assets/level_1/sign.png");
 
     // tilesheets
@@ -21,19 +20,20 @@ export default class PreloadScene extends Phaser.Scene {
     this.load.tilemapTiledJSON('map', "assets/map/map2.json");
     this.load.tilemapTiledJSON('L1', "assets/level_1/L1.json");  // level 1 json map
     this.load.tilemapTiledJSON('L1_2', "assets/level_1/L1_2.json");  // level 1 json map
+    this.load.tilemapTiledJSON('Level_1', "assets/level_1/Level_1.json");  // level 1 json map
+
 
 
     // elements
-    this.load.image('hydrogen', "assets/map/hydrogen.png");
-    this.load.image('oxygen', "assets/map/oxygen.png");
+    this.load.image('hydrogen', "assets/elements/hydrogen.png");
+    this.load.image('oxygen', "assets/elements/oxygen.png");
 
     // temp elements
-    this.load.image('hydrogenTemp', "assets/level_1/hydrogen_temp.png");
-    this.load.image('oxygenTemp', "assets/level_1/oxygen_temp.png");
+    this.load.image('hydrogenTemp', "assets/elements/hydrogen_temp.png");
+    this.load.image('oxygenTemp', "assets/elements/oxygen_temp.png");
 
 
     // character/animation sprites
-    this.load.atlas('player', 'assets/map/wizard walk.png', 'assets/map/wizard walk.json');
     this.load.image('inventoryButton', "assets/map/book.png");
 
     this.load.atlas('playerRun', 'assets/character/animations/Run.png', 'assets/character/animations/run.json');
@@ -42,17 +42,26 @@ export default class PreloadScene extends Phaser.Scene {
     this.load.atlas('playerFall', 'assets/character/animations/Fall.png', 'assets/character/animations/fall.json');
     this.load.atlas('playerAtk1', 'assets/character/animations/Attack1/atk1.png', 'assets/character/animations/Attack1/atk1.json');
 
+    // attacks
+    this.load.spritesheet("basic_attack", "assets/character/attacks/beam.png", {
+      frameWidth: 16,
+      frameHeight: 16
+    });
+
+
+
     this.load.image('enemy', "src/assets/map/nacl_monster.png")
     // audio
     this.load.audio("bg_netherplace", "assets/audio/bg_netherplace.mp3");
   }
 
   create() {
-    this.handleAnimations();
+    this.createPlayerAnims();
+    this.createAttackAnims()
     this.scene.start('MainScene');
   }
 
-  handleAnimations(){
+  createPlayerAnims(){
     this.anims.create({
       key: 'run',
       frames: this.anims.generateFrameNames('playerRun', {
@@ -103,5 +112,15 @@ export default class PreloadScene extends Phaser.Scene {
       }),
       frameRate: 20,
     });
+  }
+
+  createAttackAnims() {
+    this.anims.create({
+      key: "basic_attack_anim",
+      frames: this.anims.generateFrameNumbers('basic_attack', {}),
+      frameRate: 20,
+      repeat: -1
+    })
+
   }
 }

@@ -213,6 +213,8 @@ gameHeight : number;
     }else if (this.player.body.velocity.x < 0){
       this.player.setFlipX(true);
     }
+
+    this.lab.recipeCases();
   }
 
   // Keyboard Input
@@ -324,7 +326,7 @@ gameHeight : number;
   collideHydrogen(player, hydrogen) {
     // console.log("Colliding with hydrogen")
     // add to inventory here
-    let item: Element = new Element("Hydrogen", "H", "description text", 1, 1, new Phaser.Physics.Arcade.Image(this,0, 0, "hydrogenTemp"));
+    let item: Element = new Element("Hydrogen", "H", "description text", 1, 1, this.add.image(0, 0, "hydrogen"));
     this.inventory.addItem(this, item);
     this.lab.makeCollision(this, item);
 
@@ -336,7 +338,7 @@ gameHeight : number;
     // console.log("Colliding with oxygen")
 
     // add to inventory here
-    let item: Element = new Element("Oxygen", "O", "description text", 2, 2, new Phaser.Physics.Arcade.Image(this,0, 0, "oxygenTemp"));
+    let item: Element = new Element("Oxygen", "O", "description text", 2, 2, this.add.image(0, 0, "oxygen"));
     this.inventory.addItem(this, item);
     this.lab.makeCollision(this, item);
 

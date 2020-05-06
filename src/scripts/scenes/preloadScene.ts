@@ -22,8 +22,6 @@ export default class PreloadScene extends Phaser.Scene {
     this.load.tilemapTiledJSON('L1_2', "assets/level_1/L1_2.json");  // level 1 json map
     this.load.tilemapTiledJSON('Level_1', "assets/level_1/Level_1.json");  // level 1 json map
 
-
-
     // elements
     this.load.image('hydrogen', "assets/elements/hydrogen.png");
     this.load.image('oxygen', "assets/elements/oxygen.png");
@@ -31,6 +29,11 @@ export default class PreloadScene extends Phaser.Scene {
     // temp elements
     this.load.image('hydrogenTemp', "assets/elements/hydrogen_temp.png");
     this.load.image('oxygenTemp', "assets/elements/oxygen_temp.png");
+
+    // other objects
+    this.load.image('exitobject', "assets/level_1/exitobject.png");
+    this.load.image('waterobject', "assets/level_1/waterobject.png");
+
 
 
     // character/animation sprites

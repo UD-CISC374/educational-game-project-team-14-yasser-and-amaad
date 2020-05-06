@@ -33,6 +33,8 @@ private exitLayer;
 
 // Tiled Objects
 private hints;
+private exitObjects;
+private waterObjects;
 private oxygenObjects;
 private hydrogenObjects;
 
@@ -81,12 +83,12 @@ gameHeight : number;
     this.map = this.add.tilemap('Level_1');
     this.tileset = this.map.addTilesetImage('tiles_spritesheet', 'T1');
     
+    // draw tiles
     this.platforms = this.map.createStaticLayer('Ground', this.tileset, 0, 30);
     this.platforms.setCollisionByExclusion(-1);
+    this.waterLayer = this.map.createStaticLayer('WaterTile', this.tileset, 0, 30);
+    this.exitLayer = this.map.createStaticLayer('ExitTile', this.tileset, 0, 30);
 
-    this.waterLayer = this.map.createStaticLayer('Water', this.tileset, 0, 30);
-    this.exitLayer = this.map.createStaticLayer('Exit', this.tileset, 0, 30);
-    this.exitLayer.setTileIndexCallback(82, this.collideExit, this)
     // player stuff
     this.player = this.physics.add.sprite(10,this.game.canvas.height - (this.game.canvas.height/4), 'playerIdle');
     this.setSpriteProperties(this.player)
@@ -95,7 +97,6 @@ gameHeight : number;
     // get user input
     this.cursors = this.input.keyboard.createCursorKeys();
   
-
     // hint stuff
     this.hintsArray = [];
     this.hintsXPos = [];
@@ -142,6 +143,22 @@ gameHeight : number;
     });
     this.loadTiledObjects(this.oxygenObjects, 'Oxygen', 'oxygen')
     this.physics.add.overlap(this.player, this.oxygenObjects, this.collideOxygen, undefined, this);
+
+    // add exit collisions
+    this.exitObjects = this.physics.add.group({
+      allowGravity: false,
+      immovable: true
+    });
+    this.loadTiledObjects(this.exitObjects, 'Exit', 'exitobject')
+    this.physics.add.overlap(this.player, this.exitObjects, this.collideExit, undefined, this);
+
+    // add water collisions
+    this.waterObjects = this.physics.add.group({
+      allowGravity: false,
+      immovable: true
+    });
+    this.loadTiledObjects(this.waterObjects, 'Water', 'waterobject')
+    this.physics.add.overlap(this.player, this.waterObjects, this.collideWater, undefined, this);
 
 
     // follow player with camera

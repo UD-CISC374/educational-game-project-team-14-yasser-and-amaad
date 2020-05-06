@@ -1,4 +1,11 @@
 { "compressionlevel":-1,
+ "editorsettings":
+    {
+     "export":
+        {
+         "target":"."
+        }
+    },
  "height":15,
  "infinite":false,
  "layers":[
@@ -8,10 +15,10 @@
          "encoding":"base64",
          "height":15,
          "id":2,
-         "name":"Water",
+         "name":"WaterTile",
          "opacity":1,
          "type":"tilelayer",
-         "visible":true,
+         "visible":false,
          "width":100,
          "x":0,
          "y":0
@@ -139,11 +146,141 @@
          "encoding":"base64",
          "height":15,
          "id":9,
-         "name":"Exit",
+         "name":"ExitTile",
          "opacity":1,
          "type":"tilelayer",
          "visible":true,
          "width":100,
+         "x":0,
+         "y":0
+        }, 
+        {
+         "draworder":"topdown",
+         "id":10,
+         "name":"Water",
+         "objects":[
+                {
+                 "gid":103,
+                 "height":70,
+                 "id":22,
+                 "name":"",
+                 "rotation":0,
+                 "type":"",
+                 "visible":true,
+                 "width":70,
+                 "x":1330,
+                 "y":980
+                }, 
+                {
+                 "gid":103,
+                 "height":70,
+                 "id":23,
+                 "name":"",
+                 "rotation":0,
+                 "type":"",
+                 "visible":true,
+                 "width":70,
+                 "x":1400,
+                 "y":980
+                }, 
+                {
+                 "gid":103,
+                 "height":70,
+                 "id":24,
+                 "name":"",
+                 "rotation":0,
+                 "type":"",
+                 "visible":true,
+                 "width":70,
+                 "x":1470,
+                 "y":980
+                }, 
+                {
+                 "gid":103,
+                 "height":70,
+                 "id":25,
+                 "name":"",
+                 "rotation":0,
+                 "type":"",
+                 "visible":true,
+                 "width":70,
+                 "x":1540,
+                 "y":980
+                }, 
+                {
+                 "gid":103,
+                 "height":70,
+                 "id":26,
+                 "name":"",
+                 "rotation":0,
+                 "type":"",
+                 "visible":true,
+                 "width":70,
+                 "x":1610,
+                 "y":980
+                }, 
+                {
+                 "gid":103,
+                 "height":70,
+                 "id":27,
+                 "name":"",
+                 "rotation":0,
+                 "type":"",
+                 "visible":true,
+                 "width":70,
+                 "x":5320,
+                 "y":980
+                }, 
+                {
+                 "gid":103,
+                 "height":70,
+                 "id":28,
+                 "name":"",
+                 "rotation":0,
+                 "type":"",
+                 "visible":true,
+                 "width":70,
+                 "x":5390,
+                 "y":980
+                }, 
+                {
+                 "gid":103,
+                 "height":70,
+                 "id":29,
+                 "name":"",
+                 "rotation":0,
+                 "type":"",
+                 "visible":true,
+                 "width":70,
+                 "x":5460,
+                 "y":980
+                }],
+         "opacity":1,
+         "type":"objectgroup",
+         "visible":true,
+         "x":0,
+         "y":0
+        }, 
+        {
+         "draworder":"topdown",
+         "id":11,
+         "name":"Exit",
+         "objects":[
+                {
+                 "gid":82,
+                 "height":70,
+                 "id":30,
+                 "name":"",
+                 "rotation":0,
+                 "type":"",
+                 "visible":true,
+                 "width":70,
+                 "x":6790,
+                 "y":840
+                }],
+         "opacity":1,
+         "type":"objectgroup",
+         "visible":true,
          "x":0,
          "y":0
         }, 
@@ -161,8 +298,8 @@
          "x":0,
          "y":0
         }],
- "nextlayerid":10,
- "nextobjectid":22,
+ "nextlayerid":12,
+ "nextobjectid":31,
  "orientation":"orthogonal",
  "renderorder":"right-down",
  "tiledversion":"1.3.4",

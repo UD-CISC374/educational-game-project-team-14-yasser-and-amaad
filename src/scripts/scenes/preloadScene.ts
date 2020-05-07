@@ -67,7 +67,7 @@ export default class PreloadScene extends Phaser.Scene {
   create() {
     this.createPlayerAnims();
     this.createAttackAnims()
-    this.scene.start('MainScene');
+    this.scene.start('LevelOneScene');
   }
 
   createPlayerAnims(){

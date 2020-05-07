@@ -101,7 +101,8 @@ gameHeight : number;
     //boss stuff
     this.boss = new Enemy(this, this.map.width * 25 , 10, "boss", 10, 2, "nacl");
     this.setSpriteProperties(this.boss, .75);
-  
+    
+    
     // hint stuff
     this.hintsArray = [];
     this.hintsXPos = [];

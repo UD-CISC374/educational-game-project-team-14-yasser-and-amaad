@@ -182,21 +182,10 @@ export default class MainScene extends Phaser.Scene {
     }
 
     initializePlayer() {
-        this.player = new Player(this, 10, this.game.canvas.height - (this.game.canvas.height / 4), 'playerIdle');
-        this.setSpriteProperties(this.player, 1.5)
-    }
-
-    initEnemy(){
-        this.enemies.push(new Enemy(this, this.map.width * 28, 0, 'enemy', 5, 1, "nacl"));
-        this.enemiesGroup = this.physics.add.group({
-            immovable: true
-        });
-        //console.log(this.enemies.length);
-        this.enemies.forEach(enemy => {
-            this.setSpriteProperties(enemy, .75);
-            this.enemiesGroup.add(enemy);
-        })
-        this.physics.add.collider(this.player, this.enemiesGroup, this.collidePlayerEnemy, undefined, this);
+        let startXIndex = 0;
+        let startYIndex = 11;
+        this.player = this.physics.add.sprite(startXIndex*70, startYIndex*70 + 40, 'playerIdle');
+        this.setSpriteProperties(this.player)
     }
 
     initializeCamera() {
@@ -264,6 +253,13 @@ export default class MainScene extends Phaser.Scene {
     // -- START HELPER FUNCTIONS --
     stopMusic() {
         this.bgMusic.stop();
+    }
+
+    disableInventory() {
+        if (this.inventory.getDisplay().visible === true) {
+            this.inventory.setVis(false);
+            // console.log(this.inventory.visible);
+        }
     }
 
     performAttack() {
@@ -360,6 +356,7 @@ export default class MainScene extends Phaser.Scene {
     // -- START COLLISION FUNCTIONS --
     collideExit() {
         this.stopMusic();
+        this.disableInventory();
         this.scene.stop('MainScene');
         this.scene.start('LevelTwoScene');
     }
@@ -446,6 +443,7 @@ export default class MainScene extends Phaser.Scene {
         //console.log("LEVEL ONE RUNNING")
         if (this.gameOver) {
             this.stopMusic();
+            this.disableInventory();
             this.player.setCollideWorldBounds(false);
 
             this.player.setVelocityX(1000)

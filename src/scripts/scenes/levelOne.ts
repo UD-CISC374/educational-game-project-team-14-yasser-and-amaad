@@ -182,11 +182,12 @@ export default class MainScene extends Phaser.Scene {
     }
 
     initializePlayer() {
-        this.player = new Player(this, 10, this.game.canvas.height - (this.game.canvas.height / 4), 'playerIdle');
+        this.player = new Player(this, 10, this.game.canvas.height - (this.game.canvas.height / 4), 'playerIdle', 10, 1);
         this.setSpriteProperties(this.player, 1.5)
     }
 
     initEnemy(){
+        this.enemies = []
         this.enemies.push(new Enemy(this, this.map.width * 28, 0, 'enemy', 5, 1, "nacl"));
         this.enemiesGroup = this.physics.add.group({
             immovable: true
@@ -254,6 +255,10 @@ export default class MainScene extends Phaser.Scene {
         this.physics.add.collider(this.projectiles, this.platforms, function (projectile, platform) {
             projectile.destroy();
         });
+
+        this.physics.add.collider(this.projectiles, this.enemiesGroup, function(projectile, enemy){
+            projectile.destroy();
+        });
     }
     // -- END INITIALIZE FUNCTIONS --
 
@@ -270,12 +275,14 @@ export default class MainScene extends Phaser.Scene {
         let attack = new BasicAttack(this, this.playerDirection);
     }
 
-    setSpriteProperties(sprite, scale: number) {
+    setSpriteProperties(sprite, scale: number, depth?: number) {
         sprite.setBounce(0.1);
         sprite.setCollideWorldBounds(true);
         sprite.setScale(scale);
         this.physics.add.collider(sprite, this.platforms);
-        sprite.setDepth(1)
+        if(depth !== undefined){
+            sprite.setDepth(depth);
+        }
     }
 
     /**
@@ -397,15 +404,17 @@ export default class MainScene extends Phaser.Scene {
     }
 
     collidePlayerEnemy(player, enemy){
-        this.player.play('hit', true);
-        console.log(true);
-        this.player.health -= enemy.getDamage();
+        this.player.play('jump', true);
+        console.log(player.health);
+        this.player.health -= enemy.damage;
         player.x -= 20;
         // player.setVelocityY(-500);
     }
 
     collideBeamEnemy(beam, enemy){
-
+        console.log("collides");
+        beam.disableBody();
+        enemy.health -= this.player.damage;
     }
     // -- END COLLISION FUNCTIONS --
 
@@ -428,21 +437,21 @@ export default class MainScene extends Phaser.Scene {
         this.cursors = this.input.keyboard.createCursorKeys();
 
         // Inits
-        this.initializeText();
         this.initializeBackground()
-        this.initializeMusic();
         this.initializeMap();
         this.initializePlayer();
+        this.initializeText();
+        this.initializeMusic();
         this.initializeHints();
         this.initializeMapObjects();
         this.initializeCamera();
         this.initializeLab();
-        this.initializeProjectiles();
         this.initEnemy();
+        this.initializeProjectiles();
     }
 
     update() {
-        console.log("LEVEL ONE RUNNING")
+        //console.log("LEVEL ONE RUNNING")
         if (this.gameOver) {
             this.stopMusic();
             this.player.setCollideWorldBounds(false);

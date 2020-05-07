@@ -9,6 +9,7 @@ export default class Enemy extends Physics.Arcade.Image {
 
     constructor(scene:Phaser.Scene,x: number, y: number,enemyImage: string, health: number, damage: number, monsterType: string, scale?: number) {
         super(scene, x, y, enemyImage);
+        scene.physics.world.enableBody(this);
         scene.add.existing(this);
         scene.physics.add.existing(this);
         this.health = health;
@@ -23,7 +24,4 @@ export default class Enemy extends Physics.Arcade.Image {
     movement(){
         
     }
-
-    //collision with player
-    
 }

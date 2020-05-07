@@ -20,7 +20,7 @@ export default class MainScene extends Phaser.Scene {
   private invButton;
   private inventory: Inventory;
   private lab: Lab;
-  private enemy: GameObjects.Image;
+  private boss: GameObjects.Image;
 
   // BG Music
   private bgMusic: Phaser.Sound.BaseSound;

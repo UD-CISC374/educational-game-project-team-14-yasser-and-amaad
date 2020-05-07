@@ -50,6 +50,7 @@ export default class PreloadScene extends Phaser.Scene {
     this.load.atlas('playerJump', 'assets/character/animations/Jump.png', 'assets/character/animations/jump.json');
     this.load.atlas('playerFall', 'assets/character/animations/Fall.png', 'assets/character/animations/fall.json');
     this.load.atlas('playerAtk1', 'assets/character/animations/Attack1/atk1.png', 'assets/character/animations/Attack1/atk1.json');
+    this.load.atlas('playerHit', 'src/assets/character/animations/Hit.png', 'assets/character/animations/hit.json');
 
     // attacks
     this.load.spritesheet("basic_attack", "assets/character/attacks/beam.png", {
@@ -57,9 +58,10 @@ export default class PreloadScene extends Phaser.Scene {
       frameHeight: 16
     });
 
-
-
+    //enemies
     this.load.image('boss', "src/assets/map/nacl_monster.png")
+    this.load.image('enemy', "src/assets/map/enemy_1.png")
+    
     // audio
     this.load.audio("bg_netherplace", "assets/audio/bg_netherplace.mp3");
   }
@@ -121,6 +123,17 @@ export default class PreloadScene extends Phaser.Scene {
       }),
       frameRate: 20,
     });
+
+    this.anims.create({
+      key: 'hit',
+      frames: this.anims.generateFrameNames('playerHit', {
+        prefix: "hit",
+        start: 0,
+        end: 3,
+        suffix: '.png'
+      }),
+      frameRate: 4
+    });
   }
 
   createAttackAnims() {
@@ -129,7 +142,7 @@ export default class PreloadScene extends Phaser.Scene {
       frames: this.anims.generateFrameNumbers('basic_attack', {}),
       frameRate: 20,
       repeat: -1
-    })
+    });
 
   }
 }

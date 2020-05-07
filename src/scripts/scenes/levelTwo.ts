@@ -130,9 +130,7 @@ export default class MainScene extends Phaser.Scene {
   }
 
   initializePlayer() {
-    let startXIndex = 2;
-    let startYIndex = 2;
-    this.player = this.physics.add.sprite(startXIndex*70, startYIndex*70 + 40, 'playerIdle');
+    this.player = this.physics.add.sprite(140, 140, 'playerIdle');
     this.setSpriteProperties(this.player)
   }
 

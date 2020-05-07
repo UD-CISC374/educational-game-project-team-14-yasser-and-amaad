@@ -6,8 +6,8 @@ import { Lab } from "../objects/Lab";
 import BasicAttack from "../objects/attacks/BasicAttack"
 
 // CONSTANTS
-const jumpHeight: number = -1300;
-const runSpeed: number = 1500;
+const jumpHeight: number = -1200;
+const runSpeed: number = 500;
 
 export default class MainScene extends Phaser.Scene {
 

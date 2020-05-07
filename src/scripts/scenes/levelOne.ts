@@ -397,9 +397,10 @@ export default class MainScene extends Phaser.Scene {
     }
 
     collidePlayerEnemy(player, enemy){
-        this.player.play('hit', true);
-        console.log(true);
+        this.player.play('jump', true);
+        console.log(player.health);
         this.player.health -= enemy.getDamage();
+        console.log(player.health);
         player.x -= 20;
         // player.setVelocityY(-500);
     }
@@ -442,7 +443,7 @@ export default class MainScene extends Phaser.Scene {
     }
 
     update() {
-        console.log("LEVEL ONE RUNNING")
+        //console.log("LEVEL ONE RUNNING")
         if (this.gameOver) {
             this.stopMusic();
             this.player.setCollideWorldBounds(false);

@@ -8,7 +8,7 @@ import BasicAttack from "../objects/attacks/BasicAttack"
   // CONSTANTS
   const jumpHeight : number = -1300;
   const runSpeed : number = 1500;
-export default class MainScene extends Phaser.Scene {
+export default class LevelTwo extends Phaser.Scene {
   
   // Game vars
   private background;
@@ -39,7 +39,7 @@ export default class MainScene extends Phaser.Scene {
   // Tiled Objects
   private hints;
   private exitObjects;
-  private waterObjects;
+  private lavaObjects;
   private oxygenObjects;
   private hydrogenObjects;
 
@@ -57,7 +57,7 @@ export default class MainScene extends Phaser.Scene {
   hintsXPos : Array<number>;
   hintStrings : Array<string>;
   constructor() {
-    super({ key: 'MainScene' });
+    super({ key: 'LevelTwoScene' });
   }
 
   create() {
@@ -86,17 +86,16 @@ export default class MainScene extends Phaser.Scene {
     this.bgMusic.play(musicConfig);
 
     // map stuff
-    this.map = this.add.tilemap('Level_1');
+    this.map = this.add.tilemap('Level_2');
     this.tileset = this.map.addTilesetImage('tiles_spritesheet', 'T1');
     
     // draw tiles
     this.platforms = this.map.createStaticLayer('Ground', this.tileset, 0, 30);
     this.platforms.setCollisionByExclusion(-1);
-    this.waterLayer = this.map.createStaticLayer('WaterTile', this.tileset, 0, 30);
     this.exitLayer = this.map.createStaticLayer('ExitTile', this.tileset, 0, 30);
 
     // player stuff
-    this.player = this.physics.add.sprite(10,this.game.canvas.height - (this.game.canvas.height/4), 'playerIdle');
+    this.player = this.physics.add.sprite(10, 0, 'playerIdle');
     this.setSpriteProperties(this.player)
     this.playerDirection = 1;
 
@@ -111,60 +110,21 @@ export default class MainScene extends Phaser.Scene {
                         "Combine elements by pressing 'L' or clicking the book on the top left",
                         "Move on to the next level by going into the exit door"];
 
-    this.hints = this.physics.add.group({
-      allowGravity: false,
-      immovable: true
-    });
-
-    const hintObject = this.map.getObjectLayer('Hint')['objects'];
-    let counter = 0;
-    hintObject.forEach(hintObject => {
-      const hint = this.hints.create(hintObject.x, hintObject.y + 30 - hintObject.height, 'hint').setOrigin(0,0);
-      hint.body.setSize(hint.width, hint.height);
-      hint.setDepth(0);
-
-      this.hintsArray.push(
-        this.add.text(hintObject.x + 30, hintObject.y - hintObject.height*2 , this.hintStrings[counter], {color: 'BLACK'})
-                          .setVisible(false)
-                          .setOrigin(0.5)
-                          .setAlign('center'));
-      this.hintsXPos.push(hintObject.x);
-      counter++;
-    });
-    this.physics.add.overlap(this.player, this.hints, this.collideHint, undefined, this);
-
-
-    // add hydrogen to map
-    this.hydrogenObjects = this.physics.add.group({
-      allowGravity: false,
-      immovable: true
-    });
-    this.loadTiledObjects(this.hydrogenObjects, 'Hydrogen', 'hydrogen')
-    this.physics.add.overlap(this.player, this.hydrogenObjects, this.collideHydrogen, undefined, this);
-
-    // add oxygen to map
-    this.oxygenObjects = this.physics.add.group({
-      allowGravity: false,
-      immovable: true
-    });
-    this.loadTiledObjects(this.oxygenObjects, 'Oxygen', 'oxygen')
-    this.physics.add.overlap(this.player, this.oxygenObjects, this.collideOxygen, undefined, this);
-
     // add exit collisions
     this.exitObjects = this.physics.add.group({
       allowGravity: false,
       immovable: true
     });
-    this.loadTiledObjects(this.exitObjects, 'Exit', 'exitobject')
+    this.loadTiledObjects(this.exitObjects, 'Exit', 'exitopenobject')
     this.physics.add.overlap(this.player, this.exitObjects, this.collideExit, undefined, this);
 
     // add water collisions
-    this.waterObjects = this.physics.add.group({
+    this.lavaObjects = this.physics.add.group({
       allowGravity: false,
       immovable: true
     });
-    this.loadTiledObjects(this.waterObjects, 'Water', 'waterobject')
-    this.physics.add.overlap(this.player, this.waterObjects, this.collideWater, undefined, this);
+    this.loadTiledObjects(this.lavaObjects, 'Lava', 'lavaobject')
+    this.physics.add.overlap(this.player, this.lavaObjects, this.collideWater, undefined, this);
 
 
     // follow player with camera
@@ -227,14 +187,12 @@ export default class MainScene extends Phaser.Scene {
     if(this.gameOver) {
       this.bgMusic.stop();
       this.player.setCollideWorldBounds(false);
+      this.player.setVelocityX(200)
 
-      this.player.setVelocityX(1000)
-      if(this.player.x >= this.map.width * 70)
-        this.player.setVelocityX(0)
 
+      console.log(this.player.x);
       this.gameText.setVisible(true);
 
-    
       //Restart when we press R
       var rKey = this.input.keyboard.addKey("R");
       if(rKey.isDown){
@@ -256,7 +214,7 @@ export default class MainScene extends Phaser.Scene {
 
   // inits
   initText(){
-    this.gameText = this.add.text(this.gameWidth/2 - 270,this.gameHeight/3,"Press R to Restart");
+    this.gameText = this.add.text(this.gameWidth/2 - 270,this.gameHeight/3,"WE'RE IN LEVEL TWO NOW");
     this.gameText.setStyle({
       fontSize: '64px',
       fontFamily: 'Arial',
@@ -267,7 +225,7 @@ export default class MainScene extends Phaser.Scene {
     this.gameText.setScrollFactor(0);
     this.gameText.setStroke("000000", 5);
     this.gameText.setDepth(9999);
-    this.gameText.setVisible(false);
+    this.gameText.setVisible(true);
   }
 
   // Keyboard Input
@@ -359,19 +317,12 @@ export default class MainScene extends Phaser.Scene {
 
   // -- START COLLISION FUNCTIONS --
   collideExit() {
-    this.scene.stop('MainScene');
-    this.scene.start('LevelTwoScene');
-    //   this.scene.transition({
-    //     target: 'LevelTwoScene',
-    //     duration: 2000,
-    //     moveBelow: true,
-    //     onUpdate: this.transitionOut,
-    //     data: { x: 400, y: 300 }
-    // });
+      console.log("In exit hehe");
   }
   
   collideWater(){
     this.gameOver = true;
+      console.log("In water hehe")
   }
 
   collideHint(player) {

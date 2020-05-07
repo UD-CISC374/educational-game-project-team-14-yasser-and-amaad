@@ -103,7 +103,6 @@ gameHeight : number;
     this.setSpriteProperties(this.boss, .75);
     
     
-  
     // hint stuff
     this.hintsArray = [];
     this.hintsXPos = [];

@@ -178,7 +178,9 @@ export default class MainScene extends Phaser.Scene {
     }
 
     initializePlayer() {
-        this.player = this.physics.add.sprite(10, this.game.canvas.height - (this.game.canvas.height / 4), 'playerIdle');
+        let startXIndex = 0;
+        let startYIndex = 11;
+        this.player = this.physics.add.sprite(startXIndex*70, startYIndex*70 + 40, 'playerIdle');
         this.setSpriteProperties(this.player)
     }
 
@@ -247,6 +249,13 @@ export default class MainScene extends Phaser.Scene {
     // -- START HELPER FUNCTIONS --
     stopMusic() {
         this.bgMusic.stop();
+    }
+
+    disableInventory() {
+        if (this.inventory.getDisplay().visible === true) {
+            this.inventory.setVis(false);
+            // console.log(this.inventory.visible);
+        }
     }
 
     performAttack() {
@@ -343,6 +352,7 @@ export default class MainScene extends Phaser.Scene {
     // -- START COLLISION FUNCTIONS --
     collideExit() {
         this.stopMusic();
+        this.disableInventory();
         this.scene.stop('MainScene');
         this.scene.start('LevelTwoScene');
     }
@@ -417,6 +427,7 @@ export default class MainScene extends Phaser.Scene {
         console.log("LEVEL ONE RUNNING")
         if (this.gameOver) {
             this.stopMusic();
+            this.disableInventory();
             this.player.setCollideWorldBounds(false);
 
             this.player.setVelocityX(1000)

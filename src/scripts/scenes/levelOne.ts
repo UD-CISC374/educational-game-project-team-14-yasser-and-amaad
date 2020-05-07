@@ -53,7 +53,7 @@ export default class MainScene extends Phaser.Scene {
     // Game Over
     private gameOver: boolean;
     private gameText: Phaser.GameObjects.Text;
-    
+
     // Game Config
     gameWidth: number;
     gameHeight: number;
@@ -245,6 +245,10 @@ export default class MainScene extends Phaser.Scene {
 
 
     // -- START HELPER FUNCTIONS --
+    stopMusic() {
+        this.bgMusic.stop();
+    }
+
     performAttack() {
         let attack = new BasicAttack(this, this.playerDirection);
     }
@@ -338,6 +342,7 @@ export default class MainScene extends Phaser.Scene {
 
     // -- START COLLISION FUNCTIONS --
     collideExit() {
+        this.stopMusic();
         this.scene.stop('MainScene');
         this.scene.start('LevelTwoScene');
     }
@@ -404,11 +409,14 @@ export default class MainScene extends Phaser.Scene {
         this.initializeCamera();
         this.initializeLab();
         this.initializeProjectiles();
+
+
     }
 
     update() {
+        console.log("LEVEL ONE RUNNING")
         if (this.gameOver) {
-            this.bgMusic.stop();
+            this.stopMusic();
             this.player.setCollideWorldBounds(false);
 
             this.player.setVelocityX(1000)
@@ -426,7 +434,6 @@ export default class MainScene extends Phaser.Scene {
             }
         } else {
             this.handleKeyboardInput();
-
 
             if (this.player.body.velocity.x > 0) {
                 this.player.setFlipX(false);

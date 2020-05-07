@@ -14,7 +14,11 @@ export default class BasicAttack extends Phaser.Physics.Arcade.Sprite{
 
         this.body.setAllowGravity(false);
         this.setScale(5);
+<<<<<<< HEAD
         this.setRotation(this.degreesToRadians(90));
+=======
+        this.setRotation(1.5);
+>>>>>>> enemies
         scene.projectiles.add(this);
     }
 
@@ -24,7 +28,7 @@ export default class BasicAttack extends Phaser.Physics.Arcade.Sprite{
 
     update () {
         if(this.x > this.scene.physics.world.bounds.width){
-            this.destroy()
+            this.destroy();
         }
     }
 

@@ -5,6 +5,7 @@ import { GameObjects, Display, Physics } from "phaser"
 import { Inventory } from "./Inventory"
 import { Item } from "./Item"
 import { LabCell } from "./LabCell"
+import Player from "./Player"
 
 export class Lab {
     private pInv: Inventory;
@@ -15,10 +16,11 @@ export class Lab {
     private itemGroup;
     private cellGroup;
     private scene: Phaser.Scene;
+    private player: Player;
 
 
 
-    constructor(scene: Phaser.Scene, inv: Inventory){
+    constructor(scene: Phaser.Scene,player:Player, inv: Inventory){
         this.scene = scene;
         this.pInv = inv;
         this.craftTable = [];
@@ -28,6 +30,7 @@ export class Lab {
         this.resultCell = new LabCell(scene, 99);
         this.itemGroup = scene.physics.add.group({allowGravity: false});
         this.cellGroup = scene.physics.add.group({allowGravity: false});
+        this.player = player;
     }
 
     makeCells(scene: Phaser.Scene):void{
@@ -129,6 +132,7 @@ export class Lab {
                 console.log(this.pInv.getItems().length);
                 this.pInv.refreshRender();
                 this.clearCells();
+                this.player.activeCompound = "h2o";
             });
             this.refreshRender();
             // this.disableResult();

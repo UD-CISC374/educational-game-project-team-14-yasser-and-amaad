@@ -145,7 +145,7 @@ export default class MainScene extends Phaser.Scene {
     this.inventory = new Inventory(this, 2 * this.game.canvas.width / 3, this.game.canvas.height / 2);
 
     //lab menu in scene
-    this.lab = new Lab(this, this.inventory);
+    this.lab = new Lab(this,this.player, this.inventory);
     this.lab.makeCells(this);
 
 

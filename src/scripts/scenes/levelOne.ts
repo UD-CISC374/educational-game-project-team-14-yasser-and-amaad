@@ -211,7 +211,7 @@ export default class MainScene extends Phaser.Scene {
         this.inventory = new Inventory(this, 2 * this.game.canvas.width / 3, this.game.canvas.height / 2);
 
         //lab menu in scene
-        this.lab = new Lab(this, this.inventory);
+        this.lab = new Lab(this,this.player, this.inventory);
         this.lab.makeCells(this);
 
 
@@ -262,6 +262,7 @@ export default class MainScene extends Phaser.Scene {
 
     collideEnemy(projectile,enemy) {
         projectile.destroy();
+        console.log(this.player.activeCompound);
         this.enemies.forEach(obj => {
             if(enemy === obj){
                 enemy.health -= 1;
@@ -419,11 +420,7 @@ export default class MainScene extends Phaser.Scene {
         // player.setVelocityY(-500);
     }
 
-    collideBeamEnemy(beam, enemy){
-        console.log("collides");
-        beam.disableBody();
-        enemy.health -= this.player.damage;
-    }
+    
     // -- END COLLISION FUNCTIONS --
 
 

@@ -7,20 +7,20 @@ export default class PreloadScene extends Phaser.Scene {
 
     // background
     this.load.image("background", "assets/map/background.png");
-    this.load.image("rocks", "assets/level_1/rocks.png");
+    this.load.image("rocks", "assets/Levels/level_1/rocks.png");
 
     // map objects
-    this.load.image('hint', "assets/level_1/sign.png");
+    this.load.image('hint', "assets/Levels/level_1/sign.png");
 
     // tilesheets
     this.load.image('tiles', "assets/map/platformPack_tilesheet.png");
-    this.load.image('T1', "assets/level_1/tiles_spritesheet.png");  // level_1 tilesheet
+    this.load.image('T1', "assets/Levels/level_1/tiles_spritesheet.png");  // level_1 tilesheet
 
     // tiled json maps
     this.load.tilemapTiledJSON('map', "assets/map/map2.json");
-    this.load.tilemapTiledJSON('L1', "assets/level_1/L1.json");  // level 1 json map
-    this.load.tilemapTiledJSON('L1_2', "assets/level_1/L1_2.json");  // level 1 json map
-    this.load.tilemapTiledJSON('Level_1', "assets/level_1/Level_1.json");  // level 1 json map
+    this.load.tilemapTiledJSON('L1', "assets/Levels/level_1/L1.json");  // level 1 json map
+    this.load.tilemapTiledJSON('L1_2', "assets/Levels/level_1/L1_2.json");  // level 1 json map
+    this.load.tilemapTiledJSON('Level_1', "assets/Levels/level_1/Level_1.json");  // level 1 json map
 
     // elements
     this.load.image('hydrogen', "assets/elements/hydrogen.png");
@@ -31,8 +31,8 @@ export default class PreloadScene extends Phaser.Scene {
     this.load.image('oxygenTemp', "assets/elements/oxygen_temp.png");
 
     // other objects
-    this.load.image('exitobject', "assets/level_1/exitobject.png");
-    this.load.image('waterobject', "assets/level_1/waterobject.png");
+    this.load.image('exitobject', "assets/Levels/level_1/exitobject.png");
+    this.load.image('waterobject', "assets/Levels/level_1/waterobject.png");
 
     //compounds
     this.load.image('h2o', "assets/elements/h2o.png");

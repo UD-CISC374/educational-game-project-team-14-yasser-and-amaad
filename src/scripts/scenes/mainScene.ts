@@ -10,40 +10,45 @@ import BasicAttack from "../objects/attacks/BasicAttack"
   const runSpeed : number = 1500;
 export default class MainScene extends Phaser.Scene {
   
-private background;
-private map;
-private cursors;
-private tileset;
-private text;
-private invButton;
-private inventory: Inventory;
-private lab: Lab;
-private enemy: GameObjects.Image;
+  // Game vars
+  private background;
+  private map;
+  private cursors;
+  private tileset;
+  private text;
+  private invButton;
+  private inventory: Inventory;
+  private lab: Lab;
+  private enemy: GameObjects.Image;
 
-// Attack
-projectiles: GameObjects.Group;
-playerDirection: number;
+  // Game Over
+  private gameOver : boolean;
+  private gameText : Phaser.GameObjects.Text;
 
-// Tiled Layers
-private platforms;
-private waterTiles;
-private waterLayer;
-private exitTiles;
-private exitLayer;
+  // Attack
+  projectiles: GameObjects.Group;
+  playerDirection: number;
 
-// Tiled Objects
-private hints;
-private exitObjects;
-private waterObjects;
-private oxygenObjects;
-private hydrogenObjects;
+  // Tiled Layers
+  private platforms;
+  private waterTiles;
+  private waterLayer;
+  private exitTiles;
+  private exitLayer;
 
-// bg music + audio
-private bgMusic:Phaser.Sound.BaseSound;
-// game config
-gameWidth : number;
-gameHeight : number;
-  
+  // Tiled Objects
+  private hints;
+  private exitObjects;
+  private waterObjects;
+  private oxygenObjects;
+  private hydrogenObjects;
+
+  // bg music + audio
+  private bgMusic:Phaser.Sound.BaseSound;
+  // game config
+  gameWidth : number;
+  gameHeight : number;
+    
   // player stuff
   player;
   
@@ -56,9 +61,10 @@ gameHeight : number;
   }
 
   create() {
+    this.gameOver = false;
     this.gameWidth = this.game.canvas.width;
     this.gameHeight = this.game.canvas.height;
-
+    this.initText();
     // fixes phasing through floor error
     this.physics.world.TILE_BIAS = 32;
 
@@ -218,20 +224,48 @@ gameHeight : number;
   }
 
   update() {
-    //console.log(this.map.getTileAtWorldXY(this.player.x, this.player.y))
-    // handle collisions
-    // this.collideWater();
-    // this.collideExit();
-
-    this.handleKeyboardInput();
+    if(this.gameOver) {
+      this.bgMusic.stop();
+      this.player.setCollideWorldBounds(false);
+      this.player.setVelocityX(200)
 
 
-    if(this.player.body.velocity.x > 0){
-      this.player.setFlipX(false);
-    }else if (this.player.body.velocity.x < 0){
-      this.player.setFlipX(true);
+      console.log(this.player.x);
+      this.gameText.setVisible(true);
+
+      //Restart when we press R
+      var rKey = this.input.keyboard.addKey("R");
+      if(rKey.isDown){
+        this.gameText.destroy();
+        this.scene.restart();
+      }
+    } else {
+      this.handleKeyboardInput();
+  
+  
+      if(this.player.body.velocity.x > 0){
+        this.player.setFlipX(false);
+      }else if (this.player.body.velocity.x < 0){
+        this.player.setFlipX(true);
+      }
     }
 
+  }
+
+  // inits
+  initText(){
+    this.gameText = this.add.text(this.gameWidth/2 - 270,this.gameHeight/3,"Press R to Restart");
+    this.gameText.setStyle({
+      fontSize: '64px',
+      fontFamily: 'Arial',
+      color: '#ffffff',
+      thickness: 5,
+      align: 'center'
+  });
+    this.gameText.setScrollFactor(0);
+    this.gameText.setStroke("000000", 5);
+    this.gameText.setDepth(9999);
+    this.gameText.setVisible(false);
   }
 
   // Keyboard Input
@@ -273,7 +307,7 @@ gameHeight : number;
     let spaceKey = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.SPACE);
     if(Phaser.Input.Keyboard.JustDown(spaceKey)) {
       this.performAttack();
-      this.player.play('attack1', true)
+      this.player.play('idle', true)
       console.log("pew pew");
     }
 
@@ -302,7 +336,7 @@ gameHeight : number;
     sprite.setCollideWorldBounds(true);
     sprite.setScale(1.5);
     this.physics.add.collider(sprite, this.platforms);
-    sprite.setDepth(0)
+    sprite.setDepth(1)
   }
 
   /**
@@ -327,6 +361,7 @@ gameHeight : number;
   }
   
   collideWater(){
+    this.gameOver = true;
       console.log("In water hehe")
   }
 

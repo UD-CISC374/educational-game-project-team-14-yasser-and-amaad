@@ -274,7 +274,6 @@ export default class MainScene extends Phaser.Scene {
     }
 
 
-
     // -- START HELPER FUNCTIONS --
     stopMusic() {
         this.bgMusic.stop();
@@ -372,7 +371,6 @@ export default class MainScene extends Phaser.Scene {
 
 
 
-
     // -- START COLLISION FUNCTIONS --
     collideExit() {
         this.stopMusic();
@@ -416,7 +414,7 @@ export default class MainScene extends Phaser.Scene {
         this.player.play('jump', true);
         console.log(player.health);
         this.player.health -= enemy.damage;
-        player.x -= 20;
+        player.x -= 100;
         // player.setVelocityY(-500);
     }
 

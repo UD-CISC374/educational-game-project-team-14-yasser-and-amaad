@@ -4,9 +4,10 @@ import { Inventory } from "../objects/Inventory";
 import { Element } from "../objects/Element";
 import { Lab } from "../objects/Lab";
 import BasicAttack from "../objects/attacks/BasicAttack"
+import Enemy from "../objects/Enemy";
 
   // CONSTANTS
-  const jumpHeight : number = -1000;
+  const jumpHeight : number = -2000;
   const runSpeed : number = 1500;
 export default class MainScene extends Phaser.Scene {
   
@@ -18,7 +19,7 @@ private text;
 private invButton;
 private inventory: Inventory;
 private lab: Lab;
-private enemy: GameObjects.Image;
+private boss: Enemy;
 
 // Attack
 projectiles: GameObjects.Group;
@@ -91,11 +92,17 @@ gameHeight : number;
 
     // player stuff
     this.player = this.physics.add.sprite(10,this.game.canvas.height - (this.game.canvas.height/4), 'playerIdle');
-    this.setSpriteProperties(this.player)
+    this.setSpriteProperties(this.player, 1.5)
     this.playerDirection = 1;
 
     // get user input
     this.cursors = this.input.keyboard.createCursorKeys();
+
+    //boss stuff
+    this.boss = new Enemy(this, this.map.width * 60 , 0, "boss", 10, 2, "nacl");
+    this.setSpriteProperties(this.boss, .75);
+    
+    
   
     // hint stuff
     this.hintsArray = [];
@@ -297,10 +304,10 @@ gameHeight : number;
     let attack = new BasicAttack(this, this.playerDirection);
   }
 
-  setSpriteProperties(sprite) {
+  setSpriteProperties(sprite, scale: number) {
     sprite.setBounce(0.1);
     sprite.setCollideWorldBounds(true);
-    sprite.setScale(1.5);
+    sprite.setScale(scale);
     this.physics.add.collider(sprite, this.platforms);
     sprite.setDepth(0)
   }

@@ -1,5 +1,5 @@
 import Player from "../objects/Player";
-import { GameObjects, Display, Physics } from "phaser"
+import { GameObjects, Display, Physics, Scene } from "phaser"
 import { Inventory } from "../objects/Inventory";
 import { Element } from "../objects/Element";
 import { Lab } from "../objects/Lab";
@@ -256,13 +256,21 @@ export default class MainScene extends Phaser.Scene {
             projectile.destroy();
         });
 
-        this.physics.add.collider(this.projectiles, this.enemiesGroup, function(projectile, enemy){
-            projectile.destroy();
-        });
+        this.physics.add.collider(this.projectiles, this.enemiesGroup, this.collideEnemy, undefined, this);
     }
     // -- END INITIALIZE FUNCTIONS --
 
+    collideEnemy(projectile,enemy) {
+        projectile.destroy();
+        this.enemies.forEach(obj => {
+            if(enemy === obj){
+                enemy.health -= 1;
 
+                if(enemy.health === 0)
+                    enemy.destroy();
+            }
+        });
+    }
 
 
 

@@ -1,9 +1,9 @@
 import { GameObjects, Physics } from "phaser";
 
 export default class Enemy extends Physics.Arcade.Image {
-    private health: number;
-    private damage: number;
-    private monsterType: string;
+    health: number;
+    damage: number;
+    monsterType: string;
     x: number;
     y: number;
 

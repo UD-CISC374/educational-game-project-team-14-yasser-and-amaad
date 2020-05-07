@@ -19,12 +19,11 @@ export default class Enemy extends Physics.Arcade.Image {
         }
     }
 
-    getDamage(){
-        return this.damage;
-    }
-
     //no movement yet
     movement(){
         
     }
+
+    //collision with player
+    
 }

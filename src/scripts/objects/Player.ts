@@ -2,26 +2,25 @@ import { Inventory } from "./Inventory";
 import { Math, GameObjects, Physics } from "phaser"
 
 export default class Player extends Phaser.Physics.Arcade.Sprite{
+    health: number;
+    private damage: number;
     x: number;
     y: number;
-    private velocity: Math.Vector2;
-    private pSprite: Physics.Arcade.Sprite;
+    private pSprite: string;
+    body: Physics.Arcade.Body;
     
     private inventory: Inventory;
     
-    constructor(scene: Phaser.Scene, x:number, y:number,pSprite:Physics.Arcade.Sprite) {
-        super(scene, x, y, 'player');
+    constructor(scene: Phaser.Scene, x:number, y:number,pSprite:string) {
+        super(scene, x, y, pSprite);
+        scene.physics.world.enableBody(this);
+        scene.add.existing(this);
         this.x = x;
         this.y = y;
         this.play('idle');
-        this.velocity = new Phaser.Math.Vector2();
         this.pSprite = pSprite;
-
     }
 
-    getVelocity(){
-        return this.velocity;
-    }
 
     getSprite(){
         return this.pSprite;
@@ -30,6 +29,8 @@ export default class Player extends Phaser.Physics.Arcade.Sprite{
     setSprite(pSprite){
         this.pSprite = pSprite;
     }
+
+    
 
     // onFloor(){
     //     return this.pSprite.;

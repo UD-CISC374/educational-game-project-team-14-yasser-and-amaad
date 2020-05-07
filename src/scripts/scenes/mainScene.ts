@@ -99,10 +99,8 @@ gameHeight : number;
     this.cursors = this.input.keyboard.createCursorKeys();
 
     //boss stuff
-    this.boss = new Enemy(this, this.map.width * 60 , 0, "boss", 10, 2, "nacl");
+    this.boss = new Enemy(this, this.map.width * 25 , 10, "boss", 10, 2, "nacl");
     this.setSpriteProperties(this.boss, .75);
-    
-    
   
     // hint stuff
     this.hintsArray = [];

@@ -12,12 +12,12 @@ export class Inventory {
     }
 
     addItem(scene: Phaser.Scene,item:Item): void{
-        for(var i = 0; i < this.items.length; i++){
-            if(this.items[i].name === item.name){
-                this.items[i].amount += 1;
-                return;
-            }
-        }
+        // for(var i = 0; i < this.items.length; i++){
+        //     if(this.items[i].name === item.name){
+        //         this.items[i].amount += 1;
+        //         return;
+        //     }
+        // }
         this.items.push(item);
         item.image.setScrollFactor(0);
         item.image.setInteractive();

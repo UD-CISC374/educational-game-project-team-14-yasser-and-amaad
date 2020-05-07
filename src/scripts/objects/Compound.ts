@@ -12,6 +12,7 @@ export class Compound extends Item{
         this.name = name
         this.description = description
         this.symbol = symbol
-        this.image = image
+        this.image = image;
+        this.image.name = name;
     }
 }

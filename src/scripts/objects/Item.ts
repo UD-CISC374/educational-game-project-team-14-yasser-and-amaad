@@ -14,6 +14,11 @@ export class Item {
         this.description = description;
         this.symbol = symbol
         this.image = image;
+        this.image.name = name;
         this.vx = this.vy = 0;
+    }
+
+    copyElement(): Item{
+        return new Item(this.name, this.symbol, this.description, this.image);
     }
 }

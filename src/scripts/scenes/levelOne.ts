@@ -4,6 +4,7 @@ import { Inventory } from "../objects/Inventory";
 import { Element } from "../objects/Element";
 import { Lab } from "../objects/Lab";
 import BasicAttack from "../objects/attacks/BasicAttack"
+import Enemy from "../objects/Enemy";
 
 // CONSTANTS
 const jumpHeight: number = -1300;
@@ -20,14 +21,17 @@ export default class MainScene extends Phaser.Scene {
     private invButton;
     private inventory: Inventory;
     private lab: Lab;
-    private enemy: GameObjects.Image;
 
     // BG Music
     private bgMusic: Phaser.Sound.BaseSound;
 
     // Player
-    player;
+    player:Player;
     playerDirection: number;
+
+    //Enemies
+    private enemies: GameObjects.Image[] = [];
+    private enemiesGroup: GameObjects.Group;
 
     // Attack Projectiles
     projectiles: GameObjects.Group;
@@ -262,10 +266,10 @@ export default class MainScene extends Phaser.Scene {
         let attack = new BasicAttack(this, this.playerDirection);
     }
 
-    setSpriteProperties(sprite) {
+    setSpriteProperties(sprite, scale: number) {
         sprite.setBounce(0.1);
         sprite.setCollideWorldBounds(true);
-        sprite.setScale(1.5);
+        sprite.setScale(scale);
         this.physics.add.collider(sprite, this.platforms);
         sprite.setDepth(1)
     }
@@ -388,6 +392,18 @@ export default class MainScene extends Phaser.Scene {
 
         oxygen.disableBody(true, true);
     }
+
+    collidePlayerEnemy(player, enemy){
+        this.player.play('hit', true);
+        console.log(true);
+        this.player.health -= enemy.getDamage();
+        player.x -= 20;
+        // player.setVelocityY(-500);
+    }
+
+    collideBeamEnemy(beam, enemy){
+
+    }
     // -- END COLLISION FUNCTIONS --
 
 
@@ -419,8 +435,7 @@ export default class MainScene extends Phaser.Scene {
         this.initializeCamera();
         this.initializeLab();
         this.initializeProjectiles();
-
-
+        this.initEnemy();
     }
 
     update() {

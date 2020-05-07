@@ -1,17 +1,18 @@
 import { Item } from "./Item";
 import { GameObjects } from "phaser";
 
-export class LabCell{
+export class LabCell extends GameObjects.Rectangle{
     private filled: boolean;
     private index: number;
     private position?: [number, number];
-    private rect: GameObjects.Rectangle;
+    //private rect: GameObjects.Rectangle;
     private element?: string;
 
     constructor(scene:Phaser.Scene, index:number){
+        super(scene, 0, 0, 128, 128, 0x808080, 1);
         this.filled = false;
         this.index = index;
-        this.rect = scene.add.rectangle(0, 0, 128,128, 0x808080, 1);
+        //this.rect = scene.add.rectangle(0, 0, 128,128, 0x808080, 1);
     }
 
     fillCell(element: string){
@@ -19,11 +20,16 @@ export class LabCell{
         this.filled = true;
     }
 
-    getRect(){
-        return this.rect;
+    emptyCell(){
+        this.element = undefined;
+        this.filled = false;
     }
 
-    isFilled(){
+    // getRect(){
+    //     //return this.rect;
+    // }
+
+    getFilled(){
         return this.filled;
     }
 
@@ -44,6 +50,6 @@ export class LabCell{
     }
 
     setColor(hexColor: number){
-        this.rect.fillColor = hexColor;
+        this.fillColor = hexColor;
     }
 }

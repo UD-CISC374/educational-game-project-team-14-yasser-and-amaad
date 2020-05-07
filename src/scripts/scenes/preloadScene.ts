@@ -32,6 +32,9 @@ export default class PreloadScene extends Phaser.Scene {
     this.load.image('hydrogenTemp', "assets/elements/hydrogen_temp.png");
     this.load.image('oxygenTemp', "assets/elements/oxygen_temp.png");
 
+    //compounds
+    this.load.image('h2o', "assets/elements/h2o.png");
+
 
     // character/animation sprites
     this.load.image('inventoryButton', "assets/map/book.png");

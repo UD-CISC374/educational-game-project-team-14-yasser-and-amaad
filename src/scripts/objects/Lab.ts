@@ -10,13 +10,16 @@ export class Lab {
     private pInv: Inventory;
     private craftTable: LabCell[];
     private resultCell: LabCell;
+    //private tempResult: GameObjects.Image;
     private tempBack: GameObjects.Rectangle;
     private itemGroup;
     private cellGroup;
+    private scene: Phaser.Scene;
 
 
 
     constructor(scene: Phaser.Scene, inv: Inventory){
+        this.scene = scene;
         this.pInv = inv;
         this.craftTable = [];
         this.tempBack = scene.add.rectangle(this.pInv.getRect().width, 0, this.pInv.getRect().width, this.pInv.getRect().height, 0xdeb887);
@@ -32,24 +35,24 @@ export class Lab {
             this.craftTable.push(new LabCell(scene, i));
         }
             this.craftTable.forEach(cell => {
-                cell.getRect().setInteractive();
-                cell.getRect().setScrollFactor(0);
-                cell.getRect().on("pointerover", () =>{
-                    cell.getRect().setStrokeStyle(4, 0xffffff);
+                cell.setInteractive();
+                cell.setScrollFactor(0);
+                cell.on("pointerover", () =>{
+                    cell.setStrokeStyle(4, 0xffffff);
                 });
 
-                cell.getRect().on("pointerout", () => {
-                    cell.getRect().setStrokeStyle(0);
+                cell.on("pointerout", () => {
+                    cell.setStrokeStyle(0);
                 });
-                this.pInv.getDisplay().add(cell.getRect());
-                this.cellGroup.add(cell.getRect());
+                this.pInv.getDisplay().add(cell);
+                this.cellGroup.add(cell);
 
         });
-        this.pInv.getDisplay().add(this.resultCell.getRect());
+        this.pInv.getDisplay().add(this.resultCell);
         this.refreshRender();
 
         this.craftTable.forEach(cell =>{
-            cell.setPos(cell.getRect().x, cell.getRect().y);
+            cell.setPos(cell.x, cell.y);
         });
     }
 
@@ -63,28 +66,29 @@ export class Lab {
         let yCount: number = 0;
         this.craftTable.forEach(cell => { 
             if(xCount % 3 === 0){
-                Display.Align.In.TopLeft(cell.getRect(), this.tempBack);
-                cell.getRect().y += yCount * this.tempBack.height/3;
+                Display.Align.In.TopLeft(cell, this.tempBack);
+                cell.y += yCount * this.tempBack.height/3;
                 //console.log("here1");
             }else if(xCount % 3 === 1){
-                Display.Align.In.TopCenter(cell.getRect(), this.tempBack);
-                cell.getRect().y += yCount * this.tempBack.height/3;
+                Display.Align.In.TopCenter(cell, this.tempBack);
+                cell.y += yCount * this.tempBack.height/3;
                 //console.log("here2");
             }else if(xCount % 3 === 2){
-                Display.Align.In.TopRight(cell.getRect(), this.tempBack);
-                cell.getRect().y += yCount * this.tempBack.height/3;
+                Display.Align.In.TopRight(cell, this.tempBack);
+                cell.y += yCount * this.tempBack.height/3;
                 yCount++;
                 //console.log("here3");
             }
             xCount++;
         });
 
-        Display.Align.In.BottomCenter(this.resultCell.getRect(), this.tempBack);
+        Display.Align.In.BottomCenter(this.resultCell, this.tempBack);
         // Display.Align.In.Center(new Text("Result"), this.resultCell.getRect());
     }
 
-    interactCell(element ,rect){
+    interactCell = (element ,rect) =>{
         Display.Align.In.Center(element, rect);
+        rect.fillCell(element.name.toLowerCase())
         // endFunc(element, rect);
         // console.log("before loop")
         // this.craftTable.forEach(cell => {
@@ -96,25 +100,52 @@ export class Lab {
         //     console.log("after if")
         // })
         // console.log("after loop")
+        this.endFunc();
         
     }
-    readonly endFunc = (element, rect) => {
-        console.log("before loop")
-    this.craftTable.forEach(cell => {
-        console.log("before if")
-        if([cell.getPos() === [rect.x, rect.y]]){
-            console.log("if");
-            cell.fillCell(element)
-        }
-        console.log("after if")
-    })
-    console.log("after loop")
+    endFunc = () => {
+    // console.log(this.craftTable[1].getFilled() + "|" +
+    // this.craftTable[3].getFilled() + "|" +
+    // this.craftTable[5].getFilled() + "|" +
+    // this.craftTable[1].getElement() + "|" +
+    // this.craftTable[3].getElement() + "|" +
+    // this.craftTable[5].getElement() + "|");
+    this.recipeCases();
+    // console.log("after loop")
   }
 
     recipeCases(){
-        if(this.craftTable[2].isFilled() && this.craftTable[4].isFilled() && this.craftTable[6].isFilled() &&
-        this.craftTable[2].getElement() === "oxygen" && this.craftTable[4].getElement() === "hydrogen" && this.craftTable[6].getElement() === "hydrogen"){
+        if(this.craftTable[1].getFilled() && this.craftTable[3].getFilled() && this.craftTable[5].getFilled() &&
+        this.craftTable[1].getElement() === "oxygen" && this.craftTable[3].getElement() === "hydrogen" && this.craftTable[5].getElement() === "hydrogen"){
             console.log("craft water!");
+            let tempResult = this.scene.add.image(0, 0, 'h2o');
+            this.pInv.getDisplay().add(tempResult);
+            Display.Align.In.Center(tempResult, this.resultCell);
+            tempResult.setInteractive();
+            tempResult.setScrollFactor(0);
+            tempResult.input.draggable = true;
+            tempResult.on('pointerup', ()=> {
+                this.pInv.addItem(this.scene, new Compound("water", "h20", "water compound", this.scene.add.image(0, 0, 'h2o')));
+                console.log(this.pInv.getItems().length);
+                this.pInv.refreshRender();
+                this.clearCells();
+            });
+            this.refreshRender();
+            // this.disableResult();
         }
+    }
+
+    disableResult(tempResult){
+        tempResult.disableInteractive();
+        tempResult.setVisible(false);
+        console.log("disabled");
+    }
+
+    clearCells(){
+        this.craftTable.forEach(cell =>{
+            cell.emptyCell();
+            console.log("cleared");
+        });
+        this.resultCell.emptyCell();
     }
 }

@@ -6,8 +6,8 @@ import { Lab } from "../objects/Lab";
 import BasicAttack from "../objects/attacks/BasicAttack"
 
   // CONSTANTS
-  const jumpHeight : number = -1200;
-  const runSpeed : number = 500;
+  const jumpHeight : number = -1000;
+  const runSpeed : number = 1500;
 export default class MainScene extends Phaser.Scene {
   
 private background;
@@ -114,7 +114,7 @@ gameHeight : number;
     hintObject.forEach(hintObject => {
       const hint = this.hints.create(hintObject.x, hintObject.y + 30 - hintObject.height, 'hint').setOrigin(0,0);
       hint.body.setSize(hint.width, hint.height);
-      hint.setDepth(1);
+      hint.setDepth(0);
 
       this.hintsArray.push(
         this.add.text(hintObject.x + 30, hintObject.y - hintObject.height*2 , this.hintStrings[counter], {color: 'BLACK'})
@@ -179,6 +179,7 @@ gameHeight : number;
       }
       else{
         this.inventory.refreshRender();
+        this.lab.clearCells();
         this.inventory.setVis(true);
         // console.log(this.inventory.visible);
       }
@@ -214,7 +215,6 @@ gameHeight : number;
       this.player.setFlipX(true);
     }
 
-    this.lab.recipeCases();
   }
 
   // Keyboard Input
@@ -285,7 +285,7 @@ gameHeight : number;
     sprite.setCollideWorldBounds(true);
     sprite.setScale(1.5);
     this.physics.add.collider(sprite, this.platforms);
-    sprite.setDepth(5)
+    sprite.setDepth(0)
   }
 
   /**
@@ -300,7 +300,7 @@ gameHeight : number;
     hintObject.forEach(obj => {
       const object = objectGroup.create(obj.x, obj.y + 30 - obj.height, assetName).setOrigin(0,0);
       object.body.setSize(object.width, object.height);
-      object.setDepth(1);
+      object.setDepth(0);
     });
   }
 

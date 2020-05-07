@@ -1,8 +1,29 @@
-export default class Enemy extends Phaser.Physics.Arcade.Sprite {
-    
-    constructor(scene) {
-        var x = scene.enemy.x;
-        var y = scene.enemy.y;
-        super(scene, x, y, 'enemy');
+import { GameObjects, Physics } from "phaser";
+
+export default class Enemy extends Physics.Arcade.Image {
+    private health: number;
+    private damage: number;
+    private monsterType: string;
+    x: number;
+    y: number;
+
+    constructor(scene:Phaser.Scene,x: number, y: number,enemyImage: string, health: number, damage: number, monsterType: string, scale?: number) {
+        super(scene, x, y, enemyImage);
+        scene.add.existing(this);
+        scene.physics.add.existing(this);
+        this.health = health;
+        this.damage = damage;
+        this.monsterType = monsterType;
+        if(scale !== undefined){
+            this.setScale(scale);
+        }
     }
+
+    //no movement yet
+    movement(){
+        
+    }
+
+    //collision with player
+    
 }

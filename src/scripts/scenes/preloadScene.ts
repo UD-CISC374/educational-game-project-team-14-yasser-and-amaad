@@ -59,7 +59,7 @@ export default class PreloadScene extends Phaser.Scene {
 
 
 
-    this.load.image('enemy', "src/assets/map/nacl_monster.png")
+    this.load.image('boss', "src/assets/map/nacl_monster.png")
     // audio
     this.load.audio("bg_netherplace", "assets/audio/bg_netherplace.mp3");
   }

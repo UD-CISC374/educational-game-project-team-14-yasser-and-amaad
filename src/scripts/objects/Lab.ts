@@ -119,23 +119,26 @@ export class Lab {
 
     recipeCases(){
         if(this.craftTable[1].getFilled() && this.craftTable[3].getFilled() && this.craftTable[5].getFilled() &&
-        this.craftTable[1].getElement() === "oxygen" && this.craftTable[3].getElement() === "hydrogen" && this.craftTable[5].getElement() === "hydrogen"){
+        this.craftTable[1].getElement() === "oxygen" && this.craftTable[3].getElement() === "hydrogen" && this.craftTable[5].getElement() === "hydrogen"&&
+        !this.resultCell.getFilled()){
             console.log("craft water!");
             let tempResult = this.scene.add.image(0, 0, 'h2o');
             this.pInv.getDisplay().add(tempResult);
             Display.Align.In.Center(tempResult, this.resultCell);
             tempResult.setInteractive();
             tempResult.setScrollFactor(0);
-            tempResult.input.draggable = true;
+            this.resultCell.fillCell("h2o");
+            //tempResult.input.draggable = true;
             tempResult.on('pointerup', ()=> {
                 this.pInv.addItem(this.scene, new Compound("water", "h20", "water compound", this.scene.add.image(0, 0, 'h2o')));
                 console.log(this.pInv.getItems().length);
                 this.pInv.refreshRender();
                 this.clearCells();
                 this.player.activeCompound = "h2o";
+                this.pInv.getDisplay().remove(tempResult);
+                this.disableResult(tempResult);
             });
             this.refreshRender();
-            // this.disableResult();
         }
     }
 

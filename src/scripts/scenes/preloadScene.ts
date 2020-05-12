@@ -52,7 +52,6 @@ export default class PreloadScene extends Phaser.Scene {
     this.load.atlas('playerAtk1', 'assets/character/animations/Attack1/atk1.png', 'assets/character/animations/Attack1/atk1.json');
     this.load.atlas('playerHit', 'src/assets/character/animations/Hit.png', 'assets/character/animations/hit.json');
 
-<<<<<<< Updated upstream
     // attacks
     this.load.spritesheet("basic_attack", "assets/character/attacks/beam.png", {
       frameWidth: 16,
@@ -65,14 +64,6 @@ export default class PreloadScene extends Phaser.Scene {
     
     // audio
     this.load.audio("bg_netherplace", "assets/audio/bg_netherplace.mp3");
-=======
-    this.load.image('hydrogen', "assets/map/hydrogen.png");
-    this.load.image('oxygen', "assets/map/oxygen.png");
-
-
-    // character
-    this.load.atlas('playerRun', 'assets/character/Run.png', 'assets/character/run.json');
->>>>>>> Stashed changes
   }
 
   create() {

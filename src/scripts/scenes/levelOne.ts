@@ -458,6 +458,7 @@ export default class MainScene extends Phaser.Scene {
         if (this.gameOver) {
             this.stopMusic();
             this.player.setCollideWorldBounds(false);
+            this.invButton.disableInteractive();
 
             this.player.setVelocityX(1000)
             if (this.player.x >= this.map.width * 70)

@@ -23,8 +23,8 @@ const config: GameConfig = {
     scene: [PreloadScene, LevelOneScene, LevelTwoScene, labScene],
     physics: {
         default: 'arcade',
-        arcade: {
-            debug: true,
+        arcade: {   
+            debug: false,
             gravity: { y: GRAVITY }
         }
     }

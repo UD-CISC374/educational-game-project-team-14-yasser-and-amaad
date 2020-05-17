@@ -318,18 +318,21 @@ export default class MainScene extends Phaser.Scene {
 
             if (this.player.body.onFloor()) {
                 this.player.play('run', true);
+                this.player.setSize(57, 75);
             }
         } else if (this.cursors.right.isDown) {
             this.playerDirection = 1;
             this.player.setVelocityX(runSpeed);
             if (this.player.body.onFloor()) {
                 this.player.play('run', true);
+                this.player.setSize(57, 75);
             }
         } else {
             this.player.setVelocityX(0);
 
             if (this.player.body.onFloor()) {
                 this.player.play('idle', true);
+                this.player.setSize(57, 86);
             }
         }
 
@@ -349,7 +352,7 @@ export default class MainScene extends Phaser.Scene {
         let spaceKey = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.SPACE);
         if (Phaser.Input.Keyboard.JustDown(spaceKey)) {
             this.performAttack();
-            this.player.play('idle', true)
+            // this.player.play('idle', true)
         }
 
         // Open Lab
@@ -460,7 +463,7 @@ export default class MainScene extends Phaser.Scene {
             this.player.setCollideWorldBounds(false);
             this.invButton.disableInteractive();
 
-            this.player.setVelocityX(1000)
+            this.player.setVelocityX(500);
             if (this.player.x >= this.map.width * 70)
                 this.player.setVelocityX(0)
 

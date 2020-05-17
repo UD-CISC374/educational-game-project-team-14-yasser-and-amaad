@@ -80,8 +80,9 @@ export default class PreloadScene extends Phaser.Scene {
         start: 1,
         end: 8,
       }),
-      frameRate: 10,
+      frameRate: 12,
     });
+    
 
     this.anims.create({
       key: 'idle',

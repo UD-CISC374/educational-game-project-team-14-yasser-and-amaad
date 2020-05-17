@@ -260,19 +260,6 @@ export default class MainScene extends Phaser.Scene {
     }
     // -- END INITIALIZE FUNCTIONS --
 
-    collideEnemy(projectile,enemy) {
-        projectile.destroy();
-        console.log(this.player.activeCompound);
-        this.enemies.forEach(obj => {
-            if(enemy === obj){
-                enemy.health -= 1;
-
-                if(enemy.health === 0)
-                    enemy.destroy();
-            }
-        });
-    }
-
 
     // -- START HELPER FUNCTIONS --
     stopMusic() {
@@ -413,6 +400,7 @@ export default class MainScene extends Phaser.Scene {
         oxygen.disableBody(true, true);
     }
 
+    // enemy/player hit each other
     collidePlayerEnemy(player, enemy){
         this.player.play('jump', true);
         console.log(player.health);
@@ -420,6 +408,38 @@ export default class MainScene extends Phaser.Scene {
         player.x -= 100;
         // player.setVelocityY(-500);
     }
+
+    // projectile hits enemy
+    collideEnemy(projectile,enemy) {
+        projectile.destroy();
+        console.log(this.player.activeCompound);
+        this.enemies.forEach(obj => {
+            if(enemy === obj){
+                enemy.health -= 1;
+                this.createFloatingText(enemy.x-25, enemy.y-100, "-1", 0xffff00, "desyrel" );
+                if(enemy.health === 0)
+                    enemy.destroy();
+            }
+        });
+    }
+
+    createFloatingText(x, y, message, tint, font) {
+
+        let animation = this.add.bitmapText(x, y, font, message).setTint(tint);
+    
+        let tween: Phaser.Tweens.Tween = this.add.tween({
+    
+          targets: animation, duration: 750, ease: 'Exponential.In', y: y - 50,
+    
+          onComplete: () => {
+    
+            animation.destroy();
+    
+          }, callbackScope: this
+    
+        });
+    
+      }
 
     
     // -- END COLLISION FUNCTIONS --

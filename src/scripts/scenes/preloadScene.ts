@@ -64,6 +64,9 @@ export default class PreloadScene extends Phaser.Scene {
     
     // audio
     this.load.audio("bg_netherplace", "assets/audio/bg_netherplace.mp3");
+
+    // bitmap font
+    this.load.bitmapFont('desyrel', 'assets/bitmapfonts/desyrel.png', 'assets/bitmapfonts/desyrel.xml');
   }
 
   create() {

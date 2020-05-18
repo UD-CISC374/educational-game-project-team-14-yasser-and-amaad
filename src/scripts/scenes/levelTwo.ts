@@ -77,9 +77,11 @@ export default class LevelTwoScene extends Phaser.Scene {
 
 addAllItems(itemArr:Item[]): void {
   console.log("IN SCENE 2: Adding all items")
+  console.log(this.inventoryTWO);
   itemArr.forEach(elem => {
     elem.itemToString();
     console.log(this);
+    console.log(this.inventoryTWO);
     console.log("DOES GET HERE");
     this.inventoryTWO.addItem(this, elem);
     console.log("NEVER GETS HERE");
@@ -404,6 +406,8 @@ addAllItems(itemArr:Item[]): void {
     this.initializeProjectiles();
 
     this.tempInv(this.tempData);
+    this.inventoryTWO = new Inventory(this, 0, 0);
+    console.log(this.inventoryTWO);
     this.addAllItems(this.backupItems);
     console.log(this.inventoryTWO);
   }

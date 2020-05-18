@@ -4,7 +4,7 @@
      "export":
         {
          "format":"json",
-         "target":"Level_1.json"
+         "target":"Level_12.json"
         }
     },
  "height":15,
@@ -73,6 +73,42 @@
                  "visible":true,
                  "width":70,
                  "x":1610,
+                 "y":980
+                }, 
+                {
+                 "gid":103,
+                 "height":70,
+                 "id":74,
+                 "name":"",
+                 "rotation":0,
+                 "type":"",
+                 "visible":true,
+                 "width":70,
+                 "x":5320,
+                 "y":980
+                }, 
+                {
+                 "gid":103,
+                 "height":70,
+                 "id":75,
+                 "name":"",
+                 "rotation":0,
+                 "type":"",
+                 "visible":true,
+                 "width":70,
+                 "x":5460,
+                 "y":980
+                }, 
+                {
+                 "gid":103,
+                 "height":70,
+                 "id":76,
+                 "name":"",
+                 "rotation":0,
+                 "type":"",
+                 "visible":true,
+                 "width":70,
+                 "x":5390,
                  "y":980
                 }],
          "opacity":1,
@@ -540,8 +576,8 @@
                  "type":"",
                  "visible":true,
                  "width":70,
-                 "x":4235.09090909091,
-                 "y":280.242090909091
+                 "x":4235.09,
+                 "y":280.242
                 }, 
                 {
                  "gid":77,
@@ -671,7 +707,7 @@
          "y":0
         }],
  "nextlayerid":13,
- "nextobjectid":74,
+ "nextobjectid":77,
  "orientation":"orthogonal",
  "renderorder":"right-down",
  "tiledversion":"1.3.4",

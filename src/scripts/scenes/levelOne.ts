@@ -7,8 +7,9 @@ import BasicAttack from "../objects/attacks/BasicAttack"
 import Enemy from "../objects/Enemy";
 
 // CONSTANTS
-const jumpHeight: number = -1200;
-const runSpeed: number = 500;
+const jumpHeight: number = -1500
+;
+const runSpeed: number = 2000;
 
 export default class MainScene extends Phaser.Scene {
 
@@ -30,7 +31,7 @@ export default class MainScene extends Phaser.Scene {
     playerDirection: number;
 
     //Enemies
-    private enemies: GameObjects.Image[] = [];
+    private enemies: Enemy[] = [];
     private enemiesGroup: GameObjects.Group;
 
     // Attack Projectiles
@@ -40,7 +41,7 @@ export default class MainScene extends Phaser.Scene {
     private platforms;
     private waterLayer;
     private exitLayer;
-
+    invisWalls;
 
     // Game Objects
     private hints;
@@ -49,7 +50,9 @@ export default class MainScene extends Phaser.Scene {
     private oxygenObjects;
     private hydrogenObjects;
 
+    // Hints
     hintsArray: Array<Phaser.GameObjects.Text>;
+    hintImages: Array<Phaser.GameObjects.Image>;
     hintsXPos: Array<number>;
     hintStrings: Array<string>;
 
@@ -118,10 +121,11 @@ export default class MainScene extends Phaser.Scene {
     initializeHints() {
         // hint stuff
         this.hintsArray = [];
+        this.hintImages = [];
         this.hintsXPos = [];
         this.hintStrings = ["Pick up elements by walking over them",
             "Attack enemies using spacebar",
-            "Combine elements by pressing 'L' or clicking the book on the top left",
+            "Press 'L' to open the lab and combine elements in this order to form water(H2o)",
             "Move on to the next level by going into the exit door"];
 
         this.hints = this.physics.add.group({
@@ -141,6 +145,13 @@ export default class MainScene extends Phaser.Scene {
                     .setVisible(false)
                     .setOrigin(0.5)
                     .setAlign('center'));
+            
+            if(counter !== 2){
+                this.hintImages.push(this.add.image(hintObject.x + 30, hintObject.y - hintObject.height * 2 - 60, "blank").setVisible(false));
+            } else {
+                this.hintImages.push(this.add.image(hintObject.x + 30, hintObject.y - hintObject.height * 2 - 60, "h2o").setVisible(false));
+            }
+                   
             this.hintsXPos.push(hintObject.x);
             counter++;
         });
@@ -190,7 +201,7 @@ export default class MainScene extends Phaser.Scene {
         this.enemies = []
         this.enemies.push(new Enemy(this, this.map.width * 28, 0, 'enemy', 5, 1, "nacl"));
         this.enemiesGroup = this.physics.add.group({
-            immovable: true
+            immovable: false
         });
         //console.log(this.enemies.length);
         this.enemies.forEach(enemy => {
@@ -302,7 +313,7 @@ export default class MainScene extends Phaser.Scene {
         if (this.cursors.left.isDown) {
             this.playerDirection = -1;
             this.player.setVelocityX(-runSpeed);
-
+            
             if (this.player.body.onFloor()) {
                 this.player.play('run', true);
                 this.player.setSize(57, 75);
@@ -375,10 +386,15 @@ export default class MainScene extends Phaser.Scene {
     collideHint(player) {
         let hintNumber: number = 4;
         for (let i = 0; i < this.hintsXPos.length; i++) {
-            if (player.x > this.hintsXPos[i] - player.width && player.x < this.hintsXPos[i] + player.width)
+            if (player.x > this.hintsXPos[i] - player.width && player.x < this.hintsXPos[i] + player.width){
                 this.hintsArray[i].setVisible(true);
-            else
+                this.hintImages[i].setVisible(true);
+
+            }
+            else{
                 this.hintsArray[i].setVisible(false);
+                this.hintImages[i].setVisible(false);
+            }
         }
     }
 

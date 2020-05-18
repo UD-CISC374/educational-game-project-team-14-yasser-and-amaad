@@ -41,6 +41,11 @@ export default class PreloadScene extends Phaser.Scene {
     //compounds
     this.load.image('h2o', "assets/elements/h2o.png");
 
+    // blank for hints
+    this.load.image('blank', "assets/elements/blank.png");
+
+    // walls for enemies
+    this.load.image('wall', "assets/map/enemywall.png")
 
     // character/animation sprites
     this.load.image('inventoryButton', "assets/map/book.png");

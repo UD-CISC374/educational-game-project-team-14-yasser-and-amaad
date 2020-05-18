@@ -3,6 +3,7 @@ import { GameObjects, Physics } from "phaser";
 export default class Enemy extends Physics.Arcade.Image {
     health: number;
     damage: number;
+    SPEED: number = 200;
     monsterType: string;
     x: number;
     y: number;

@@ -11,6 +11,7 @@ const jumpHeight: number = -1500;
 const runSpeed: number = 2000;
 const startXIndex: number = 0;
 const startYIndex: number = 11;
+const TILE_WIDTH:number = 70;
 
 export default class LevelOneScene extends Phaser.Scene {
 
@@ -212,13 +213,13 @@ export default class LevelOneScene extends Phaser.Scene {
     }
 
     initPlayer() {
-        this.player = new Player(this, startXIndex*70, startYIndex*70 + 30, 'playerIdle', 10, 1);
+        this.player = new Player(this, startXIndex*TILE_WIDTH, startYIndex*TILE_WIDTH + 30, 'playerIdle', 10, 1);
         this.setSpriteProperties(this.player, 1.5)
     }
 
     initEnemy(){
         this.enemies = []
-        this.enemies.push(new Enemy(this, this.map.width * 28, 0, 'enemy', 5, 1, "nacl"));
+        this.enemies.push(new Enemy(this, 38*TILE_WIDTH, 11 * TILE_WIDTH, 'enemy', 5, 1, "nacl"));
         this.enemiesGroup = this.physics.add.group({
             immovable: false
         });

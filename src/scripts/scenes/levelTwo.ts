@@ -9,7 +9,7 @@ import BasicAttack from "../objects/attacks/BasicAttack"
 const jumpHeight: number = -1200;
 const runSpeed: number = 500;
 
-export default class MainScene extends Phaser.Scene {
+export default class LevelTwoScene extends Phaser.Scene {
 
   // Game vars
   private background;

@@ -11,7 +11,7 @@ const jumpHeight: number = -1500
 ;
 const runSpeed: number = 2000;
 
-export default class MainScene extends Phaser.Scene {
+export default class LevelOneScene extends Phaser.Scene {
 
     // Game vars
     private background;
@@ -45,6 +45,7 @@ export default class MainScene extends Phaser.Scene {
 
     // Game Objects
     private hints;
+    private walls;
     private exitObjects;
     private waterObjects;
     private oxygenObjects;
@@ -111,7 +112,7 @@ export default class MainScene extends Phaser.Scene {
     initializeMap() {
         this.tileset = this.map.addTilesetImage('tiles_spritesheet', 'T1');
 
-        this.platforms = this.map.createStaticLayer('Ground', this.tileset, 0, 30);
+        this.platforms = this.map.createStaticLayer('PlatformTile', this.tileset, 0, 30);
         this.platforms.setCollisionByExclusion(-1);
 
         this.waterLayer = this.map.createStaticLayer('WaterTile', this.tileset, 0, 30);
@@ -133,7 +134,7 @@ export default class MainScene extends Phaser.Scene {
             immovable: true
         });
 
-        const hintObject = this.map.getObjectLayer('Hint')['objects'];
+        const hintObject = this.map.getObjectLayer('HintObj')['objects'];
         let counter = 0;
         hintObject.forEach(hintObject => {
             const hint = this.hints.create(hintObject.x, hintObject.y + 30 - hintObject.height, 'hint').setOrigin(0, 0);
@@ -158,13 +159,27 @@ export default class MainScene extends Phaser.Scene {
         this.physics.add.overlap(this.player, this.hints, this.collideHint, undefined, this);
     }
 
+    initializeWalls() {
+        // add walls to map
+        this.walls = this.physics.add.group({
+            allowGravity: false,
+            immovable: true
+        });
+
+        const wallObjects = this.map.getObjectLayer('WallObj')['objects'];
+        wallObjects.forEach(wallObject => {
+            const wall = this.walls.create(wallObject.x, wallObject.y + 30 - wallObject.height, 'wall').setOrigin(0, 0);
+            wall.setVisible(false);
+        });
+    }
+
     initializeMapObjects() {
         // add hydrogen to map
         this.hydrogenObjects = this.physics.add.group({
             allowGravity: false,
             immovable: true
         });
-        this.loadTiledObjects(this.hydrogenObjects, 'Hydrogen', 'hydrogen')
+        this.loadTiledObjects(this.hydrogenObjects, 'HydrogenObj', 'hydrogen')
         this.physics.add.overlap(this.player, this.hydrogenObjects, this.collideHydrogen, undefined, this);
 
         // add oxygen to map
@@ -172,7 +187,7 @@ export default class MainScene extends Phaser.Scene {
             allowGravity: false,
             immovable: true
         });
-        this.loadTiledObjects(this.oxygenObjects, 'Oxygen', 'oxygen')
+        this.loadTiledObjects(this.oxygenObjects, 'OxygenObj', 'oxygen')
         this.physics.add.overlap(this.player, this.oxygenObjects, this.collideOxygen, undefined, this);
 
         // add exit to map
@@ -180,7 +195,7 @@ export default class MainScene extends Phaser.Scene {
             allowGravity: false,
             immovable: true
         });
-        this.loadTiledObjects(this.exitObjects, 'Exit', 'exitobject')
+        this.loadTiledObjects(this.exitObjects, 'ExitObj', 'exitobject')
         this.physics.add.overlap(this.player, this.exitObjects, this.collideExit, undefined, this);
 
         // add water to map
@@ -188,8 +203,11 @@ export default class MainScene extends Phaser.Scene {
             allowGravity: false,
             immovable: true
         });
-        this.loadTiledObjects(this.waterObjects, 'Water', 'waterobject')
+        this.loadTiledObjects(this.waterObjects, 'WaterObj', 'waterobject')
         this.physics.add.overlap(this.player, this.waterObjects, this.collideWater, undefined, this);
+
+        // init walls
+        this.initializeWalls();
     }
 
     initializePlayer() {
@@ -208,7 +226,9 @@ export default class MainScene extends Phaser.Scene {
             this.setSpriteProperties(enemy, .75);
             this.enemiesGroup.add(enemy);
         })
+        
         this.physics.add.collider(this.player, this.enemiesGroup, this.collidePlayerEnemy, undefined, this);
+        this.physics.add.collider(this.walls, this.enemiesGroup, this.collideWalls, undefined, this)
     }
 
     initializeCamera() {
@@ -373,9 +393,16 @@ export default class MainScene extends Phaser.Scene {
 
 
     // -- START COLLISION FUNCTIONS --
+    // handle collision between enemies and invisible walls
+    collideWalls(wall, enemy) {
+        enemy.setVelocityX(enemy.getMyXVel()*-1);
+        enemy.setMyXVel(enemy.getMyXVel()*-1);
+
+    }
+
     collideExit() {
         this.stopMusic();
-        this.scene.stop('MainScene');
+        this.scene.stop('LevelOneScene');
         this.scene.start('LevelTwoScene');
     }
 
@@ -444,15 +471,11 @@ export default class MainScene extends Phaser.Scene {
         let animation = this.add.bitmapText(x, y, font, message).setTint(tint);
     
         let tween: Phaser.Tweens.Tween = this.add.tween({
-    
-          targets: animation, duration: 750, ease: 'Exponential.In', y: y - 50,
+          targets: animation, duration: 700, ease: 'Exponential.In', y: y - 50,
     
           onComplete: () => {
-    
             animation.destroy();
-    
           }, callbackScope: this
-    
         });
     
       }
@@ -490,6 +513,11 @@ export default class MainScene extends Phaser.Scene {
         this.initializeLab();
         this.initEnemy();
         this.initializeProjectiles();
+
+        // move enemies at spawn
+        this.enemies.forEach(element => {
+            element.setVelocityX(element.getMyXVel());
+        });
     }
 
     update() {

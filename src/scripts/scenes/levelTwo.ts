@@ -3,13 +3,15 @@ import { GameObjects, Display, Physics } from "phaser"
 import { Inventory } from "../objects/Inventory";
 import { Element } from "../objects/Element";
 import { Lab } from "../objects/Lab";
+import { Item } from "../objects/Item";
+import { Compound } from "../objects/Compound";
 import BasicAttack from "../objects/attacks/BasicAttack"
 
 // CONSTANTS
 const jumpHeight: number = -1200;
 const runSpeed: number = 500;
 
-export default class MainScene extends Phaser.Scene {
+export default class LevelTwoScene extends Phaser.Scene {
 
   // Game vars
   private background;
@@ -18,9 +20,10 @@ export default class MainScene extends Phaser.Scene {
   private tileset;
   private text;
   private invButton;
-  private inventory: Inventory;
+  private inventoryTWO: Inventory;
   private lab: Lab;
   private boss: GameObjects.Image;
+  private l2scene: Phaser.Scene;
 
   // BG Music
   private bgMusic: Phaser.Sound.BaseSound;
@@ -59,9 +62,31 @@ export default class MainScene extends Phaser.Scene {
   gameWidth: number;
   gameHeight: number;
 
+  // backup items
+  backupItems: Item[];
+  tempData; //idk type
+
   constructor() {
     super({ key: 'LevelTwoScene' });
   }
+
+  init = (data) => {
+    console.log("init", data);
+    this.tempData = data;
+}
+
+addAllItems(itemArr:Item[]): void {
+  console.log("IN SCENE 2: Adding all items")
+  itemArr.forEach(elem => {
+    elem.itemToString();
+    console.log(this);
+    console.log("DOES GET HERE");
+    this.inventoryTWO.addItem(this, elem);
+    console.log("NEVER GETS HERE");
+  });
+  console.log("added all items");
+
+}
 
 
 
@@ -142,10 +167,9 @@ export default class MainScene extends Phaser.Scene {
 
   initializeLab() {
     //inventory menu in scene
-    this.inventory = new Inventory(this, 2 * this.game.canvas.width / 3, this.game.canvas.height / 2);
-
+    this.inventoryTWO = new Inventory(this, 2 * this.game.canvas.width / 3, this.game.canvas.height / 2);
     //lab menu in scene
-    this.lab = new Lab(this,this.player, this.inventory);
+    this.lab = new Lab(this,this.player, this.inventoryTWO);
     this.lab.makeCells(this);
 
 
@@ -165,14 +189,14 @@ export default class MainScene extends Phaser.Scene {
 
     this.invButton.on("pointerup", () => {
       // console.log("pause?");
-      if (this.inventory.getDisplay().visible === true) {
-        this.inventory.setVis(false);
+      if (this.inventoryTWO.getDisplay().visible === true) {
+        this.inventoryTWO.setVis(false);
         // console.log(this.inventory.visible);
       }
       else {
-        this.inventory.refreshRender();
+        this.inventoryTWO.refreshRender();
         this.lab.clearCells();
-        this.inventory.setVis(true);
+        this.inventoryTWO.setVis(true);
         // console.log(this.inventory.visible);
       }
       // this.scene.pause();
@@ -277,13 +301,13 @@ export default class MainScene extends Phaser.Scene {
     let keyL = this.input.keyboard.addKey('L');
     if (this.input.keyboard.checkDown(keyL, 1000)) {
 
-      if (this.inventory.getDisplay().visible === true) {
-        this.inventory.setVis(false);
+      if (this.inventoryTWO.getDisplay().visible === true) {
+        this.inventoryTWO.setVis(false);
         // console.log(this.inventory.visible);
       }
       else {
-        this.inventory.refreshRender();
-        this.inventory.setVis(true);
+        this.inventoryTWO.refreshRender();
+        this.inventoryTWO.setVis(true);
         // console.log(this.inventory.visible);
       }
     }
@@ -317,7 +341,7 @@ export default class MainScene extends Phaser.Scene {
   collideHydrogen(player, hydrogen) {
     // add to inventory
     let item: Element = new Element("Hydrogen", "H", "description text", 1, 1, this.add.image(0, 0, "hydrogen"));
-    this.inventory.addItem(this, item);
+    this.inventoryTWO.addItem(this, item);
     this.lab.makeCollision(this, item);
 
     // destroy the hydrogen
@@ -326,7 +350,7 @@ export default class MainScene extends Phaser.Scene {
 
   collideOxygen(player, oxygen) {
     let item: Element = new Element("Oxygen", "O", "description text", 2, 2, this.add.image(0, 0, "oxygen"));
-    this.inventory.addItem(this, item);
+    this.inventoryTWO.addItem(this, item);
     this.lab.makeCollision(this, item);
 
     oxygen.disableBody(true, true);
@@ -334,9 +358,26 @@ export default class MainScene extends Phaser.Scene {
   // -- END COLLISION FUNCTIONS --
 
 
+  tempInv(data) {
+    this.backupItems = [];
+    this.inventoryTWO = data.inventroyCopy;
 
+    data.inventoryCopy.items.forEach(item => {
+      if(item instanceof Element){
+        let tempElement:Element = item;
+        console.log(tempElement instanceof Element);
+        this.backupItems.push(tempElement);
+      }
+      else{
+        let tempCompound:Compound = item;
+        this.backupItems.push(tempCompound);
+      }
+    });
+    console.log("item: ", this.backupItems)
+  }
 
   create() {
+    this.l2scene = this;
     this.gameOver = false;
     this.playerDirection = 1;
     this.gameWidth = this.game.canvas.width;
@@ -361,11 +402,13 @@ export default class MainScene extends Phaser.Scene {
     this.initializeCamera();
     this.initializeLab();
     this.initializeProjectiles();
+
+    this.tempInv(this.tempData);
+    this.addAllItems(this.backupItems);
+    console.log(this.inventoryTWO);
   }
 
   update() {
-    console.log("LEVEL TWO RUNNING")
-
     if (this.gameOver) {
       this.stopMusic();
       this.player.setCollideWorldBounds(false);

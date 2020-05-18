@@ -7,10 +7,10 @@ import BasicAttack from "../objects/attacks/BasicAttack"
 import Enemy from "../objects/Enemy";
 
 // CONSTANTS
-const jumpHeight: number = -1200;
-const runSpeed: number = 500;
+const jumpHeight: number = -2000;
+const runSpeed: number = 1000;
 
-export default class MainScene extends Phaser.Scene {
+export default class LevelOneScene extends Phaser.Scene {
 
     // Game vars
     private background;
@@ -62,11 +62,11 @@ export default class MainScene extends Phaser.Scene {
     gameWidth: number;
     gameHeight: number;
 
+
+
     constructor() {
         super({ key: 'LevelOneScene' });
     }
-
-
 
 
     // -- START INITIALIZE FUNCTIONS --
@@ -364,8 +364,15 @@ export default class MainScene extends Phaser.Scene {
     // -- START COLLISION FUNCTIONS --
     collideExit() {
         this.stopMusic();
+        this.disableItemStuff(this.inventory);
         this.scene.stop('MainScene');
-        this.scene.start('LevelTwoScene');
+        this.scene.start('LevelTwoScene', {inventoryCopy: this.inventory});
+    }
+
+    disableItemStuff(inventory: Inventory) {
+        inventory.items.forEach(element => {
+            element.image.disableInteractive();
+        });
     }
 
     collideWater() {
@@ -405,7 +412,8 @@ export default class MainScene extends Phaser.Scene {
         this.player.play('jump', true);
         console.log(player.health);
         this.player.health -= enemy.damage;
-        player.x -= 100;
+        // player.x -= 100;
+        player.body.velocity.x = -300;
         // player.setVelocityY(-500);
     }
 
@@ -416,27 +424,22 @@ export default class MainScene extends Phaser.Scene {
         this.enemies.forEach(obj => {
             if(enemy === obj){
                 enemy.health -= 1;
-                this.createFloatingText(enemy.x-25, enemy.y-100, "-1", 0xffff00, "desyrel" );
+                this.createDamageText(enemy.x-25, enemy.y-100, "-" + projectile.damage, 0xffff00, "desyrel" );
                 if(enemy.health === 0)
                     enemy.destroy();
             }
         });
     }
 
-    createFloatingText(x, y, message, tint, font) {
+    createDamageText(x, y, message, tint, font) {
 
         let animation = this.add.bitmapText(x, y, font, message).setTint(tint);
-    
         let tween: Phaser.Tweens.Tween = this.add.tween({
-    
           targets: animation, duration: 750, ease: 'Exponential.In', y: y - 50,
     
           onComplete: () => {
-    
             animation.destroy();
-    
           }, callbackScope: this
-    
         });
     
       }
@@ -477,10 +480,14 @@ export default class MainScene extends Phaser.Scene {
     }
 
     update() {
-        //console.log("LEVEL ONE RUNNING")
         if (this.gameOver) {
             this.stopMusic();
             this.player.setCollideWorldBounds(false);
+
+            if (this.inventory.getDisplay().visible === true) {
+                this.inventory.setVis(false);
+                // console.log(this.inventory.visible);
+            }
             this.invButton.disableInteractive();
 
             this.player.setVelocityX(500);

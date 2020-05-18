@@ -11,18 +11,28 @@ export class Inventory {
         this.initializeInv(scene);
     }
 
-    addItem(scene: Phaser.Scene,item:Item): void{
+    addItem(scene: Phaser.Scene, item:Item){
         // for(var i = 0; i < this.items.length; i++){
         //     if(this.items[i].name === item.name){
         //         this.items[i].amount += 1;
         //         return;
         //     }
         // }
+        console.log("SYS 1?")
         this.items.push(item);
-        item.image.setScrollFactor(0);
-        item.image.setInteractive();
-        item.image.setScrollFactor(0);
-        scene.input.setDraggable(item.image);
+
+        console.log("SYS 2?")
+
+            item.image.setInteractive();
+            console.log("SYS 3?")
+    
+            item.image.setScrollFactor(0);
+            console.log("SYS 4?")
+    
+            scene.input.setDraggable(item.image);
+            console.log("SYS 5?")
+        
+
         scene.input.on('drag', function (pointer, gameObject, dragX, dragY) {
             gameObject.x = dragX;
             gameObject.y = dragY;

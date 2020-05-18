@@ -1,16 +1,18 @@
 export default class BasicAttack extends Phaser.Physics.Arcade.Sprite{
     body: Phaser.Physics.Arcade.Body;
-    
+    damage: number;
+
     constructor(scene, attackDirection){
         var x = scene.player.x;
         var y = scene.player.y;
 
         if(attackDirection == 1) {
-            super(scene, x + 70, y, "basic_attack");
+            super(scene, x + 25, y, "basic_attack");
         } else {
-            super(scene, x - 70, y, "basic_attack");
+            super(scene, x - 25, y, "basic_attack");
         }
         
+        this.damage = 1;
         scene.add.existing(this);
         
         this.play("basic_attack_anim");

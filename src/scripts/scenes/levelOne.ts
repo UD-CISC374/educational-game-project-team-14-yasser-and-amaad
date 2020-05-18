@@ -7,9 +7,10 @@ import BasicAttack from "../objects/attacks/BasicAttack"
 import Enemy from "../objects/Enemy";
 
 // CONSTANTS
-const jumpHeight: number = -1500
-;
+const jumpHeight: number = -1500;
 const runSpeed: number = 2000;
+const startXIndex: number = 0;
+const startYIndex: number = 11;
 
 export default class LevelOneScene extends Phaser.Scene {
 
@@ -74,7 +75,7 @@ export default class LevelOneScene extends Phaser.Scene {
 
 
     // -- START INITIALIZE FUNCTIONS --
-    initializeText() {
+    initText() {
         this.gameText = this.add.text(this.gameWidth / 2 - 270, this.gameHeight / 3, "Press R to Restart");
         this.gameText.setStyle({
             fontSize: '64px',
@@ -89,27 +90,13 @@ export default class LevelOneScene extends Phaser.Scene {
         this.gameText.setVisible(false);
     }
 
-    initializeBackground() {
+    initBackground() {
         // PARALLAX BG
         this.background = this.add.tileSprite(0, 0, this.gameWidth, this.gameHeight, "background").setOrigin(0, 0).setScrollFactor(0);
         this.background.tilePositionX = this.cameras.main.scrollX * .3;
     }
 
-    initializeMusic() {
-        this.bgMusic = this.sound.add("bg_netherplace");
-        let musicConfig = {
-            mute: false,
-            volume: .01,
-            rate: 1,
-            detune: 1,
-            seek: 0,
-            loop: true,
-            delay: 0
-        }
-        this.bgMusic.play(musicConfig);
-    }
-
-    initializeMap() {
+    initMap() {
         this.tileset = this.map.addTilesetImage('tiles_spritesheet', 'T1');
 
         this.platforms = this.map.createStaticLayer('PlatformTile', this.tileset, 0, 30);
@@ -119,7 +106,7 @@ export default class LevelOneScene extends Phaser.Scene {
         this.exitLayer = this.map.createStaticLayer('ExitTile', this.tileset, 0, 30);
     }
 
-    initializeHints() {
+    initHints() {
         // hint stuff
         this.hintsArray = [];
         this.hintImages = [];
@@ -159,7 +146,7 @@ export default class LevelOneScene extends Phaser.Scene {
         this.physics.add.overlap(this.player, this.hints, this.collideHint, undefined, this);
     }
 
-    initializeWalls() {
+    initWalls() {
         // add walls to map
         this.walls = this.physics.add.group({
             allowGravity: false,
@@ -173,7 +160,7 @@ export default class LevelOneScene extends Phaser.Scene {
         });
     }
 
-    initializeMapObjects() {
+    initMapObjects() {
         // add hydrogen to map
         this.hydrogenObjects = this.physics.add.group({
             allowGravity: false,
@@ -207,11 +194,25 @@ export default class LevelOneScene extends Phaser.Scene {
         this.physics.add.overlap(this.player, this.waterObjects, this.collideWater, undefined, this);
 
         // init walls
-        this.initializeWalls();
+        this.initWalls();
     }
 
-    initializePlayer() {
-        this.player = new Player(this, 10, this.game.canvas.height - (this.game.canvas.height / 4), 'playerIdle', 10, 1);
+    initMusic() {
+        this.bgMusic = this.sound.add("bg_netherplace");
+        let musicConfig = {
+            mute: false,
+            volume: .01,
+            rate: 1,
+            detune: 1,
+            seek: 0,
+            loop: true,
+            delay: 0
+        }
+        this.bgMusic.play(musicConfig);
+    }
+
+    initPlayer() {
+        this.player = new Player(this, startXIndex*70, startYIndex*70 + 30, 'playerIdle', 10, 1);
         this.setSpriteProperties(this.player, 1.5)
     }
 
@@ -231,13 +232,13 @@ export default class LevelOneScene extends Phaser.Scene {
         this.physics.add.collider(this.walls, this.enemiesGroup, this.collideWalls, undefined, this)
     }
 
-    initializeCamera() {
+    initCamera() {
         this.physics.world.setBounds(0, 0, this.map.width * 70, this.map.height * 70);
         this.cameras.main.setBounds(0, 0, this.map.width * 70, this.map.height * 70);
         this.cameras.main.startFollow(this.player);
     }
 
-    initializeLab() {
+    initLab() {
         //inventory menu in scene
         this.inventory = new Inventory(this, 2 * this.game.canvas.width / 3, this.game.canvas.height / 2);
 
@@ -277,7 +278,7 @@ export default class LevelOneScene extends Phaser.Scene {
         });
     }
 
-    initializeProjectiles() {
+    initProjectiles() {
         this.projectiles = this.add.group({
             classType: BasicAttack,
             runChildUpdate: true
@@ -459,14 +460,14 @@ export default class LevelOneScene extends Phaser.Scene {
         this.enemies.forEach(obj => {
             if(enemy === obj){
                 enemy.health -= 1;
-                this.createFloatingText(enemy.x-25, enemy.y-100, "-1", 0xffff00, "desyrel" );
+                this.floatDmgText(enemy.x-25, enemy.y-100, "-1", 0xffff00, "desyrel" );
                 if(enemy.health === 0)
                     enemy.destroy();
             }
         });
     }
 
-    createFloatingText(x, y, message, tint, font) {
+    floatDmgText(x, y, message, tint, font) {
 
         let animation = this.add.bitmapText(x, y, font, message).setTint(tint);
     
@@ -502,19 +503,19 @@ export default class LevelOneScene extends Phaser.Scene {
         this.cursors = this.input.keyboard.createCursorKeys();
 
         // Inits
-        this.initializeBackground()
-        this.initializeMap();
-        this.initializePlayer();
-        this.initializeText();
-        this.initializeMusic();
-        this.initializeHints();
-        this.initializeMapObjects();
-        this.initializeCamera();
-        this.initializeLab();
+        this.initBackground()
+        this.initMap();
+        this.initPlayer();
+        this.initText();
+        this.initMusic();
+        this.initHints();
+        this.initMapObjects();
+        this.initCamera();
+        this.initLab();
         this.initEnemy();
-        this.initializeProjectiles();
+        this.initProjectiles();
 
-        // move enemies at spawn
+        // start moving enemies
         this.enemies.forEach(element => {
             element.setVelocityX(element.getMyXVel());
         });

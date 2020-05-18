@@ -26,6 +26,7 @@ export default class PreloadScene extends Phaser.Scene {
     // elements
     this.load.image('hydrogen', "assets/elements/hydrogen.png");
     this.load.image('oxygen', "assets/elements/oxygen.png");
+    this.load.image('helium', "assets/elements/helium.png");
 
     // temp elements
     this.load.image('hydrogenTemp', "assets/elements/hydrogen_temp.png");
@@ -34,8 +35,8 @@ export default class PreloadScene extends Phaser.Scene {
     // other objects
     this.load.image('exitobject', "assets/Levels/level_1/exitobject.png");
     this.load.image('waterobject', "assets/Levels/level_1/waterobject.png");
-    this.load.image('exitopenobject', "assets/Levels/level_2/exitopenobject.png");
     this.load.image('lavaobject', "assets/Levels/level_2/lavaobject.png");
+    this.load.image('exitopenobject', "assets/Levels/level_2/exitopenobject.png");
     // blank for hints
     this.load.image('blank', "assets/elements/blank.png");
 
@@ -76,6 +77,7 @@ export default class PreloadScene extends Phaser.Scene {
     this.createPlayerAnims();
     this.createAttackAnims()
     this.scene.start('LevelOneScene');
+    // this.scene.start('LevelOneScene');
   }
 
   createPlayerAnims(){

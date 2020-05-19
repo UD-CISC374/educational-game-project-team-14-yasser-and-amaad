@@ -196,7 +196,7 @@ self.__precacheManifest = (self.__precacheManifest || []).concat([
     "url": "/educational-game-project-team-14-yasser-and-amaad/finalassets/enemies/nacl_monster.png"
   },
   {
-    "revision": "53cefca2a0f75654486b180949686165",
+    "revision": "73e1be518b582f7cc1d671028dac9a47",
     "url": "/educational-game-project-team-14-yasser-and-amaad/finalassets/icons/favicon.ico"
   },
   {
@@ -232,7 +232,7 @@ self.__precacheManifest = (self.__precacheManifest || []).concat([
     "url": "/educational-game-project-team-14-yasser-and-amaad/finalassets/map/platformPack_tilesheet.png"
   },
   {
-    "revision": "53cefca2a0f75654486b180949686165",
+    "revision": "73e1be518b582f7cc1d671028dac9a47",
     "url": "/educational-game-project-team-14-yasser-and-amaad/finalfavicon.ico"
   },
   {

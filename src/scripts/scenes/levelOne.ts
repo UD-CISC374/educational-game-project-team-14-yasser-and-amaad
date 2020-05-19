@@ -295,7 +295,7 @@ export default class LevelOneScene extends Phaser.Scene {
             projectile.destroy();
         });
 
-        this.physics.add.collider(this.projectiles, this.enemiesGroup, this.collideEnemy, undefined, this);
+        this.physics.add.overlap(this.projectiles, this.enemiesGroup, this.collideEnemy, undefined, this);
     }
     // -- END INITIALIZE FUNCTIONS --
 
@@ -450,9 +450,10 @@ export default class LevelOneScene extends Phaser.Scene {
         }
     }
 
+    // elements
     collideHydrogen(player, hydrogen) {
         // add to inventory
-        let item: Element = new Element("Hydrogen", "H", "description text", 1, 1, this.add.image(0, 0, "hydrogen"));
+        let item: Element = new Element("Hydrogen", "H", "Hydrogen is the most abundant chemical\nsubstance in the Universe. The lightest\nelement in the periodic table.", 1, 1.008, this.add.image(0, 0, "hydrogen"));
         this.inventory.addItem(this, item);
         this.lab.makeCollision(this, item);
 
@@ -461,12 +462,13 @@ export default class LevelOneScene extends Phaser.Scene {
     }
 
     collideOxygen(player, oxygen) {
-        let item: Element = new Element("Oxygen", "O", "description text", 2, 2, this.add.image(0, 0, "oxygen"));
+        let item: Element = new Element("Oxygen", "O", "A highly reactive nonmetal, and an oxidizing\nagent that readily forms oxides with most elements as\nwell as with other compounds.", 8, 15.999, this.add.image(0, 0, "oxygen"));
         this.inventory.addItem(this, item);
         this.lab.makeCollision(this, item);
 
         oxygen.disableBody(true, true);
     }
+
 
     // enemy/player hit each other
     collidePlayerEnemy(player, enemy){

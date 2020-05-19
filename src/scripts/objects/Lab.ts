@@ -135,7 +135,6 @@ export class Lab {
             //tempResult.input.draggable = true;
             tempResult.on('pointerup', ()=> {
                 this.pInv.addItem(this.scene, new Compound("Water", "H2O", "Water appears as a clear, nontoxic liquid\ncomposed of hydrogen and oxygen,essential for life\nand the most widely used solvent.\n\nGame Use: Increases damage against salt (NaCl) enemies", tempWater));
-                console.log(this.pInv.getItems().length);
                 this.pInv.refreshRender();
                 this.clearCells();
                 this.player.activeCompound = "h2o";
@@ -143,6 +142,9 @@ export class Lab {
                 this.disableResult(tempResult);
                 this.hotbar.makeCollision(this.scene, tempWater);
                 this.hotbar.makeMagicColl(this.scene, tempWater);
+
+                // play combine sound
+                this.scene.sound.play("sfx_combineElement");    
             });
             this.refreshRender();
         }

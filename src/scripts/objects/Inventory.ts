@@ -46,8 +46,8 @@ export class Inventory {
         });
         this.inventoryDis.add(item.image);
 
-        // console.log("Item added");
-        //console.log(this.items.length);
+        // play sound
+        scene.sound.play("sfx_pickupItem");
 
     }
 

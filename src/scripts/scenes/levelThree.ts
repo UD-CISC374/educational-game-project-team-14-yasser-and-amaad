@@ -31,7 +31,7 @@ export default class LevelThreeScene extends Phaser.Scene {
     private bgMusic: Phaser.Sound.BaseSound;
 
     // Player
-    player:Player;
+    player: Player;
     playerDirection: number;
 
     //Enemies
@@ -130,13 +130,13 @@ export default class LevelThreeScene extends Phaser.Scene {
                     .setVisible(false)
                     .setOrigin(0.5)
                     .setAlign('center'));
-            
-            if(counter !== 2){
+
+            if (counter !== 2) {
                 this.hintImages.push(this.add.image(hintObject.x + 30, hintObject.y - hintObject.height * 2 - 60, "blank").setVisible(false));
             } else {
                 this.hintImages.push(this.add.image(hintObject.x + 30, hintObject.y - hintObject.height * 2 - 60, "h2o").setVisible(false));
             }
-                   
+
             this.hintsXPos.push(hintObject.x);
             counter++;
         });
@@ -201,11 +201,11 @@ export default class LevelThreeScene extends Phaser.Scene {
     }
 
     initPlayer() {
-        this.player = new Player(this, startXIndex*70, startYIndex*TILE_WIDTH + 30, 'playerIdle', 10, 1);
+        this.player = new Player(this, startXIndex * 70, startYIndex * TILE_WIDTH + 30, 'playerIdle', 10, 1);
         this.setSpriteProperties(this.player, 1.5)
     }
 
-    initEnemy(){
+    initEnemy() {
         // x    y
         // 34   4
         // 57   11
@@ -224,7 +224,7 @@ export default class LevelThreeScene extends Phaser.Scene {
             this.setSpriteProperties(enemy);
             this.enemiesGroup.add(enemy);
         })
-        
+
         this.physics.add.collider(this.player, this.enemiesGroup, this.collidePlayerEnemy, undefined, this);
         this.physics.add.collider(this.walls, this.enemiesGroup, this.collideWalls, undefined, this);
     }
@@ -243,7 +243,7 @@ export default class LevelThreeScene extends Phaser.Scene {
         this.hotbar = new Hotbar(this, this.player, this.inventory);
 
         //lab menu in scene
-        this.lab = new Lab(this,this.player, this.inventory, this.hotbar);
+        this.lab = new Lab(this, this.player, this.inventory, this.hotbar);
         this.lab.makeCells(this);
 
 
@@ -262,7 +262,8 @@ export default class LevelThreeScene extends Phaser.Scene {
         });
 
         this.invButton.on("pointerup", () => {
-            // console.log("pause?");
+            this.sound.play("sfx_openLab");
+            
             if (this.inventory.getDisplay().visible === true) {
                 this.inventory.setVis(false);
                 // console.log(this.inventory.visible);
@@ -308,10 +309,10 @@ export default class LevelThreeScene extends Phaser.Scene {
         sprite.setCollideWorldBounds(true);
         this.physics.add.collider(sprite, this.platforms);
 
-        if(scale !== undefined)
+        if (scale !== undefined)
             sprite.setScale(scale);
 
-        if(depth !== undefined){
+        if (depth !== undefined) {
             sprite.setDepth(depth);
         }
     }
@@ -338,7 +339,7 @@ export default class LevelThreeScene extends Phaser.Scene {
         if (this.cursors.left.isDown) {
             this.playerDirection = -1;
             this.player.setVelocityX(-this.player.runSpeed);
-            
+
             if (this.player.body.onFloor()) {
                 this.player.play('run', true);
                 this.player.setSize(57, 75);
@@ -363,6 +364,7 @@ export default class LevelThreeScene extends Phaser.Scene {
         if (this.cursors.up.isDown && this.player.body.onFloor()) {
             this.player.setVelocityY(this.player.jumpHeight);
             this.player.play('jump', true);
+            this.sound.play('sfx_jump1');
         }
 
         // Fall down faster
@@ -381,6 +383,7 @@ export default class LevelThreeScene extends Phaser.Scene {
         // Open Lab
         let keyL = this.input.keyboard.addKey('L');
         if (this.input.keyboard.checkDown(keyL, 1000)) {
+            this.sound.play("sfx_openLab");
 
             if (this.inventory.getDisplay().visible === true) {
                 this.inventory.setVis(false);
@@ -395,15 +398,15 @@ export default class LevelThreeScene extends Phaser.Scene {
         }
 
         let keyOne = this.input.keyboard.addKey(49);
-        if(this.input.keyboard.checkDown(keyOne, 1000)){
+        if (this.input.keyboard.checkDown(keyOne, 1000)) {
             this.player.activeCompound = this.hotbar.slots[0].element;
-            console.log(this.player.activeCompound);
+            this.sound.play("sfx_powerup");
         }
 
         let keyTwo = this.input.keyboard.addKey(50);
-        if(this.input.keyboard.checkDown(keyTwo, 1000)){
+        if (this.input.keyboard.checkDown(keyTwo, 1000)) {
             this.player.activeCompound = this.hotbar.slots[1].element;
-            console.log(this.player.activeCompound);
+            this.sound.play("sfx_powerup");
         }
     }
     // -- END HELPER FUNCTIONS --
@@ -413,8 +416,8 @@ export default class LevelThreeScene extends Phaser.Scene {
     // -- START COLLISION FUNCTIONS --
     // handle collision between enemies and invisible walls
     collideWalls(wall, enemy) {
-        enemy.setVelocityX(enemy.getMyXVel()*-1);
-        enemy.setMyXVel(enemy.getMyXVel()*-1);
+        enemy.setVelocityX(enemy.getMyXVel() * -1);
+        enemy.setMyXVel(enemy.getMyXVel() * -1);
 
     }
 
@@ -425,18 +428,19 @@ export default class LevelThreeScene extends Phaser.Scene {
     }
 
     collideWater() {
+        this.sound.play("sfx_die");
         this.gameOver = true;
     }
 
     collideHint(player) {
         let hintNumber: number = 4;
         for (let i = 0; i < this.hintsXPos.length; i++) {
-            if (player.x > this.hintsXPos[i] - player.width && player.x < this.hintsXPos[i] + player.width){
+            if (player.x > this.hintsXPos[i] - player.width && player.x < this.hintsXPos[i] + player.width) {
                 this.hintsArray[i].setVisible(true);
                 this.hintImages[i].setVisible(true);
 
             }
-            else{
+            else {
                 this.hintsArray[i].setVisible(false);
                 this.hintImages[i].setVisible(false);
             }
@@ -463,48 +467,51 @@ export default class LevelThreeScene extends Phaser.Scene {
     }
 
     // enemy/player hit each other
-    collidePlayerEnemy(player, enemy){
+    collidePlayerEnemy(player, enemy) {
         this.player.play('jump', true);
-        console.log(player.health);
+        this.sound.play("sfx_hurt2");
         this.player.health -= enemy.damage;
         player.x -= 100;
         // player.setVelocityY(-500);
     }
 
     // projectile hits enemy
-    collideEnemy(projectile,enemy) {
+    collideEnemy(projectile, enemy) {
         projectile.destroy();
-        //console.log(this.player.activeCompound);
-        if(enemy.monsterType === "nacl" && this.player.activeCompound === "water"){
+        this.sound.play("sfx_hit1");
+
+        if (enemy.monsterType === "nacl" && this.player.activeCompound === "water") {
             enemy.health -= 3;
-        this.floatDmgText(enemy.x-25, enemy.y-100, "-3", 0xffff00, "desyrel" );
-        if(enemy.health <= 0)
-            enemy.destroy();
-        }else{
-        enemy.health -= 1;
-        this.floatDmgText(enemy.x-25, enemy.y-100, "-1", 0xffff00, "desyrel" );
-        if(enemy.health <= 0)
-            enemy.destroy();
+            this.floatDmgText(enemy.x - 25, enemy.y - 100, "-3", 0xffff00, "desyrel");
+
+            if (enemy.health <= 0)
+                enemy.destroy();
+        } else {
+            enemy.health -= 1;
+            this.floatDmgText(enemy.x - 25, enemy.y - 100, "-1", 0xffff00, "desyrel");
+
+            if (enemy.health <= 0)
+                enemy.destroy();
         }
-           
-        
+
+
     }
 
     floatDmgText(x, y, message, tint, font) {
 
         let animation = this.add.bitmapText(x, y, font, message).setTint(tint);
-    
-        let tween: Phaser.Tweens.Tween = this.add.tween({
-          targets: animation, duration: 700, ease: 'Exponential.In', y: y - 50,
-    
-          onComplete: () => {
-            animation.destroy();
-          }, callbackScope: this
-        });
-    
-      }
 
-    
+        let tween: Phaser.Tweens.Tween = this.add.tween({
+            targets: animation, duration: 700, ease: 'Exponential.In', y: y - 50,
+
+            onComplete: () => {
+                animation.destroy();
+            }, callbackScope: this
+        });
+
+    }
+
+
     // -- END COLLISION FUNCTIONS --
 
 

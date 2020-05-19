@@ -70,6 +70,21 @@ export default class PreloadScene extends Phaser.Scene {
     // audio
     this.load.audio("bg_netherplace", "assets/audio/bg_netherplace.mp3");
 
+    // soundfx
+    this.load.audio("sfx_effectNotice", "assets/audio/sounds/effectNotice.wav");
+    this.load.audio("sfx_combineElement", "assets/audio/sounds/elementCombine.wav");
+    this.load.audio("sfx_pickupItem", "assets/audio/sounds/pickupItem.wav");
+    this.load.audio("sfx_jump1", "assets/audio/sounds/jump1.wav");
+    this.load.audio("sfx_jump2", "assets/audio/sounds/jump2.wav");
+    this.load.audio("sfx_shoot1", "assets/audio/sounds/shoot1.wav");
+    this.load.audio("sfx_hit1", "assets/audio/sounds/hit1.wav");
+    this.load.audio("sfx_hurt1", "assets/audio/sounds/hurtDie.wav");
+    this.load.audio("sfx_hurt2", "assets/audio/sounds/hurtDie2.wav");
+    this.load.audio("sfx_die", "assets/audio/sounds/die.wav");
+    this.load.audio("sfx_powerup", "assets/audio/sounds/powerup.wav");
+    this.load.audio("sfx_openLab", "assets/audio/sounds/openLab.wav");
+
+
     // bitmap font
     this.load.bitmapFont('desyrel', 'assets/bitmapfonts/desyrel.png', 'assets/bitmapfonts/desyrel.xml');
   }

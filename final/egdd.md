@@ -2,7 +2,7 @@
 waltz:
   title: Educational Game Design Document Template
 meta:
-  version: 0.0.2
+  version: 1.0.0
   gdd authors:
     - Amaad Rafi
     - Yasser Abdelaal
@@ -17,7 +17,7 @@ meta:
 
 ## Elevator Pitch
 
-You are an alchemist who finds recipes for compounds while traversing a dungeon/ platform environment. You use these recipes to create new spells or compounds used to fight the boss at the end of the level. You also need to collect the compound that will act as a key to get to the next level. Once you have defeated the boss, you can use the compounds you have collected in order to fight enemies on later levels. 
+The game is a platformer called LMNTOR which aims to teach you the basics of chemical compounds and elements. In the game, you are an alchemist who will traverse through the map and collect elements. Once you have the proper elements to form a compound, you will be able to do so by going into the "Lab" and combining the elements in the correct order. You may equip the compounds appropriately to defeat enemies and progress in levels
 
 ## Influences (Brief)
 
@@ -32,8 +32,7 @@ You are an alchemist who finds recipes for compounds while traversing a dungeon/
 
 - *Gameplay Mechanic #1*: Move up, down, left, right
 - *Gameplay Mechanic #2*: attack using spells
-- *Gameplay Mechanic #3*: collecting recipes
-- *Gameplay Mechanic #4*: switching the compound in use
+- *Gameplay Mechanic #3*: switching the compound in use
 
 # Learning Aspects
 
@@ -59,7 +58,7 @@ This can be played at any point during a students free time or during class in o
 
 ## Assessment Measures
 
-Will be measured by showing the number of correct and incorrect answers (scoreboard)
+Will be measured by their ability to form a compound without using hints so they may defeat monsters
 
 # What sets this project apart?
 
@@ -73,7 +72,7 @@ Our game is a single player game where the player interacts with the world by tr
 
 ## Player Modes
 
-- There will be a main menu at the start of the game and the player will be able to choose a mode to play. There will be no transitions since the player just picks one and plays.
+- The game starts at level one and the player progresses as they gain more knowledge
   - *Player mode #1*:  Story Mode - classic story mode that gets more difficult as it progresses.
 
 # Gameplay Objectives
@@ -88,19 +87,17 @@ Our game is a single player game where the player interacts with the world by tr
     - Alignment: LOs 1,2
 # Procedures/Actions
 
-The user can move around the map using WASD or the arrow keys and shoot with the spacebar or mouse. The user can also access their lab/inventory using “I” or “L” in which they can utilize the collected elements and form compounds to use as they advance through the level..
+The user can move around the map using the arrow keys and shoot with the spacebar. The user can also access their lab/inventory using a mouse click or “L” in which they can utilize the collected elements and form compounds to use as they advance through the level..
 
 # Rules
 
 - There will be a finite amount of elements spread throughout the level which the player must collect.
-- The player will have a recipe book in which a recipe for previously formed compounds will be stored.
 - There will be some sort of hint on the level that will guide the player into forming certain compounds.
 
 # Objects/Entities
 
 - There is a player that moves throughout the level
 - There will be various elements that need to be spread across each level
-- There will be a recipe book that will store formulas
 - There will be a enemies of certain elements/compounds that react different to incoming attacks
 - There will be bosses that will also react differently to incoming attacks based on the compound
 
@@ -115,7 +112,7 @@ The user can move around the map using WASD or the arrow keys and shoot with the
     
 ## Feedback
 
-When fighting enemies, they will react to an attack from the player based on what kind of enemy it is. For example, if you fight a water enemy and you attack them with the water compound, they will get bigger. This can be expanded further with different enemy types and each element/compound will have different effects.  
+When fighting enemies, they will react to an attack from the player based on what kind of enemy it is. 
 
 As the player advances in the game, they will acquire more compound recipes and the knowledge to make them which ties in directly with learning objective 1. They will also remember how to defeat certain enemies by creating a reaction that will clear a path to the boss(learning objective 2).
 
@@ -123,7 +120,7 @@ As the player advances in the game, they will acquire more compound recipes and 
 
 ## Presentation of Rules
 
-The first level will act as a tutorial stage where the player will be prompted to collect certain elements and a recipe in order to defeat the boss. There will be no smaller enemies in order to allow the player to fully understand what they are doing, however they will fight a boss at the end of the level to understand how making the compound can assist them in the future. 
+The first level will act as a tutorial stage where the player will be prompted to collect certain elements and a recipe in order to defeat an enemy. Enemies will react differently to incoming attacks
 
 ## Presentation of Content
 
@@ -137,11 +134,8 @@ You are an alchemist using the power of chemistry to fight monsters to collect r
 
 - *Example elements and their uses*:
   - Hydrogen + oxygen2 - combine to make water 
-  - Neon + Glass Tube + Electricity = light up dark room
-  - Helium = reduces gravity on player if used on self or make enemies lighter/float
-  - Molybdenum = used on player to provide defense at the expense of being able to move
-  - Palladium = hydrogen magnet, collects hydrogen from the air
-  - Silver/Gold = conduct electricity but most importantly flex with jewelry 
+  - Helium + magic ball - gain aspect of helium (become light)
+  - Hydrogen2 + oxygen2 - combine to make hydrogen peroxide
 
 
 ![Storyboard Sketch](Storyboard.jpg)
@@ -168,12 +162,11 @@ The game should have an adventure-like theme that gives the player a sense of di
 
 - Music List (Ambient sound)
   - *Background Music*: *Netherplace*
-  - *Boss Music*: *Crimson Balrog (Maple Story)*
   
 - Sound List (SFX)
   - *Collect element*: *pick up sound*
-  - *Use skill/element*: *sound effect based on skill*
-  - *Combine elements*: *sound effect based on compound*
+  - *Use attack*: *use attack sound*
+  - *Combine elements*: *success sound on craft*
   - *Hit monster*: *some sort of hit sound*
   - *Jump*: *jump sound effect*
   - *Take damage*: *hurt sound effect*

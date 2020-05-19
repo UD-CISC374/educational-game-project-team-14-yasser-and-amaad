@@ -54,7 +54,7 @@ export default class PreloadScene extends Phaser.Scene {
     this.load.atlas('playerJump', 'assets/character/animations/Jump.png', 'assets/character/animations/jump.json');
     this.load.atlas('playerFall', 'assets/character/animations/Fall.png', 'assets/character/animations/fall.json');
     this.load.atlas('playerAtk1', 'assets/character/animations/Attack1/atk1.png', 'assets/character/animations/Attack1/atk1.json');
-    this.load.atlas('playerHit', 'src/assets/character/animations/Hit.png', 'assets/character/animations/hit.json');
+    this.load.atlas('playerHit', 'assets/character/animations/Hit.png', 'assets/character/animations/hit.json');
 
     // attacks
     this.load.spritesheet("basic_attack", "assets/character/attacks/beam.png", {
@@ -63,9 +63,9 @@ export default class PreloadScene extends Phaser.Scene {
     });
 
     //enemies
-    this.load.image('enemy', "src/assets/enemies/enemy_1.png");
-    this.load.image('saltBoss', "src/assets/enemies/nacl_monster.png");
-    this.load.image('bloodMinion', "src/assets/enemies/blood.gif");
+    this.load.image('enemy', "assets/enemies/enemy_1.png");
+    this.load.image('saltBoss', "assets/enemies/nacl_monster.png");
+    this.load.image('bloodMinion', "assets/enemies/blood.gif");
     
     // audio
     this.load.audio("bg_netherplace", "assets/audio/bg_netherplace.mp3");

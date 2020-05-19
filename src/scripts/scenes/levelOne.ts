@@ -245,6 +245,9 @@ export default class LevelOneScene extends Phaser.Scene {
         //inventory menu in scene
         this.inventory = new Inventory(this, 2 * this.game.canvas.width / 3, this.game.canvas.height / 2);
 
+        //grid
+        //let aGrid: Phaser.GameObjects.Grid = this.add.grid(0, 0,this.inventory.getRect().width, this.inventory.getRect().height, 0x000000, 0, 0x000000, 1);
+        //this.inventory.getDisplay().add(aGrid);
         //hotbar in scene
         this.hotbar = new Hotbar(this, this.player, this.inventory);
 

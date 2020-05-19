@@ -169,7 +169,7 @@ export default class PreloadScene extends Phaser.Scene {
       key:'mainBg',
       frames: this.anims.generateFrameNumbers('mainBg', {}),
       frameRate: 10,
-      repeat: 1
+      repeat: -1
   });
   }
 }

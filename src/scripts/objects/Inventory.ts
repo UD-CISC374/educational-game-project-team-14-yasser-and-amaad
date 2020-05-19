@@ -27,16 +27,16 @@ export class Inventory {
         item.image.setScrollFactor(0);
         scene.input.setDraggable(item.image);
         item.image.on("pointerover", () =>{
-            console.log("HOVERING");
-            console.log(item instanceof Element)
-            console.log(item instanceof Compound)
-            console.log(typeof(item))
+            //console.log("HOVERING");
+            //console.log(item instanceof Element)
+            //console.log(item instanceof Compound)
+            //console.log(typeof(item))
             this.infoBox.setVisible(true);
             this.addText(scene, item);
         });
 
         item.image.on("pointerout", () => {
-            console.log("OUT OF HOVER")
+            //console.log("OUT OF HOVER")
             this.infoBox.setVisible(false);
             this.destroyText();
         });

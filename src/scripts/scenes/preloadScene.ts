@@ -45,6 +45,7 @@ export default class PreloadScene extends Phaser.Scene {
 
     //compounds
     this.load.image('h2o', "assets/elements/h2o.png");
+    this.load.image('h2o2', "assets/elements/h2o2.png")
 
     // character/animation sprites
     this.load.image('inventoryButton', "assets/map/book.png");
@@ -87,13 +88,20 @@ export default class PreloadScene extends Phaser.Scene {
 
     // bitmap font
     this.load.bitmapFont('desyrel', 'assets/bitmapfonts/desyrel.png', 'assets/bitmapfonts/desyrel.xml');
+
+    //Main background sprite
+    this.load.spritesheet('mainBg', "assets/map/waterfall_sprite.png", {frameWidth: 500, frameHeight: 475});
+
+    //Main menu play button
+    this.load.image('mPlay', 'assets/map/play.png');
   }
 
   create() {
     this.createPlayerAnims();
-    this.createAttackAnims()
+    this.createAttackAnims();
+    this.createMainBG();
     //this.scene.start('LevelThreeScene');
-    this.scene.start('LevelOneScene');
+    this.scene.start('MainMenu');
   }
 
   createPlayerAnims(){
@@ -169,5 +177,14 @@ export default class PreloadScene extends Phaser.Scene {
       repeat: -1
     });
 
+  }
+
+  createMainBG(){
+    this.anims.create({
+      key:'mainBg',
+      frames: this.anims.generateFrameNumbers('mainBg', {}),
+      frameRate: 10,
+      repeat: 1
+  });
   }
 }

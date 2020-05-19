@@ -125,7 +125,7 @@ export class Lab {
         if(this.craftTable[1].getFilled() && this.craftTable[3].getFilled() && this.craftTable[5].getFilled() &&
         this.craftTable[1].getElement() === "oxygen" && this.craftTable[3].getElement() === "hydrogen" && this.craftTable[5].getElement() === "hydrogen"&&
         !this.resultCell.getFilled()){
-            console.log("craft water!");
+            //console.log("craft water!");
             let tempResult = this.scene.add.image(0, 0, 'h2o');
             let tempWater = this.scene.add.image(0, 0, 'h2o');
             this.pInv.getDisplay().add(tempResult);
@@ -138,7 +138,6 @@ export class Lab {
                 this.pInv.addItem(this.scene, new Compound("Water", "H2O", "Water appears as a clear, nontoxic liquid\ncomposed of hydrogen and oxygen,essential for life\nand the most widely used solvent.\n\nGame Use: Increases damage against salt (NaCl) enemies", tempWater));
                 this.pInv.refreshRender();
                 this.clearCells();
-                this.player.activeCompound = "h2o";
                 this.pInv.getDisplay().remove(tempResult);
                 this.disableResult(tempResult);
                 this.hotbar.makeCollision(this.scene, tempWater);
@@ -148,6 +147,27 @@ export class Lab {
                 this.scene.sound.play("sfx_combineElement");    
             });
             this.refreshRender();
+        }else if(this.craftTable[1].getFilled() && this.craftTable[2].getFilled() && this.craftTable[3].getFilled() && this.craftTable[4].getFilled() &&
+        this.craftTable[1].getElement() === "oxygen" && this.craftTable[2].getElement() === "hydrogen" && this.craftTable[3].getElement() === "hydrogen"&& this.craftTable[4].getElement() === "oxygen"&&
+        !this.resultCell.getFilled()){
+            let tempResult = this.scene.add.image(0, 0, 'h2o2');
+            let tempDeath = this.scene.add.image(0, 0, 'h2o2');
+            this.pInv.getDisplay().add(tempResult);
+            Display.Align.In.Center(tempResult, this.resultCell);
+            tempResult.setInteractive();
+            tempResult.setScrollFactor(0);
+            this.resultCell.fillCell("h2o2");
+            //tempResult.input.draggable = true;
+            tempResult.on('pointerup', ()=> {
+                this.pInv.addItem(this.scene, new Compound("Hydrogen Peroxide", "H2O2", "Hydrogen Peroxide appears as a very pale\n blue liquid,slightly more viscous than water\nIt is used as an oxidizer, bleaching agent, and antiseptic.\n\nGame Use: Increases damage against salt (NaCl) enemies", tempDeath));
+                console.log(this.pInv.getItems().length);
+                this.pInv.refreshRender();
+                this.clearCells();
+                this.pInv.getDisplay().remove(tempResult);
+                this.disableResult(tempResult);
+                this.hotbar.makeCollision(this.scene, tempDeath);
+                this.hotbar.makeMagicColl(this.scene, tempDeath);
+            });
         }
     }
 

@@ -130,13 +130,15 @@ export default class LevelThreeScene extends Phaser.Scene {
                     .setVisible(false)
                     .setOrigin(0.5)
                     .setAlign('center'));
-
-            if (counter !== 2) {
-                this.hintImages.push(this.add.image(hintObject.x + 30, hintObject.y - hintObject.height * 2 - 60, "blank").setVisible(false));
-            } else {
-                this.hintImages.push(this.add.image(hintObject.x + 30, hintObject.y - hintObject.height * 2 - 60, "h2o").setVisible(false));
-            }
-
+            
+            if(counter === 0){
+                this.hintImages.push(this.add.image(hintObject.x + 30, hintObject.y - hintObject.height * 2 - 60, "h2o2").setVisible(false));
+            }//else if(counter === 2){
+            //     this.hintImages.push(this.add.image(hintObject.x + 30, hintObject.y - hintObject.height * 2 - 60, "h2o").setVisible(false));
+            // } else {
+            //     this.hintImages.push(this.add.image(hintObject.x + 30, hintObject.y - hintObject.height * 2 - 60, "blank").setVisible(false));
+            // }
+                   
             this.hintsXPos.push(hintObject.x);
             counter++;
         });
@@ -482,16 +484,19 @@ export default class LevelThreeScene extends Phaser.Scene {
 
         if (enemy.monsterType === "nacl" && this.player.activeCompound === "water") {
             enemy.health -= 3;
-            this.floatDmgText(enemy.x - 25, enemy.y - 100, "-3", 0xffff00, "desyrel");
-
-            if (enemy.health <= 0)
+            this.floatDmgText(enemy.x-25, enemy.y-100, "-3", 0xffff00, "desyrel" );
+            if(enemy.health <= 0)
                 enemy.destroy();
-        } else {
-            enemy.health -= 1;
-            this.floatDmgText(enemy.x - 25, enemy.y - 100, "-1", 0xffff00, "desyrel");
-
-            if (enemy.health <= 0)
+        }else if(enemy.monsterType === "blood" && this.player.activeCompound === "hydrogen peroxide"){
+            enemy.health -=3;
+            this.floatDmgText(enemy.x-25, enemy.y-100, "-3", 0xffff00, "desyrel" );
+            if(enemy.health <= 0)
                 enemy.destroy();
+        }else{
+        enemy.health -= 1;
+        this.floatDmgText(enemy.x-25, enemy.y-100, "-1", 0xffff00, "desyrel" );
+        if(enemy.health <= 0)
+            enemy.destroy();
         }
 
 

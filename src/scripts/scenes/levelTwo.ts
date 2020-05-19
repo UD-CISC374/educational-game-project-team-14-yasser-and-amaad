@@ -5,10 +5,11 @@ import { Element } from "../objects/Element";
 import { Lab } from "../objects/Lab";
 import BasicAttack from "../objects/attacks/BasicAttack"
 import Enemy from "../objects/Enemy";
+import { Hotbar } from "../objects/Hotbar";
 
 // CONSTANTS
-const jumpHeight: number = -1500;
-const runSpeed: number = 2000;
+// const jumpHeight: number = -1500;
+// const runSpeed: number = 2000;
 const startXIndex: number = 0;
 const startYIndex: number = 2;
 const TILE_WIDTH: number = 70;
@@ -24,6 +25,7 @@ export default class LevelOneScene extends Phaser.Scene {
     private invButton;
     private inventory: Inventory;
     private lab: Lab;
+    private hotbar: Hotbar;
 
     // BG Music
     private bgMusic: Phaser.Sound.BaseSound;
@@ -257,8 +259,11 @@ export default class LevelOneScene extends Phaser.Scene {
         //inventory menu in scene
         this.inventory = new Inventory(this, 2 * this.game.canvas.width / 3, this.game.canvas.height / 2);
 
+        //hotbar in scene
+        this.hotbar = new Hotbar(this, this.player, this.inventory);
+
         //lab menu in scene
-        this.lab = new Lab(this,this.player, this.inventory);
+        this.lab = new Lab(this,this.player, this.inventory, this.hotbar);
         this.lab.makeCells(this);
 
 
@@ -284,6 +289,7 @@ export default class LevelOneScene extends Phaser.Scene {
             }
             else {
                 this.inventory.refreshRender();
+                this.hotbar.refreshRender();
                 this.lab.clearCells();
                 this.inventory.setVis(true);
                 // console.log(this.inventory.visible);
@@ -351,7 +357,7 @@ export default class LevelOneScene extends Phaser.Scene {
         // Move left or right
         if (this.cursors.left.isDown) {
             this.playerDirection = -1;
-            this.player.setVelocityX(-runSpeed);
+            this.player.setVelocityX(-this.player.runSpeed);
             
             if (this.player.body.onFloor()) {
                 this.player.play('run', true);
@@ -359,7 +365,7 @@ export default class LevelOneScene extends Phaser.Scene {
             }
         } else if (this.cursors.right.isDown) {
             this.playerDirection = 1;
-            this.player.setVelocityX(runSpeed);
+            this.player.setVelocityX(this.player.runSpeed);
             if (this.player.body.onFloor()) {
                 this.player.play('run', true);
                 this.player.setSize(57, 75);
@@ -375,7 +381,7 @@ export default class LevelOneScene extends Phaser.Scene {
 
         // Jump
         if (this.cursors.up.isDown && this.player.body.onFloor()) {
-            this.player.setVelocityY(jumpHeight);
+            this.player.setVelocityY(this.player.jumpHeight);
             this.player.play('jump', true);
         }
 
@@ -402,9 +408,31 @@ export default class LevelOneScene extends Phaser.Scene {
             }
             else {
                 this.inventory.refreshRender();
+                this.hotbar.refreshRender();
                 this.inventory.setVis(true);
                 // console.log(this.inventory.visible);
             }
+        }
+
+        //Hotbar
+        let keyOne = this.input.keyboard.addKey(49);
+        if(this.input.keyboard.checkDown(keyOne, 1000)){
+            this.player.activeCompound = this.hotbar.slots[0].element;
+            console.log(this.player.activeCompound);
+        }
+
+        let keyTwo = this.input.keyboard.addKey(50);
+        if(this.input.keyboard.checkDown(keyTwo, 1000)){
+            this.player.activeCompound = this.hotbar.slots[1].element;
+            console.log(this.player.activeCompound);
+        }
+
+        let keyThree = this.input.keyboard.addKey(51);
+        if(this.input.keyboard.checkDown(keyThree, 1000) && this.player.magicBall === 'Helium' && this.player.jumpHeight === -1000){
+             this.player.jumpHeight = -1500;
+             console.log("changed");
+        }else{
+            this.player.jumpHeight = -1000
         }
     }
     // -- END HELPER FUNCTIONS --

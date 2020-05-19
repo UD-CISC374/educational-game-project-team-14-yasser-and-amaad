@@ -6,6 +6,7 @@ import { Inventory } from "./Inventory"
 import { Item } from "./Item"
 import { LabCell } from "./LabCell"
 import Player from "./Player"
+import { Hotbar } from "./Hotbar"
 
 export class Lab {
     private pInv: Inventory;
@@ -17,12 +18,14 @@ export class Lab {
     private cellGroup;
     private scene: Phaser.Scene;
     private player: Player;
+    private hotbar: Hotbar;
 
 
 
-    constructor(scene: Phaser.Scene,player:Player, inv: Inventory){
+    constructor(scene: Phaser.Scene,player:Player, inv: Inventory, hotbar: Hotbar){
         this.scene = scene;
         this.pInv = inv;
+        this.hotbar = hotbar;
         this.craftTable = [];
         this.tempBack = scene.add.rectangle(this.pInv.getRect().width, 0, this.pInv.getRect().width, this.pInv.getRect().height, 0xdeb887);
         this.tempBack.setScrollFactor(0);
@@ -103,7 +106,7 @@ export class Lab {
         //     console.log("after if")
         // })
         // console.log("after loop")
-        this.endFunc();
+        this.recipeCases();
         
     }
     endFunc = () => {
@@ -123,6 +126,7 @@ export class Lab {
         !this.resultCell.getFilled()){
             console.log("craft water!");
             let tempResult = this.scene.add.image(0, 0, 'h2o');
+            let tempWater = this.scene.add.image(0, 0, 'h2o');
             this.pInv.getDisplay().add(tempResult);
             Display.Align.In.Center(tempResult, this.resultCell);
             tempResult.setInteractive();
@@ -130,13 +134,15 @@ export class Lab {
             this.resultCell.fillCell("h2o");
             //tempResult.input.draggable = true;
             tempResult.on('pointerup', ()=> {
-                this.pInv.addItem(this.scene, new Compound("water", "h20", "water compound", this.scene.add.image(0, 0, 'h2o')));
+                this.pInv.addItem(this.scene, new Compound("water", "h20", "water compound", tempWater));
                 console.log(this.pInv.getItems().length);
                 this.pInv.refreshRender();
                 this.clearCells();
                 this.player.activeCompound = "h2o";
                 this.pInv.getDisplay().remove(tempResult);
                 this.disableResult(tempResult);
+                this.hotbar.makeCollision(this.scene, tempWater);
+                this.hotbar.makeMagicColl(this.scene, tempWater);
             });
             this.refreshRender();
         }
@@ -151,7 +157,7 @@ export class Lab {
     clearCells(){
         this.craftTable.forEach(cell =>{
             cell.emptyCell();
-            console.log("cleared");
+            //console.log("cleared");
         });
         this.resultCell.emptyCell();
     }

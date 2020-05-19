@@ -27,16 +27,11 @@ export class Inventory {
         item.image.setScrollFactor(0);
         scene.input.setDraggable(item.image);
         item.image.on("pointerover", () =>{
-            //console.log("HOVERING");
-            //console.log(item instanceof Element)
-            //console.log(item instanceof Compound)
-            //console.log(typeof(item))
             this.infoBox.setVisible(true);
             this.addText(scene, item);
         });
 
         item.image.on("pointerout", () => {
-            //console.log("OUT OF HOVER")
             this.infoBox.setVisible(false);
             this.destroyText();
         });
@@ -46,8 +41,8 @@ export class Inventory {
         });
         this.inventoryDis.add(item.image);
 
-        // console.log("Item added");
-        //console.log(this.items.length);
+        // play sound
+        scene.sound.play("sfx_pickupItem");
 
     }
 
@@ -75,9 +70,10 @@ export class Inventory {
     initializeInv(scene: Phaser.Scene): void{
         this.inventoryDis = scene.add.container(scene.game.canvas.width/3, scene.game.canvas.height/2).setName("pInventory");
         this.tempRect = scene.add.rectangle(0, 0, scene.game.canvas.width/3, scene.game.canvas.height/2, 0xffffff);
+        this.tempRect.setStrokeStyle(1);
         
         this.infoBox = scene.add.rectangle(scene.game.canvas.width/4 - 140, -(scene.game.canvas.height - (scene.game.canvas.height/2))/2 - 135, scene.game.canvas.width/3, scene.game.canvas.height/4 - 20, 0x000000, .05);
-        this.infoBox.setStrokeStyle(2)
+        this.infoBox.setStrokeStyle(2);
         this.infoBox.setVisible(false);
         
         this.inventoryDis.add(this.tempRect);

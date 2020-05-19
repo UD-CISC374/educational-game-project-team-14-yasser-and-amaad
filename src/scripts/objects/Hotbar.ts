@@ -40,6 +40,8 @@ export class Hotbar{
         this.tempBack = scene.add.rectangle(0, this.pInv.getRect().height/2, this.pInv.getRect().width,this.pInv.getRect().height/4, 0xdeb887);
         this.tempBack.y += this.tempBack.height/2; 
         this.tempBack.setScrollFactor(0);
+        this.tempBack.setStrokeStyle(1);
+        
         this.pInv.getDisplay().add(this.tempBack);
         this.makeSlots();
         this.hotbarView = scene.add.container(0, 0);

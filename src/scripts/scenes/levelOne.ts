@@ -12,7 +12,7 @@ import { Hotbar } from "../objects/Hotbar";
 // const runSpeed: number = 2000;
 const startXIndex: number = 0;
 const startYIndex: number = 11;
-const TILE_WIDTH:number = 70;
+const TILE_WIDTH: number = 70;
 
 export default class LevelOneScene extends Phaser.Scene {
 
@@ -30,8 +30,18 @@ export default class LevelOneScene extends Phaser.Scene {
     // BG Music
     private bgMusic: Phaser.Sound.BaseSound;
 
+    // SFX
+    private sfxHit: Phaser.Sound.BaseSound;
+    private sfxJump: Phaser.Sound.BaseSound;
+    private sfxHurt: Phaser.Sound.BaseSound;
+    private sfxShoot: Phaser.Sound.BaseSound;
+    private sfxPickup: Phaser.Sound.BaseSound;
+    private sfxNotice: Phaser.Sound.BaseSound;
+    private sfxCombine: Phaser.Sound.BaseSound;
+
+
     // Player
-    player:Player;
+    player: Player;
     playerDirection: number;
 
     //Enemies
@@ -136,13 +146,13 @@ export default class LevelOneScene extends Phaser.Scene {
                     .setVisible(false)
                     .setOrigin(0.5)
                     .setAlign('center'));
-            
-            if(counter !== 2){
+
+            if (counter !== 2) {
                 this.hintImages.push(this.add.image(hintObject.x + 30, hintObject.y - hintObject.height * 2 - 60, "blank").setVisible(false));
             } else {
                 this.hintImages.push(this.add.image(hintObject.x + 30, hintObject.y - hintObject.height * 2 - 60, "h2o").setVisible(false));
             }
-                   
+
             this.hintsXPos.push(hintObject.x);
             counter++;
         });
@@ -215,13 +225,13 @@ export default class LevelOneScene extends Phaser.Scene {
     }
 
     initPlayer() {
-        this.player = new Player(this, startXIndex*TILE_WIDTH, startYIndex*TILE_WIDTH + 30, 'playerIdle', 10, 1);
+        this.player = new Player(this, startXIndex * TILE_WIDTH, startYIndex * TILE_WIDTH + 30, 'playerIdle', 10, 1);
         this.setSpriteProperties(this.player, 1.5)
     }
 
-    initEnemy(){
+    initEnemy() {
         this.enemies = []
-        this.enemies.push(new Enemy(this, 38*TILE_WIDTH, 11 * TILE_WIDTH, 'enemy', 5, 1, "nacl"));
+        this.enemies.push(new Enemy(this, 38 * TILE_WIDTH, 11 * TILE_WIDTH, 'enemy', 5, 1, "nacl"));
         this.enemiesGroup = this.physics.add.group({
             immovable: false
         });
@@ -230,7 +240,7 @@ export default class LevelOneScene extends Phaser.Scene {
             this.setSpriteProperties(enemy, .75);
             this.enemiesGroup.add(enemy);
         })
-        
+
         this.physics.add.collider(this.player, this.enemiesGroup, this.collidePlayerEnemy, undefined, this);
         this.physics.add.collider(this.walls, this.enemiesGroup, this.collideWalls, undefined, this)
     }
@@ -252,7 +262,7 @@ export default class LevelOneScene extends Phaser.Scene {
         this.hotbar = new Hotbar(this, this.player, this.inventory);
 
         //lab menu in scene
-        this.lab = new Lab(this,this.player, this.inventory, this.hotbar);
+        this.lab = new Lab(this, this.player, this.inventory, this.hotbar);
         this.lab.makeCells(this);
 
 
@@ -271,10 +281,9 @@ export default class LevelOneScene extends Phaser.Scene {
         });
 
         this.invButton.on("pointerup", () => {
-            // console.log("pause?");
+            this.sound.play("sfx_openLab");
             if (this.inventory.getDisplay().visible === true) {
                 this.inventory.setVis(false);
-                // console.log(this.inventory.visible);
             }
             else {
                 this.inventory.refreshRender();
@@ -317,10 +326,10 @@ export default class LevelOneScene extends Phaser.Scene {
         sprite.setCollideWorldBounds(true);
         this.physics.add.collider(sprite, this.platforms);
 
-        if(scale !== undefined)
+        if (scale !== undefined)
             sprite.setScale(scale);
 
-        if(depth !== undefined){
+        if (depth !== undefined) {
             sprite.setDepth(depth);
         }
     }
@@ -347,7 +356,7 @@ export default class LevelOneScene extends Phaser.Scene {
         if (this.cursors.left.isDown) {
             this.playerDirection = -1;
             this.player.setVelocityX(-this.player.runSpeed);
-            
+
             if (this.player.body.onFloor()) {
                 this.player.play('run', true);
                 this.player.setSize(57, 75);
@@ -372,6 +381,7 @@ export default class LevelOneScene extends Phaser.Scene {
         if (this.cursors.up.isDown && this.player.body.onFloor()) {
             this.player.setVelocityY(this.player.jumpHeight);
             this.player.play('jump', true);
+            this.sound.play('sfx_jump1');
         }
 
         // Fall down faster
@@ -390,7 +400,7 @@ export default class LevelOneScene extends Phaser.Scene {
         // Open Lab
         let keyL = this.input.keyboard.addKey('L');
         if (this.input.keyboard.checkDown(keyL, 1000)) {
-
+            this.sound.play("sfx_openLab");
             if (this.inventory.getDisplay().visible === true) {
                 this.inventory.setVis(false);
                 // console.log(this.inventory.visible);
@@ -405,15 +415,17 @@ export default class LevelOneScene extends Phaser.Scene {
 
         //Hotbar
         let keyOne = this.input.keyboard.addKey(49);
-        if(this.input.keyboard.checkDown(keyOne, 1000)){
+        if (this.input.keyboard.checkDown(keyOne, 1000)) {
             this.player.activeCompound = this.hotbar.slots[0].element;
             console.log(this.player.activeCompound);
+            this.sound.play("sfx_powerup");
         }
 
         let keyTwo = this.input.keyboard.addKey(50);
-        if(this.input.keyboard.checkDown(keyTwo, 1000)){
+        if (this.input.keyboard.checkDown(keyTwo, 1000)) {
             this.player.activeCompound = this.hotbar.slots[1].element;
             console.log(this.player.activeCompound);
+            this.sound.play("sfx_powerup");
         }
     }
     // -- END HELPER FUNCTIONS --
@@ -423,8 +435,8 @@ export default class LevelOneScene extends Phaser.Scene {
     // -- START COLLISION FUNCTIONS --
     // handle collision between enemies and invisible walls
     collideWalls(wall, enemy) {
-        enemy.setVelocityX(enemy.getMyXVel()*-1);
-        enemy.setMyXVel(enemy.getMyXVel()*-1);
+        enemy.setVelocityX(enemy.getMyXVel() * -1);
+        enemy.setMyXVel(enemy.getMyXVel() * -1);
 
     }
 
@@ -435,18 +447,19 @@ export default class LevelOneScene extends Phaser.Scene {
     }
 
     collideWater() {
+        this.sound.play("sfx_die");
         this.gameOver = true;
     }
 
     collideHint(player) {
         let hintNumber: number = 4;
         for (let i = 0; i < this.hintsXPos.length; i++) {
-            if (player.x > this.hintsXPos[i] - player.width && player.x < this.hintsXPos[i] + player.width){
+            if (player.x > this.hintsXPos[i] - player.width && player.x < this.hintsXPos[i] + player.width) {
                 this.hintsArray[i].setVisible(true);
                 this.hintImages[i].setVisible(true);
 
             }
-            else{
+            else {
                 this.hintsArray[i].setVisible(false);
                 this.hintImages[i].setVisible(false);
             }
@@ -474,45 +487,49 @@ export default class LevelOneScene extends Phaser.Scene {
 
 
     // enemy/player hit each other
-    collidePlayerEnemy(player, enemy){
-        this.player.play('jump', true);
-        console.log(player.health);
+    collidePlayerEnemy(player, enemy) {
+        this.player.play('playerHit', true);
         this.player.health -= enemy.damage;
         this.player.x -= 100;
-        if(this.player.health <=0)
+        this.sound.play("sfx_hurt2");
+        if (this.player.health <= 0) {
             this.gameOver = true;
-        // player.setVelocityY(-500);
+        }
     }
 
     // projectile hits enemy
-    collideEnemy(projectile,enemy) {
+    collideEnemy(projectile, enemy) {
         projectile.destroy();
-        //console.log(this.player.activeCompound);
-        if(enemy.monsterType === "nacl" && this.player.activeCompound === "water"){
+        this.sound.play("sfx_hit1");
+
+        if (enemy.monsterType === "nacl" && this.player.activeCompound === "water") {
             enemy.health -= 3;
-        this.createFloatingText(enemy.x-25, enemy.y-100, "-3", 0xffff00, "desyrel" );
-        if(enemy.health <= 0)
-            enemy.destroy();
-        }else{
-        enemy.health -= 1;
-        this.createFloatingText(enemy.x-25, enemy.y-100, "-1", 0xffff00, "desyrel" );
-        if(enemy.health <= 0)
-            enemy.destroy();
+
+            this.createFloatingText(enemy.x - 25, enemy.y - 100, "-3", 0xffff00, "desyrel");
+
+            if (enemy.health <= 0)
+                enemy.destroy();
+        } else {
+            enemy.health -= 1;
+            this.createFloatingText(enemy.x - 25, enemy.y - 100, "-1", 0xffff00, "desyrel");
+
+            if (enemy.health <= 0)
+                enemy.destroy();
         }
-           
-        
+
+
     }
 
     createFloatingText(x, y, message, tint, font) {
         let animation = this.add.bitmapText(x, y, font, message).setTint(tint);
         let tween: Phaser.Tweens.Tween = this.add.tween({
-          targets: animation, duration: 700, ease: 'Exponential.In', y: y - 50,
-    
-          onComplete: () => {
-            animation.destroy();
-          }, callbackScope: this
+            targets: animation, duration: 700, ease: 'Exponential.In', y: y - 50,
+
+            onComplete: () => {
+                animation.destroy();
+            }, callbackScope: this
         });
-      }
+    }
     // -- END COLLISION FUNCTIONS --
 
 
@@ -558,7 +575,6 @@ export default class LevelOneScene extends Phaser.Scene {
             this.stopMusic();
             this.player.setCollideWorldBounds(false);
             this.invButton.disableInteractive();
-            this.physics.world.colliders.destroy();
 
             this.player.setVelocityX(500);
             if (this.player.x >= this.map.width * 70)

@@ -14,6 +14,7 @@ export default class BasicAttack extends Phaser.Physics.Arcade.Sprite{
         scene.add.existing(this);
         
         this.play("basic_attack_anim");
+        scene.sound.play('sfx_shoot1');
         scene.physics.world.enableBody(this);
         this.body.velocity.x = 700 * attackDirection;
 

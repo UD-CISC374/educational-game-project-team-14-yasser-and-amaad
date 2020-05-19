@@ -27,7 +27,8 @@ export class Lab {
         this.pInv = inv;
         this.hotbar = hotbar;
         this.craftTable = [];
-        this.tempBack = scene.add.rectangle(this.pInv.getRect().width, 0, this.pInv.getRect().width, this.pInv.getRect().height, 0xdeb887);
+        this.tempBack = scene.add.rectangle(this.pInv.getRect().width, 0, this.pInv.getRect().width, this.pInv.getRect().height, 0x494949);
+        this.tempBack.setStrokeStyle(1);
         this.tempBack.setScrollFactor(0);
         this.pInv.getDisplay().add(this.tempBack);
         this.resultCell = new LabCell(scene, 99);
@@ -135,13 +136,15 @@ export class Lab {
             //tempResult.input.draggable = true;
             tempResult.on('pointerup', ()=> {
                 this.pInv.addItem(this.scene, new Compound("Water", "H2O", "Water appears as a clear, nontoxic liquid\ncomposed of hydrogen and oxygen,essential for life\nand the most widely used solvent.\n\nGame Use: Increases damage against salt (NaCl) enemies", tempWater));
-                console.log(this.pInv.getItems().length);
                 this.pInv.refreshRender();
                 this.clearCells();
                 this.pInv.getDisplay().remove(tempResult);
                 this.disableResult(tempResult);
                 this.hotbar.makeCollision(this.scene, tempWater);
                 this.hotbar.makeMagicColl(this.scene, tempWater);
+
+                // play combine sound
+                this.scene.sound.play("sfx_combineElement");    
             });
             this.refreshRender();
         }else if(this.craftTable[1].getFilled() && this.craftTable[2].getFilled() && this.craftTable[3].getFilled() && this.craftTable[4].getFilled() &&

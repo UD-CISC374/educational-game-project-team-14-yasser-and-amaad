@@ -20,4 +20,12 @@ export class Element extends Item{
         this.image.name = name;
     }
 
+    toString() {
+        return "Name: " + this.name + "\n" +
+        "Symbol: " + this.symbol + "\n" +
+        "Atomic #: " + this.atomicNum + "\n" + 
+        "Atomic Weight: " + this.atomicWeight + "\n" +   
+        "Description: " + this.description; 
+    }
+
 }

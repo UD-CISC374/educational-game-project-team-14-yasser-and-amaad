@@ -482,15 +482,20 @@ export default class LevelThreeScene extends Phaser.Scene {
     // projectile hits enemy
     collideEnemy(projectile,enemy) {
         projectile.destroy();
-        console.log(this.player.activeCompound);
-        this.enemies.forEach(obj => {
-            if(enemy === obj){
-                enemy.health -= 1;
-                this.floatDmgText(enemy.x-25, enemy.y-100, "-1", 0xffff00, "desyrel" );
-                if(enemy.health === 0)
-                    enemy.destroy();
-            }
-        });
+        //console.log(this.player.activeCompound);
+        if(enemy.monsterType === "nacl" && this.player.activeCompound === "water"){
+            enemy.health -= 3;
+        this.floatDmgText(enemy.x-25, enemy.y-100, "-3", 0xffff00, "desyrel" );
+        if(enemy.health <= 0)
+            enemy.destroy();
+        }else{
+        enemy.health -= 1;
+        this.floatDmgText(enemy.x-25, enemy.y-100, "-1", 0xffff00, "desyrel" );
+        if(enemy.health <= 0)
+            enemy.destroy();
+        }
+           
+        
     }
 
     floatDmgText(x, y, message, tint, font) {

@@ -8,8 +8,6 @@ import Enemy from "../objects/Enemy";
 import { Hotbar } from "../objects/Hotbar";
 
 // CONSTANTS
-// const jumpHeight: number = -1500;
-// const runSpeed: number = 2000;
 const startXIndex: number = 0;
 const startYIndex: number = 2;
 const TILE_WIDTH: number = 70;
@@ -33,6 +31,9 @@ export default class LevelOneScene extends Phaser.Scene {
     // Player
     player:Player;
     playerDirection: number;
+
+    jumpHeight: number;
+    runSpeed: number;
 
     //Enemies
     private enemies: Enemy[] = [];
@@ -357,7 +358,7 @@ export default class LevelOneScene extends Phaser.Scene {
         // Move left or right
         if (this.cursors.left.isDown) {
             this.playerDirection = -1;
-            this.player.setVelocityX(-this.player.runSpeed);
+            this.player.setVelocityX(-this.runSpeed);
             
             if (this.player.body.onFloor()) {
                 this.player.play('run', true);
@@ -365,7 +366,7 @@ export default class LevelOneScene extends Phaser.Scene {
             }
         } else if (this.cursors.right.isDown) {
             this.playerDirection = 1;
-            this.player.setVelocityX(this.player.runSpeed);
+            this.player.setVelocityX(this.runSpeed);
             if (this.player.body.onFloor()) {
                 this.player.play('run', true);
                 this.player.setSize(57, 75);
@@ -381,7 +382,7 @@ export default class LevelOneScene extends Phaser.Scene {
 
         // Jump
         if (this.cursors.up.isDown && this.player.body.onFloor()) {
-            this.player.setVelocityY(this.player.jumpHeight);
+            this.player.setVelocityY(this.jumpHeight);
             this.player.play('jump', true);
         }
 
@@ -428,12 +429,16 @@ export default class LevelOneScene extends Phaser.Scene {
         }
 
         let keyThree = this.input.keyboard.addKey(51);
-        if(this.input.keyboard.checkDown(keyThree, 1000) && this.player.magicBall === 'Helium' && this.player.jumpHeight === -1000){
-             this.player.jumpHeight = -1500;
-             console.log("changed");
-        }else{
-            this.player.jumpHeight = -1000
+        if(this.input.keyboard.checkDown(keyThree, 1000) && this.player.magicBall === 'Helium' && this.jumpHeight === -1000){
+            console.log("b"+ this.jumpHeight); 
+            this.jumpHeight = -2000;
+            console.log("a" + this.jumpHeight);
         }
+        // if(this.input.keyboard.checkDown(keyThree, 1000) && this.jumpHeight === -2000){
+        //     console.log("b2"+ this.jumpHeight); 
+        //     this.jumpHeight = -1000;
+        //     console.log("a2" + this.jumpHeight);
+        // }
     }
     // -- END HELPER FUNCTIONS --
 
@@ -511,15 +516,20 @@ export default class LevelOneScene extends Phaser.Scene {
     // projectile hits enemy
     collideEnemy(projectile,enemy) {
         projectile.destroy();
-        console.log(this.player.activeCompound);
-        this.enemies.forEach(obj => {
-            if(enemy === obj){
-                enemy.health -= 1;
-                this.floatDmgText(enemy.x-25, enemy.y-100, "-1", 0xffff00, "desyrel" );
-                if(enemy.health === 0)
-                    enemy.destroy();
-            }
-        });
+        //console.log(this.player.activeCompound);
+        if(enemy.monsterType === "nacl" && this.player.activeCompound === "water"){
+            enemy.health -= 3;
+        this.floatDmgText(enemy.x-25, enemy.y-100, "-3", 0xffff00, "desyrel" );
+        if(enemy.health <= 0)
+            enemy.destroy();
+        }else{
+        enemy.health -= 1;
+        this.floatDmgText(enemy.x-25, enemy.y-100, "-1", 0xffff00, "desyrel" );
+        if(enemy.health <= 0)
+            enemy.destroy();
+        }
+           
+        
     }
 
     floatDmgText(x, y, message, tint, font) {
@@ -545,6 +555,8 @@ export default class LevelOneScene extends Phaser.Scene {
         this.playerDirection = 1;
         this.gameWidth = this.game.canvas.width;
         this.gameHeight = this.game.canvas.height;
+        this.jumpHeight = -1000;
+        this.runSpeed = 650;
 
         // fixes phasing through floor error
         this.physics.world.TILE_BIAS = 32;

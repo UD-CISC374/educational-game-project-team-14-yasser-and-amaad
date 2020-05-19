@@ -426,7 +426,7 @@ export default class LevelThreeScene extends Phaser.Scene {
     collideExit() {
         this.stopMusic();
         this.scene.stop('LevelThreeScene');
-        this.scene.start('LevelOneScene');
+        this.scene.start('MainMenu');
     }
 
     collideWater() {

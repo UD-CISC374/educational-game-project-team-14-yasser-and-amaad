@@ -19,4 +19,4 @@ The game is a platformer called LMNTOR which aims to teach you the basics of che
 ![Small Screenshot](/src/assets/screenshots/small.png)
 
 # Gameplay Video
-Uploading...
+[![TestAlt](http://img.youtube.com/vi/kvzvsyUZp7Q/0.jpg)](http://www.youtube.com/watch?v=kvzvsyUZp7Q "Test")

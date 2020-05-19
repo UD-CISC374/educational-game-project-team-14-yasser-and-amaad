@@ -1,32 +1,22 @@
-# educational-phaser-game-template
+# LMNTor
 
-Template for designing educational Phaser Games
+# Blurb
 
-# Important Files
+The game is a platformer called LMNTOR which aims to teach you the basics of chemical compounds and elements. In the game, you are an alchemist who will traverse through the map and collect elements. Once you have the proper elements to form a compound, you will be able to do so by going into the "Lab" and combining the elements in the correct order. You may equip the compounds appropriately to defeat enemies and progress in levels.
 
-These files are for coding your game:
+# Basic Instructions
+* Move with arrow keys
+* Attack with spacebar
+* Open lab with 'L' or by clicking the book on the top left
+* Drag elements from the inventory(left) to the lab(right) in the proper position
+* Equip compounds in the lab by dragging them into the hotbar at the bottom
+* Toggle compounds equipped in the hotbar using '1' and '2'
+* Toggle element equpped in the magic orb using '3'
+* Walk over the signs in game for more hints
 
-* [src/scripts/game.ts](src/scripts/game.ts): The starting file of your game.
+# Screenshots
+![Large Screenshot](/src/assets/screenshots/large.png)
+![Small Screenshot](/src/assets/screenshots/small.png)
 
-These files are for documenting your game:
- 
-* [egdd.md](egdd.md): The educational game design document describing this game in more depth.
-
-These [package.json](package.json) settings are for configuring the metadata of your game and should be updated:
-
-* `name`: This must be a lower-case version of your repository name on GitHub, without spaces.
-* `description`: Give a quick, one sentence summary of your game.
-* `game`:
-    * `url`: Change this to be the EXACT name of your repository on GitHub.
-    * `shortName`: Choose a short name for your game for [Progressive Web App](https://medium.com/@amberleyjohanna/seriously-though-what-is-a-progressive-web-app-56130600a093) packaging.
-    * `name`: Choose a longer, complete name for your game.
-* `repository`:
-    * `url`: Change this URL to be a link to your GitHub repository.
-* `homepage`: Change this URL to be a link to the final version of your game's EGDD.
-* `contributors`: This should be an array (list) of strings, where each string is like `"Barney Rubble <b@rubble.com> (http://barnyrubble.tumblr.com/)"`.
-
-You should edit the following images to create icons for your game, if it gets installed as a [Progressive Web App](https://medium.com/@amberleyjohanna/seriously-though-what-is-a-progressive-web-app-56130600a093):
-
-* [src/assets/icons/icons-192.png](src/assets/icons/icons-192.png): This is a 192x192 pixel version of your game's icon.
-* [src/assets/icons/icons-512.png](src/assets/icons/icons-512.png): This is a 512x512 pixel version of your game's icon.
-* [src/assets/icons/favicon.ico](src/assets/icons/favicon.ico): The [Favicon](https://en.wikipedia.org/wiki/Favicon) for your game.
+# Gameplay Video
+Uploading...

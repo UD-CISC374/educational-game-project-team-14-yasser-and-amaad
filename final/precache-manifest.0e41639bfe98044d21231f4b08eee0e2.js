@@ -296,7 +296,7 @@ self.__precacheManifest = (self.__precacheManifest || []).concat([
     "url": "/educational-game-project-team-14-yasser-and-amaad/finalassets/map/waterfall_sprite.png"
   },
   {
-    "revision": "af5bdc9d9e29db118de5d0c7a8b87c25",
+    "revision": "43e8e873f59c45b7d4e24ddf52f59eea",
     "url": "/educational-game-project-team-14-yasser-and-amaad/finalassets/screenshots/large.png"
   },
   {
@@ -308,15 +308,15 @@ self.__precacheManifest = (self.__precacheManifest || []).concat([
     "url": "/educational-game-project-team-14-yasser-and-amaad/finalfavicon.ico"
   },
   {
-    "revision": "5a3b4292b81a687d032b",
-    "url": "/educational-game-project-team-14-yasser-and-amaad/finalgen.main.954ef2fbff8e0fafdbf2.bundle.js"
+    "revision": "33a4edecc1b83442a9a4",
+    "url": "/educational-game-project-team-14-yasser-and-amaad/finalgen.main.2781d04850948cdae9c6.bundle.js"
   },
   {
     "revision": "bf7c323508c285bd4c9a",
     "url": "/educational-game-project-team-14-yasser-and-amaad/finalgen.vendors.12322d4f7405e06a89c9.bundle.js"
   },
   {
-    "revision": "b93f7ac9ddb065110683aec584a0a868",
+    "revision": "32c75e83c111ff1520f6bc396c84c963",
     "url": "/educational-game-project-team-14-yasser-and-amaad/finalindex.html"
   },
   {

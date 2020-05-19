@@ -296,7 +296,7 @@ self.__precacheManifest = (self.__precacheManifest || []).concat([
     "url": "assets/map/waterfall_sprite.png"
   },
   {
-    "revision": "af5bdc9d9e29db118de5d0c7a8b87c25",
+    "revision": "43e8e873f59c45b7d4e24ddf52f59eea",
     "url": "assets/screenshots/large.png"
   },
   {
@@ -308,12 +308,12 @@ self.__precacheManifest = (self.__precacheManifest || []).concat([
     "url": "favicon.ico"
   },
   {
-    "revision": "54ec943ffcc2a71085681daaf885de39",
+    "revision": "68d2f3660d412040f622171f56202e90",
     "url": "index.html"
   },
   {
-    "revision": "4a4211e1ece44f255817",
-    "url": "main.a22ac8ea479cedda7f7d.bundle.js"
+    "revision": "9e10e2ffe18794b69567",
+    "url": "main.b0ea9a6599ceb9f1b14c.bundle.js"
   },
   {
     "revision": "ac1053ef8a1c63f2611c6d02935bdf02",

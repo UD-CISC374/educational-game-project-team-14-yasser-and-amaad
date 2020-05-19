@@ -134,7 +134,7 @@ export class Lab {
             this.resultCell.fillCell("h2o");
             //tempResult.input.draggable = true;
             tempResult.on('pointerup', ()=> {
-                this.pInv.addItem(this.scene, new Compound("water", "h20", "water compound", tempWater));
+                this.pInv.addItem(this.scene, new Compound("Water", "H2O", "Water appears as a clear, nontoxic liquid\ncomposed of hydrogen and oxygen,essential for life\nand the most widely used solvent.\n\nGame Use: Increases damage against salt (NaCl) enemies", tempWater));
                 console.log(this.pInv.getItems().length);
                 this.pInv.refreshRender();
                 this.clearCells();

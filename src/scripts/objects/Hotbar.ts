@@ -37,7 +37,8 @@ export class Hotbar{
         this.slotGroup = scene.physics.add.group({allowGravity: false});
         this.itemGroup = scene.physics.add.group({allowGravity: false});
         this.mBallGroup.add(this.magicBall);
-        this.tempBack = scene.add.rectangle(0, this.pInv.getRect().height/2, this.pInv.getRect().width,this.pInv.getRect().height/4, 0xdeb887);
+        this.tempBack = scene.add.rectangle(0, this.pInv.getRect().height/2, this.pInv.getRect().width,this.pInv.getRect().height/4, 0x494949);
+        this.tempBack.setStrokeStyle(1);
         this.tempBack.y += this.tempBack.height/2; 
         this.tempBack.setScrollFactor(0);
         this.tempBack.setStrokeStyle(1);
@@ -85,10 +86,13 @@ export class Hotbar{
         this.slots.forEach(slot => { 
             if(xCount % 3 === 0){
                 Display.Align.In.LeftCenter(slot, this.tempBack);
+                slot.x += 5;
             }else if(xCount % 3 === 1){
                 Display.Align.In.Center(slot, this.tempBack);
+                slot.x += 5;
             }else if(xCount % 3 === 2){
                 Display.Align.In.RightCenter(slot, this.tempBack);
+                slot.x -= 5;
             }
             xCount++;
         });

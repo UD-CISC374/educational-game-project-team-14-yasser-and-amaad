@@ -69,11 +69,11 @@ export class Inventory {
 
     initializeInv(scene: Phaser.Scene): void{
         this.inventoryDis = scene.add.container(scene.game.canvas.width/3, scene.game.canvas.height/2).setName("pInventory");
-        this.tempRect = scene.add.rectangle(0, 0, scene.game.canvas.width/3, scene.game.canvas.height/2, 0xffffff);
-        this.tempRect.setStrokeStyle(1);
+        this.tempRect = scene.add.rectangle(0, 0, scene.game.canvas.width/3, scene.game.canvas.height/2, 0x494949);
+        this.tempRect.setStrokeStyle(2);
         
         this.infoBox = scene.add.rectangle(scene.game.canvas.width/4 - 140, -(scene.game.canvas.height - (scene.game.canvas.height/2))/2 - 135, scene.game.canvas.width/3, scene.game.canvas.height/4 - 20, 0x000000, .05);
-        this.infoBox.setStrokeStyle(2);
+        this.infoBox.setStrokeStyle(1);
         this.infoBox.setVisible(false);
         
         this.inventoryDis.add(this.tempRect);

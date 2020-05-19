@@ -74,15 +74,17 @@ export class Lab {
         this.craftTable.forEach(cell => { 
             if(xCount % 3 === 0){
                 Display.Align.In.TopLeft(cell, this.tempBack);
-                cell.y += yCount * this.tempBack.height/3;
+                cell.x += 5;
+                cell.y += yCount * this.tempBack.height/3 +5;
                 //console.log("here1");
             }else if(xCount % 3 === 1){
                 Display.Align.In.TopCenter(cell, this.tempBack);
-                cell.y += yCount * this.tempBack.height/3;
+                cell.y += yCount * this.tempBack.height/3 +5;
                 //console.log("here2");
             }else if(xCount % 3 === 2){
                 Display.Align.In.TopRight(cell, this.tempBack);
-                cell.y += yCount * this.tempBack.height/3;
+                cell.x -= 5;
+                cell.y += yCount * this.tempBack.height/3 + 5;
                 yCount++;
                 //console.log("here3");
             }
@@ -90,6 +92,7 @@ export class Lab {
         });
 
         Display.Align.In.BottomCenter(this.resultCell, this.tempBack);
+        this.resultCell.y -= 5;
         // Display.Align.In.Center(new Text("Result"), this.resultCell.getRect());
     }
 

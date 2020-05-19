@@ -381,7 +381,7 @@ export default class LevelOneScene extends Phaser.Scene {
         if (this.cursors.up.isDown && this.player.body.onFloor()) {
             this.player.setVelocityY(this.player.jumpHeight);
             this.player.play('jump', true);
-            this.sound.play('sfx_jump1');
+            this.sound.play('sfx_jump1', {volume: .2});
         }
 
         // Fall down faster

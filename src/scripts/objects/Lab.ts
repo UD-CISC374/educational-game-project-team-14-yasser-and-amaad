@@ -124,7 +124,7 @@ export class Lab {
         if(this.craftTable[1].getFilled() && this.craftTable[3].getFilled() && this.craftTable[5].getFilled() &&
         this.craftTable[1].getElement() === "oxygen" && this.craftTable[3].getElement() === "hydrogen" && this.craftTable[5].getElement() === "hydrogen"&&
         !this.resultCell.getFilled()){
-            console.log("craft water!");
+            //console.log("craft water!");
             let tempResult = this.scene.add.image(0, 0, 'h2o');
             let tempWater = this.scene.add.image(0, 0, 'h2o');
             this.pInv.getDisplay().add(tempResult);
@@ -134,7 +134,7 @@ export class Lab {
             this.resultCell.fillCell("h2o");
             //tempResult.input.draggable = true;
             tempResult.on('pointerup', ()=> {
-                this.pInv.addItem(this.scene, new Compound("water", "h20", "water compound", tempWater));
+                this.pInv.addItem(this.scene, new Compound("water", "h2o", "water compound", tempWater));
                 console.log(this.pInv.getItems().length);
                 this.pInv.refreshRender();
                 this.clearCells();

@@ -116,7 +116,7 @@ export default class LevelTwoScene extends Phaser.Scene {
         this.hintsArray = [];
         this.hintImages = [];
         this.hintsXPos = [];
-        this.hintStrings = ["Open the lab and add 'He' to the magic ball"];
+        this.hintStrings = ["Open the lab and add 'He' to the magic ball. \nOnce added, exit the lab and hit 3 on the keyboard"];
 
         this.hints = this.physics.add.group({
             allowGravity: false,

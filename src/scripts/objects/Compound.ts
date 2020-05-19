@@ -15,4 +15,11 @@ export class Compound extends Item{
         this.image = image;
         this.image.name = name;
     }
+
+    
+    toString() {
+        return "Name: " + this.name + "\n" +
+        "Symbol: " + this.symbol + "\n" +
+        "Description: " + this.description; 
+    }
 }

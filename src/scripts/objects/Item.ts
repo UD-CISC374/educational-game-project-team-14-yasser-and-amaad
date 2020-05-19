@@ -21,4 +21,10 @@ export class Item {
     copyElement(): Item{
         return new Item(this.name, this.symbol, this.description, this.image);
     }
+
+    toString() {
+        return "Name: " + this.name + "\n" +
+        "Symbol: " + this.symbol + "\n" +  
+        "Description: " + this.description; 
+    }
 }

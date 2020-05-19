@@ -1,10 +1,13 @@
 import { Item } from "./Item";
 import { GameObjects, Display } from "phaser";
+import { Compound } from "./Compound";
 
 export class Inventory {
     items: Item[] = [];
     private inventoryDis: GameObjects.Container;
     private tempRect: GameObjects.Rectangle;
+    private infoBox: GameObjects.Rectangle;
+    private tempText;
 
     constructor(scene:Phaser.Scene, x:number, y:number){
         // super(scene, x, y);
@@ -23,6 +26,20 @@ export class Inventory {
         item.image.setInteractive();
         item.image.setScrollFactor(0);
         scene.input.setDraggable(item.image);
+        item.image.on("pointerover", () =>{
+            console.log("HOVERING");
+            console.log(item instanceof Element)
+            console.log(item instanceof Compound)
+            console.log(typeof(item))
+            this.infoBox.setVisible(true);
+            this.addText(scene, item);
+        });
+
+        item.image.on("pointerout", () => {
+            console.log("OUT OF HOVER")
+            this.infoBox.setVisible(false);
+            this.destroyText();
+        });
         scene.input.on('drag', function (pointer, gameObject, dragX, dragY) {
             gameObject.x = dragX;
             gameObject.y = dragY;
@@ -58,10 +75,15 @@ export class Inventory {
     initializeInv(scene: Phaser.Scene): void{
         this.inventoryDis = scene.add.container(scene.game.canvas.width/3, scene.game.canvas.height/2).setName("pInventory");
         this.tempRect = scene.add.rectangle(0, 0, scene.game.canvas.width/3, scene.game.canvas.height/2, 0xffffff);
+        
+        this.infoBox = scene.add.rectangle(scene.game.canvas.width/4 - 140, -(scene.game.canvas.height - (scene.game.canvas.height/2))/2 - 135, scene.game.canvas.width/3, scene.game.canvas.height/4 - 20, 0x000000, .05);
+        this.infoBox.setStrokeStyle(2)
+        this.infoBox.setVisible(false);
+        
         this.inventoryDis.add(this.tempRect);
+        this.inventoryDis.add(this.infoBox);
         this.inventoryDis.setVisible(false);
-        // console.log(this.inventoryDis.visible);
-        // this.inventoryDis.visible = false;
+
         this.inventoryDis.setScrollFactor(0);
     }
 
@@ -109,34 +131,21 @@ export class Inventory {
         return this.items;
     }
 
-    // row: number;
-    // col:number;
-    // color;
-    // children: [];
-    // cellW: number;
-    // cellH: number;
+    addText(scene: Phaser.Scene,item:Item) {
+        this.tempText = scene.add.text(scene.game.canvas.width/3 + 30, 15, item.toString());
+        this.tempText.setStyle({
+            fontSize: '24px',
+            fontFamily: 'Arial',
+            color: '#000000',
+            thickness: 5,
+            align: 'left'
+        });
+        this.tempText.setScrollFactor(0);
+    }
 
-    // constructor(scene: Phaser.Scene, x:number, y:number,cellW: number, cellH: number,row: number, col:number, children: []){
-    //     super(scene, x, y, children);
-    //     this.row = row;
-    //     this.col = col;
-    //     this.color = '#ffffff';
-    //     this.children = children;
-    //     this.cellW = cellW;
-    //     this.cellH = cellH;
-    // }
+    destroyText() {
+        this.tempText.destroy();
+    }
 
-    // createCont(scene){
-    //     scene.add.container(scene.game.canvas.width/2, scene.game.canvas.height/2);
-    //     this.setSize(scene.game.canvas.width/2, scene.game.canvas.height/2);
-    //     let tempr: number = this.row;
-    //     let tempc: number = this.col;
-    //     this.children.forEach(element => {
-    //         scene.add.rectangle(this.row - tempr, this.col - tempc, this.cellW, this.cellH, this.color);
-    //         tempr--;
-    //         tempc--;
-    //     });
-    // }
-    
 
 }

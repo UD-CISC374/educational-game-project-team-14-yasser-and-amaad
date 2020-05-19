@@ -10,10 +10,10 @@ import Enemy from "../objects/Enemy";
 const jumpHeight: number = -1500;
 const runSpeed: number = 2000;
 const startXIndex: number = 0;
-const startYIndex: number = 2;
+const startYIndex: number = 13;
 const TILE_WIDTH: number = 70;
 
-export default class LevelOneScene extends Phaser.Scene {
+export default class LevelThreeScene extends Phaser.Scene {
 
     // Game vars
     private background;
@@ -41,7 +41,6 @@ export default class LevelOneScene extends Phaser.Scene {
 
     // Map Layers
     private platforms;
-    private lavaLayer;
     private exitLayer;
     private invisWalls;
 
@@ -49,10 +48,8 @@ export default class LevelOneScene extends Phaser.Scene {
     private hints;
     private walls;
     private exitObjects;
-    private lavaObjects;
     private oxygenObjects;
     private hydrogenObjects;
-    private heliumObjects;
 
     // Hints
     hintsArray: Array<Phaser.GameObjects.Text>;
@@ -70,7 +67,7 @@ export default class LevelOneScene extends Phaser.Scene {
     gameHeight: number;
 
     constructor() {
-        super({ key: 'LevelTwoScene' });
+        super({ key: 'LevelThreeScene' });
     }
 
 
@@ -104,7 +101,6 @@ export default class LevelOneScene extends Phaser.Scene {
         this.platforms = this.map.createStaticLayer('PlatformTile', this.tileset, 0, 30);
         this.platforms.setCollisionByExclusion(-1);
 
-        this.lavaLayer = this.map.createStaticLayer('LavaTile', this.tileset, 0, 30);
         this.exitLayer = this.map.createStaticLayer('ExitTile', this.tileset, 0, 30);
     }
 
@@ -113,7 +109,7 @@ export default class LevelOneScene extends Phaser.Scene {
         this.hintsArray = [];
         this.hintImages = [];
         this.hintsXPos = [];
-        this.hintStrings = ["Open the lab and add 'He' to the magic ball"];
+        this.hintStrings = ["Combine elements in this order to form Hydrogen Peroxide(H2O2)"];
 
         this.hints = this.physics.add.group({
             allowGravity: false,
@@ -176,14 +172,6 @@ export default class LevelOneScene extends Phaser.Scene {
         this.loadTiledObjects(this.oxygenObjects, 'OxygenObj', 'oxygen')
         this.physics.add.overlap(this.player, this.oxygenObjects, this.collideOxygen, undefined, this);
 
-        // add helium to map
-        this.heliumObjects = this.physics.add.group({
-            allowGravity: false,
-            immovable: true
-        });
-        this.loadTiledObjects(this.heliumObjects, 'HeliumObj', 'helium')
-        this.physics.add.overlap(this.player, this.heliumObjects, this.collideHelium, undefined, this);
-
         // add exit to map
         this.exitObjects = this.physics.add.group({
             allowGravity: false,
@@ -191,14 +179,6 @@ export default class LevelOneScene extends Phaser.Scene {
         });
         this.loadTiledObjects(this.exitObjects, 'ExitObj', 'exitopenobject')
         this.physics.add.overlap(this.player, this.exitObjects, this.collideExit, undefined, this);
-
-        // add water to map
-        this.lavaObjects = this.physics.add.group({
-            allowGravity: false,
-            immovable: true
-        });
-        this.loadTiledObjects(this.lavaObjects, 'LavaObj', 'lavaobject')
-        this.physics.add.overlap(this.player, this.lavaObjects, this.collideWater, undefined, this);
 
         // init walls
         this.initWalls();
@@ -230,16 +210,16 @@ export default class LevelOneScene extends Phaser.Scene {
         // 67   4
         this.enemies = []
         // this.enemies.push(new Enemy(this, this.map.width * 28, 0, 'enemy', 5, 1, "nacl"));
-        this.enemies.push(new Enemy(this, 34 * TILE_WIDTH, 4 * TILE_WIDTH, 'enemy', 5, 1, "nacl"));
-        this.enemies.push(new Enemy(this, 57 * TILE_WIDTH, 11 * TILE_WIDTH, 'enemy', 5, 1, "nacl"));
-        this.enemies.push(new Enemy(this, 67 * TILE_WIDTH, 4 * TILE_WIDTH, 'enemy', 5, 1, "nacl"));
+        this.enemies.push(new Enemy(this, 2 * TILE_WIDTH, 8 * TILE_WIDTH, 'bloodMinion', 5, 1, "blood", 1.25));
+        this.enemies.push(new Enemy(this, 54 * TILE_WIDTH, 12 * TILE_WIDTH, 'saltBoss', 20, 1, "nacl", .5));
+        this.enemies.push(new Enemy(this, 90 * TILE_WIDTH, 12 * TILE_WIDTH, 'bloodMinion', 30, 1, "blood", 4));
 
         this.enemiesGroup = this.physics.add.group({
             immovable: false
         });
         //console.log(this.enemies.length);
         this.enemies.forEach(enemy => {
-            this.setSpriteProperties(enemy, .75);
+            this.setSpriteProperties(enemy);
             this.enemiesGroup.add(enemy);
         })
         
@@ -421,8 +401,8 @@ export default class LevelOneScene extends Phaser.Scene {
 
     collideExit() {
         this.stopMusic();
-        this.scene.stop('LevelTwoScene');
-        this.scene.start('LevelThreeScene');
+        this.scene.stop('LevelThreeScene');
+        this.scene.start('LevelOneScene');
     }
 
     collideWater() {
@@ -522,7 +502,7 @@ export default class LevelOneScene extends Phaser.Scene {
         this.physics.world.TILE_BIAS = 32;
 
         // Set Level
-        this.map = this.add.tilemap('Level_2');
+        this.map = this.add.tilemap('Level_3');
 
         // get user input
         this.cursors = this.input.keyboard.createCursorKeys();

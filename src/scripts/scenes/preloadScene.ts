@@ -14,13 +14,13 @@ export default class PreloadScene extends Phaser.Scene {
 
     // tilesheets
     this.load.image('tiles', "assets/map/platformPack_tilesheet.png");
-    this.load.image('T1', "assets/Levels/level_1/tiles_spritesheet.png");  // level_1 tilesheet
+    this.load.image('T1', "assets/Levels/level_1/tiles_spritesheet.png");  // tilesheet for all maps
 
     // tiled json maps
     this.load.tilemapTiledJSON('map', "assets/map/map2.json");
     this.load.tilemapTiledJSON('Level_1', "assets/Levels/level_1/Level_1.json");  // level 1 json map
     this.load.tilemapTiledJSON('Level_2', "assets/Levels/level_2/Level_2.json");  // level 2 json map
-
+    this.load.tilemapTiledJSON('Level_3', "assets/Levels/level_3/Level_3.json");  // level 3 json map
 
 
     // elements
@@ -63,8 +63,9 @@ export default class PreloadScene extends Phaser.Scene {
     });
 
     //enemies
-    this.load.image('boss', "src/assets/map/nacl_monster.png")
-    this.load.image('enemy', "src/assets/map/enemy_1.png")
+    this.load.image('enemy', "src/assets/enemies/enemy_1.png");
+    this.load.image('saltBoss', "src/assets/enemies/nacl_monster.png");
+    this.load.image('bloodMinion', "src/assets/enemies/blood.gif");
     
     // audio
     this.load.audio("bg_netherplace", "assets/audio/bg_netherplace.mp3");
@@ -76,7 +77,7 @@ export default class PreloadScene extends Phaser.Scene {
   create() {
     this.createPlayerAnims();
     this.createAttackAnims()
-    this.scene.start('LevelOneScene');
+    this.scene.start('LevelThreeScene');
     // this.scene.start('LevelOneScene');
   }
 

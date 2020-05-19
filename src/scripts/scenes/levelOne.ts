@@ -303,11 +303,14 @@ export default class LevelOneScene extends Phaser.Scene {
         let attack = new BasicAttack(this, this.playerDirection);
     }
 
-    setSpriteProperties(sprite, scale: number, depth?: number) {
+    setSpriteProperties(sprite, scale?: number, depth?: number) {
         sprite.setBounce(0.1);
         sprite.setCollideWorldBounds(true);
-        sprite.setScale(scale);
         this.physics.add.collider(sprite, this.platforms);
+
+        if(scale !== undefined)
+            sprite.setScale(scale);
+
         if(depth !== undefined){
             sprite.setDepth(depth);
         }

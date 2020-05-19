@@ -12,7 +12,7 @@ const startXIndex: number = 0;
 const startYIndex: number = 2;
 const TILE_WIDTH: number = 70;
 
-export default class LevelOneScene extends Phaser.Scene {
+export default class LevelTwoScene extends Phaser.Scene {
 
     // Game vars
     private background;

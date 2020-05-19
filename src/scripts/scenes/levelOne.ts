@@ -489,8 +489,7 @@ export default class LevelOneScene extends Phaser.Scene {
     // enemy/player hit each other
     collidePlayerEnemy(player, enemy) {
         this.player.play('playerHit', true);
-        this.player.health -= enemy.damage;
-        this.player.x -= 100;
+        this.player.health -= 100;
         this.sound.play("sfx_hurt2");
         if (this.player.health <= 0) {
             this.gameOver = true;

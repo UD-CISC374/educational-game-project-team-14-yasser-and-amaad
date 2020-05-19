@@ -471,10 +471,12 @@ export default class LevelThreeScene extends Phaser.Scene {
     // enemy/player hit each other
     collidePlayerEnemy(player, enemy) {
         this.player.play('jump', true);
+        this.player.health -= 100;
         this.sound.play("sfx_hurt2");
-        this.player.health -= enemy.damage;
-        player.x -= 100;
-        // player.setVelocityY(-500);
+        
+        if (this.player.health <= 0) {
+            this.gameOver = true;
+        }
     }
 
     // projectile hits enemy

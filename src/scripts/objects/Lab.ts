@@ -27,7 +27,8 @@ export class Lab {
         this.pInv = inv;
         this.hotbar = hotbar;
         this.craftTable = [];
-        this.tempBack = scene.add.rectangle(this.pInv.getRect().width, 0, this.pInv.getRect().width, this.pInv.getRect().height, 0xdeb887);
+        this.tempBack = scene.add.rectangle(this.pInv.getRect().width, 0, this.pInv.getRect().width, this.pInv.getRect().height, 0x494949);
+        this.tempBack.setStrokeStyle(1);
         this.tempBack.setScrollFactor(0);
         this.pInv.getDisplay().add(this.tempBack);
         this.resultCell = new LabCell(scene, 99);

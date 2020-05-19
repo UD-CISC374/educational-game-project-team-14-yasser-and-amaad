@@ -3,7 +3,6 @@ import PreloadScene from './scenes/preloadScene';
 import LevelOneScene from './scenes/levelOne';
 import LevelTwoScene from './scenes/levelTwo';
 import LevelThreeScene from './scenes/levelThree';
-import labScene from './scenes/labScene';
 import GameConfig = Phaser.Types.Core.GameConfig;
 
 const DEFAULT_WIDTH = 1920;
@@ -21,7 +20,7 @@ const config: GameConfig = {
         width: DEFAULT_WIDTH,
         height: DEFAULT_HEIGHT
     },
-    scene: [PreloadScene, LevelOneScene, LevelTwoScene, LevelThreeScene, labScene],
+    scene: [PreloadScene, LevelOneScene, LevelTwoScene, LevelThreeScene],
     physics: {
         default: 'arcade',
         arcade: {   

@@ -147,12 +147,17 @@ export class Lab {
                 this.hotbar.makeMagicColl(this.scene, tempWater);
 
                 // play combine sound
+<<<<<<< HEAD
                 this.scene.sound.play("sfx_combineElement");
+=======
+                this.scene.sound.play("sfx_combineElement", {volume: .1});
+>>>>>>> e08f0d98b3f9258fb4dc6938762fc9ba10ce185a
             });
             this.refreshRender();
         } else if (this.craftTable[1].getFilled() && this.craftTable[2].getFilled() && this.craftTable[3].getFilled() && this.craftTable[4].getFilled() &&
             this.craftTable[1].getElement() === "oxygen" && this.craftTable[2].getElement() === "hydrogen" && this.craftTable[3].getElement() === "hydrogen" && this.craftTable[4].getElement() === "oxygen" &&
             !this.resultCell.getFilled()) {
+<<<<<<< HEAD
 
                 let tempResult = this.scene.add.image(0, 0, 'h2o2');
                 let tempDeath = this.scene.add.image(0, 0, 'h2o2');
@@ -171,6 +176,27 @@ export class Lab {
                     this.disableResult(tempResult);
                     this.hotbar.makeCollision(this.scene, tempDeath);
                     this.hotbar.makeMagicColl(this.scene, tempDeath);
+=======
+            let tempResult = this.scene.add.image(0, 0, 'h2o2');
+            let tempDeath = this.scene.add.image(0, 0, 'h2o2');
+            this.pInv.getDisplay().add(tempResult);
+            Display.Align.In.Center(tempResult, this.resultCell);
+            tempResult.setInteractive();
+            tempResult.setScrollFactor(0);
+            this.resultCell.fillCell("h2o2");
+            //tempResult.input.draggable = true;
+            tempResult.on('pointerup', () => {
+                this.pInv.addItem(this.scene, new Compound("Hydrogen Peroxide", "H2O2", "Hydrogen Peroxide appears as a very pale\n blue liquid,slightly more viscous than water\nIt is used as an oxidizer, bleaching agent, and antiseptic.\n\nGame Use: Increases damage against salt (NaCl) enemies", tempDeath));
+                console.log(this.pInv.getItems().length);
+                this.pInv.refreshRender();
+                this.clearCells();
+                this.pInv.getDisplay().remove(tempResult);
+                this.disableResult(tempResult);
+                this.hotbar.makeCollision(this.scene, tempDeath);
+                this.hotbar.makeMagicColl(this.scene, tempDeath);
+                // play combine sound
+                this.scene.sound.play("sfx_combineElement", {volume: .1});
+>>>>>>> e08f0d98b3f9258fb4dc6938762fc9ba10ce185a
             });
         }
     }

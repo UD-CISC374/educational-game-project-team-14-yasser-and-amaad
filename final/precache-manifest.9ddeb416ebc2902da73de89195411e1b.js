@@ -212,6 +212,10 @@ self.__precacheManifest = (self.__precacheManifest || []).concat([
     "url": "/educational-game-project-team-14-yasser-and-amaad/finalassets/elements/h2o.png"
   },
   {
+    "revision": "c18653025ce6368324f560660893e4ca",
+    "url": "/educational-game-project-team-14-yasser-and-amaad/finalassets/elements/h2o2.png"
+  },
+  {
     "revision": "41f7520cdd46468c91b8db8ef6c7b5b6",
     "url": "/educational-game-project-team-14-yasser-and-amaad/finalassets/elements/helium.png"
   },
@@ -280,19 +284,39 @@ self.__precacheManifest = (self.__precacheManifest || []).concat([
     "url": "/educational-game-project-team-14-yasser-and-amaad/finalassets/map/platformPack_tilesheet.png"
   },
   {
+    "revision": "ead2616f8a48354e0ec8a258e0e9dcf4",
+    "url": "/educational-game-project-team-14-yasser-and-amaad/finalassets/map/play.png"
+  },
+  {
+    "revision": "5b1325c8577b5a2ab607ea554d74701b",
+    "url": "/educational-game-project-team-14-yasser-and-amaad/finalassets/map/waterfall.gif"
+  },
+  {
+    "revision": "c8c51a0d44d83a1dff1ca822c41eff2b",
+    "url": "/educational-game-project-team-14-yasser-and-amaad/finalassets/map/waterfall_sprite.png"
+  },
+  {
+    "revision": "af5bdc9d9e29db118de5d0c7a8b87c25",
+    "url": "/educational-game-project-team-14-yasser-and-amaad/finalassets/screenshots/large.png"
+  },
+  {
+    "revision": "48423a9445b12ca11d42ae03c6f03abb",
+    "url": "/educational-game-project-team-14-yasser-and-amaad/finalassets/screenshots/small.png"
+  },
+  {
     "revision": "73e1be518b582f7cc1d671028dac9a47",
     "url": "/educational-game-project-team-14-yasser-and-amaad/finalfavicon.ico"
   },
   {
-    "revision": "fada02c34cf807ab4b64",
-    "url": "/educational-game-project-team-14-yasser-and-amaad/finalgen.main.25820a4cd9e5dabc1b52.bundle.js"
+    "revision": "5a3b4292b81a687d032b",
+    "url": "/educational-game-project-team-14-yasser-and-amaad/finalgen.main.954ef2fbff8e0fafdbf2.bundle.js"
   },
   {
     "revision": "bf7c323508c285bd4c9a",
     "url": "/educational-game-project-team-14-yasser-and-amaad/finalgen.vendors.12322d4f7405e06a89c9.bundle.js"
   },
   {
-    "revision": "fe8e54cecff3c0440f1ddcc8d5d8d3fb",
+    "revision": "b93f7ac9ddb065110683aec584a0a868",
     "url": "/educational-game-project-team-14-yasser-and-amaad/finalindex.html"
   },
   {

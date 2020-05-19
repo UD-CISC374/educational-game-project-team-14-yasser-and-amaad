@@ -212,6 +212,10 @@ self.__precacheManifest = (self.__precacheManifest || []).concat([
     "url": "assets/elements/h2o.png"
   },
   {
+    "revision": "c18653025ce6368324f560660893e4ca",
+    "url": "assets/elements/h2o2.png"
+  },
+  {
     "revision": "41f7520cdd46468c91b8db8ef6c7b5b6",
     "url": "assets/elements/helium.png"
   },
@@ -280,16 +284,36 @@ self.__precacheManifest = (self.__precacheManifest || []).concat([
     "url": "assets/map/platformPack_tilesheet.png"
   },
   {
+    "revision": "ead2616f8a48354e0ec8a258e0e9dcf4",
+    "url": "assets/map/play.png"
+  },
+  {
+    "revision": "5b1325c8577b5a2ab607ea554d74701b",
+    "url": "assets/map/waterfall.gif"
+  },
+  {
+    "revision": "c8c51a0d44d83a1dff1ca822c41eff2b",
+    "url": "assets/map/waterfall_sprite.png"
+  },
+  {
+    "revision": "af5bdc9d9e29db118de5d0c7a8b87c25",
+    "url": "assets/screenshots/large.png"
+  },
+  {
+    "revision": "48423a9445b12ca11d42ae03c6f03abb",
+    "url": "assets/screenshots/small.png"
+  },
+  {
     "revision": "73e1be518b582f7cc1d671028dac9a47",
     "url": "favicon.ico"
   },
   {
-    "revision": "501719a2e79add6909374f2140a72504",
+    "revision": "54ec943ffcc2a71085681daaf885de39",
     "url": "index.html"
   },
   {
-    "revision": "b77dcb8540759d0cf672",
-    "url": "main.7c7a61789f7ee7d1fd24.bundle.js"
+    "revision": "4a4211e1ece44f255817",
+    "url": "main.a22ac8ea479cedda7f7d.bundle.js"
   },
   {
     "revision": "ac1053ef8a1c63f2611c6d02935bdf02",
